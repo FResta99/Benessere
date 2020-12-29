@@ -2,7 +2,10 @@ package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +26,15 @@ public class homeDietologo extends AppCompatActivity {
         tvBenvenuto = findViewById(R.id.tvBenvenuto);
         tvBenvenuto.setText("Benvenuto " + dietologo.getUsername() + " !");
         lvClienti = findViewById(R.id.lvClienti);
+        lvClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
+                Intent intent = new Intent(homeDietologo.this, DettagliCliente.class);
+                intent.putExtra("USERNAME", clienteCliccato.getUsername());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
