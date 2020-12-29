@@ -25,6 +25,11 @@ public class Dietologo {
         this.studio = studio;
     }
 
+    public Dietologo(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
     public Dietologo(){
 
     }

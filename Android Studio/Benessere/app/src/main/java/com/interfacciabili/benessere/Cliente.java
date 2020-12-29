@@ -27,6 +27,11 @@ public class Cliente {
         this.altezza = altezza;
     }
 
+    public Cliente(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
     public Cliente(){
 
     }
