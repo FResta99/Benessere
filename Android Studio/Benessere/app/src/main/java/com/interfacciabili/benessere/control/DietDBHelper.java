@@ -171,4 +171,17 @@ public class DietDBHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    public boolean modificaDieta(Dieta dieta){
+        SQLiteDatabase mDb= this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DIET_USERNAME, dieta.getClienteDieta());
+        cv.put(COLUMN_DIET_BREAKFAST1, dieta.getColazione1());
+        cv.put(COLUMN_DIET_BREAKFAST2, dieta.getColazione2());
+        cv.put(COLUMN_DIET_LUNCH1, dieta.getPranzo1());
+        cv.put(COLUMN_DIET_LUNCH2, dieta.getPranzo2());
+        cv.put(COLUMN_DIET_DINNER1, dieta.getCena1());
+        cv.put(COLUMN_DIET_DINNER2, dieta.getCena2());
+        return mDb.update(DIET_TABLE, cv, COLUMN_DIET_USERNAME + "= \"" + dieta.getClienteDieta() + "\"", null)>0;
+    }
+
 }

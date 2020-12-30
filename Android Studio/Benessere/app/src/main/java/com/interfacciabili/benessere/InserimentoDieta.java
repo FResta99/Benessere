@@ -58,7 +58,23 @@ public class InserimentoDieta extends AppCompatActivity {
             Toast.makeText(this, "Dieta aggiunta: " + successo, Toast.LENGTH_SHORT).show();
         } catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    public void modificaDieta(View view) {
+        try {
+            colazione1 = etColazione1.getText().toString();
+            colazione2 = etColazione2.getText().toString();
+            pranzo1 = etPranzo1.getText().toString();
+            pranzo2 = etPranzo2.getText().toString();
+            cena1 = etCena1.getText().toString();
+            cena2 = etCena2.getText().toString();
+            Toast.makeText(this, "Dieta : " + username, Toast.LENGTH_SHORT).show();
+            Dieta dietaDaModificare = new Dieta(username, colazione1, colazione2, pranzo1, pranzo2, cena1, cena2);
+            boolean successo = dietDBH.modificaDieta(dietaDaModificare);
+            Toast.makeText(this, "Dieta modificata: " + successo, Toast.LENGTH_SHORT).show();
+        } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,4 +92,5 @@ public class InserimentoDieta extends AppCompatActivity {
             etCena2.setText(dieta.getCena2());
         }
     }
+
 }
