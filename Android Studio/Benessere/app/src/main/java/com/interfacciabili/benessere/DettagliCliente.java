@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class DettagliCliente extends AppCompatActivity {
     //TODO Mostrare gli dettagli del cliente
     TextView tvUsername;
+    String username;
 
 
     @Override
@@ -18,12 +19,12 @@ public class DettagliCliente extends AppCompatActivity {
         setContentView(R.layout.activity_dettagli_cliente);
         tvUsername = findViewById(R.id.tvDettaglioUsernameCliente);
 
-        Intent intent= getIntent();
+        Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if(bundle!=null)
         {
-            String username =(String) bundle.get("USERNAME");
+            username =(String) bundle.get("USERNAME");
             tvUsername.setText(username);
         }
 
@@ -31,6 +32,8 @@ public class DettagliCliente extends AppCompatActivity {
 
 
     public void gestisciDieta(View v){
-        //TODO aprire l'activity per gestire la dieta
+        Intent intent = new Intent(DettagliCliente.this, InserimentoDieta.class);
+        intent.putExtra("USERNAME", username);
+        startActivity(intent);
     }
 }
