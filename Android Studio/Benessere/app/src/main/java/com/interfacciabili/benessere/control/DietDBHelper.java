@@ -1,4 +1,4 @@
-package com.interfacciabili.benessere;
+package com.interfacciabili.benessere.control;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.interfacciabili.benessere.model.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.interfacciabili.benessere.control.DietDBHelper;
+import com.interfacciabili.benessere.model.Cliente;
+
 public class InserimentoCliente extends AppCompatActivity {
 
     TextView etName, etPassword;

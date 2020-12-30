@@ -1,4 +1,4 @@
-package com.interfacciabili.benessere;
+package com.interfacciabili.benessere.model;
 
 public class Dieta {
     private String clienteDieta;

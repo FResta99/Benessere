@@ -1,4 +1,4 @@
-package com.interfacciabili.benessere;
+package com.interfacciabili.benessere.model;
 
 // Classe che descrive un dietologo con tutti i suoi attributi
 

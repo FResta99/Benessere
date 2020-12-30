@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.interfacciabili.benessere.control.DietDBHelper;
+import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Dietologo;
+
 public class homeDietologo extends AppCompatActivity {
 
     public Dietologo dietologo = new Dietologo("Boh", "password");
