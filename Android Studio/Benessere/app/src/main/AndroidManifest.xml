@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Benessere">
-        <activity android:name=".DettagliCliente"></activity>
+        <activity android:name=".InserimentoDieta"></activity>
+        <activity android:name=".DettagliCliente" />
         <activity android:name=".homeDietologo" />
         <activity android:name=".InserimentoCliente" />
         <activity android:name=".MainActivity">

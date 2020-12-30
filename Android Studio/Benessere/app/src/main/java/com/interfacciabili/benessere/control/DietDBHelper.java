@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Dieta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,10 @@ public class DietDBHelper extends SQLiteOpenHelper {
             return true;
         }
 
+    }
+
+    public boolean inserisciDieta(Dieta dieta){
+        return true;
     }
 
     public List<Cliente> recuperaClienti(){

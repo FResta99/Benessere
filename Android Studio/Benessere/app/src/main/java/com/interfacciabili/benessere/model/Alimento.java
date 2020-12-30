@@ -1,6 +1,7 @@
 package com.interfacciabili.benessere.model;
 
 public class Alimento {
+    //TODO Da usare nella versione della dieta flessibile
     private int id;
     private String nome;
     private String quantita;
