@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dieta;
+import com.interfacciabili.benessere.model.RichiestaDieta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,27 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DIET_DINNER1 = "DIET_DINNER1";
     public static final String COLUMN_DIET_DINNER2 = "DIET_DINNER2";
 
+    String createDietTableStatement = "CREATE TABLE " + DIET_TABLE +" (" +
+            COLUMN_DIET_USERNAME + " TEXT PRIMARY KEY, " +
+            COLUMN_DIET_BREAKFAST1 + " TEXT, "  +
+            COLUMN_DIET_BREAKFAST2 + " TEXT, "  +
+            COLUMN_DIET_LUNCH1 + " TEXT, "  +
+            COLUMN_DIET_LUNCH2 + " TEXT, "  +
+            COLUMN_DIET_DINNER1 + " TEXT, "  +
+            COLUMN_DIET_DINNER2 + " TEXT, "  +
+            " FOREIGN KEY ("+COLUMN_DIET_USERNAME+") REFERENCES "+CLIENT_TABLE+"("+COLUMN_USERNAME+"));";
+
+    public static final String REQUEST_DIET_TABLE = "REQUEST_DIET_TABLE";
+    public static final String COLUMN_REQUEST_DIET_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_DIET_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_DIET_DIETOLOGIST = "REQUEST_DIETOLOGIST";
+    public static final String COLUMN_REQUEST_DIET_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
+
+
     public DietDBHelper(@Nullable Context context) {
-        super(context, "benessere.db", null, 2);
+        super(context, "benessere.db", null, 3);
     }
 
     @Override
@@ -45,17 +65,15 @@ public class DietDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion > oldVersion) {
-            String createDietTableStatement = "CREATE TABLE " + DIET_TABLE +" (" +
-                    COLUMN_DIET_USERNAME + " TEXT PRIMARY KEY, " +
-                    COLUMN_DIET_BREAKFAST1 + " TEXT, "  +
-                    COLUMN_DIET_BREAKFAST2 + " TEXT, "  +
-                    COLUMN_DIET_LUNCH1 + " TEXT, "  +
-                    COLUMN_DIET_LUNCH2 + " TEXT, "  +
-                    COLUMN_DIET_DINNER1 + " TEXT, "  +
-                    COLUMN_DIET_DINNER2 + " TEXT, "  +
-                    " FOREIGN KEY ("+COLUMN_DIET_USERNAME+") REFERENCES "+CLIENT_TABLE+"("+COLUMN_USERNAME+"));";
+            String createRequestDietTable = "CREATE TABLE " + REQUEST_DIET_TABLE +" (" +
+                    COLUMN_REQUEST_DIET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_REQUEST_DIET_CLIENT + " TEXT, "  +
+                    COLUMN_REQUEST_DIET_DIETOLOGIST + " TEXT, "  +
+                    COLUMN_REQUEST_DIET_MODIFY + " TEXT NOT NULL, "  +
+                    COLUMN_REQUEST_DIET_MODIFIER + " TEXT NOT NULL, "  +
+                    COLUMN_REQUEST_DIET_APPROVED + " TEXT) ";
 
-            db.execSQL(createDietTableStatement);
+            db.execSQL(createRequestDietTable);
 
         }
     }
@@ -98,6 +116,27 @@ public class DietDBHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DIET_DINNER2, dieta.getCena2());
 
         long insert = db.insert(DIET_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+    }
+
+    public boolean aggiungiRichestaDieta(RichiestaDieta richiesta){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_REQUEST_DIET_CLIENT, richiesta.getUsernameCliente());
+        cv.put(COLUMN_REQUEST_DIET_DIETOLOGIST, richiesta.getUsernameDietologo());
+        cv.put(COLUMN_REQUEST_DIET_MODIFY, richiesta.getAlimentoDaModificare());
+        cv.put(COLUMN_REQUEST_DIET_MODIFIER, richiesta.getAlimentoRichiesto());
+        cv.put(COLUMN_REQUEST_DIET_APPROVED, "FALSE"); // all'inserimento la richiesta non e' approvata
+
+        long insert = db.insert(REQUEST_DIET_TABLE, null, cv);
         if(insert == -1){
             db.close();
             return false;
