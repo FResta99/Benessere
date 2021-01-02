@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
-        <activity android:name=".InserimentoDieta"></activity>
+        <activity android:name=".DietaCliente"></activity>
+        <activity android:name=".InserimentoDieta" />
         <activity android:name=".DettagliCliente" />
         <activity android:name=".homeDietologo" />
         <activity android:name=".InserimentoCliente" />
@@ -24,13 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".AperturaTornello" />
-        <activity android:name="com.interfacciabili.benessere.Login_Coach"></activity>
-        <activity android:name="com.interfacciabili.benessere.Login_Benessere"></activity>
-        <activity android:name="com.interfacciabili.benessere.Login_Diet"></activity>
-        <activity android:name="com.interfacciabili.benessere.Register_Main"></activity>
-        <activity android:name="com.interfacciabili.benessere.Register_benessere"></activity>
-        <activity android:name="com.interfacciabili.benessere.Register_coach"></activity>
-        <activity android:name="com.interfacciabili.benessere.Register_dietologo"></activity>
+        <activity android:name=".Login_Coach" />
+        <activity android:name=".Login_Benessere" />
+        <activity android:name=".Login_Diet" />
+        <activity android:name=".Register_Main" />
+        <activity android:name=".Register_benessere" />
+        <activity android:name=".Register_coach" />
+        <activity android:name=".Register_dietologo" />
     </application>
 
 </manifest>

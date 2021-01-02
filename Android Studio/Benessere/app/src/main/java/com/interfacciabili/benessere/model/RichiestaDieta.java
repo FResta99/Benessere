@@ -8,8 +8,8 @@ public class RichiestaDieta {
     private String alimentoRichiesto;
     private boolean isApprovata;
 
-    public RichiestaDieta(int id, String usernameCliente, String usernameDietologo, String alimentoDaModificare, String alimentoRichiesto) {
-        this.id = id;
+    public RichiestaDieta(String usernameCliente, String usernameDietologo, String alimentoDaModificare, String alimentoRichiesto) {
+        this.id = -1;
         this.usernameCliente = usernameCliente;
         this.usernameDietologo = usernameDietologo;
         this.alimentoDaModificare = alimentoDaModificare;

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".DietaCliente"
+    android:padding="25dp">
+
+     <TextView
+        android:id="@+id/tvInserimentoColazione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Colazione"
+        android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvColazione1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvInserimentoColazione"
+            />
+        <TextView
+            android:id="@+id/tvColazione2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvColazione1"/>
+
+    <TextView
+        android:id="@+id/tvInserimentoPranzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pranzo"
+        android:textSize="20sp"
+        android:layout_below="@+id/tvColazione2"
+        android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/tvPranzo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvInserimentoPranzo" />
+        <TextView
+            android:id="@+id/tvPranzo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPranzo1" />
+
+    <TextView
+        android:id="@+id/tvInserimentoCena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cena"
+        android:textSize="20sp"
+        android:layout_below="@+id/tvPranzo2"
+        android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/tvCena1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvInserimentoCena" />
+        <TextView
+            android:id="@+id/tvCena2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCena1"/>
+
+    <ListView
+        android:id="@+id/lvDieta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/tvCena2"/>
+
+
+</RelativeLayout>
