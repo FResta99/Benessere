@@ -1,11 +1,11 @@
 package com.interfacciabili.benessere;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DettagliCliente extends AppCompatActivity {
     //TODO Mostrare gli dettagli del cliente
@@ -32,7 +32,7 @@ public class DettagliCliente extends AppCompatActivity {
 
 
     public void gestisciDieta(View v){
-        Intent intent = new Intent(DettagliCliente.this, InserimentoDieta.class);
+        Intent intent = new Intent(com.interfacciabili.benessere.DettagliCliente.this, com.interfacciabili.benessere.InserimentoDieta.class);
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }

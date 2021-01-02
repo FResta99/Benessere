@@ -9,65 +9,56 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="560dp"
+        android:id="@+id/btnRegDietologo"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="452dp"
         android:background="@drawable/shape2"
-        android:text="Registrati"
+        android:text="Registrazione Dietologo"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDiet"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="364dp"
+        android:id="@+id/btnRegCoach"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/shape2"
-        android:text="Utente Dietologo"
+        android:text="Registrazione Coach"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCoach"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="248dp"
+        android:id="@+id/btnRegBenessere"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="144dp"
         android:background="@drawable/shape2"
-        android:text="Utente Coach"
+        android:text="Registrazione Benessere"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnBenessere"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="128dp"
-        android:background="@drawable/shape2"
-        android:text="Utente Benessere"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="241dp"
         android:layout_height="57dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="71dp"
         android:shadowColor="#FFFFFF"
-        android:text="LOGIN"
+        android:text="REGISTRATI"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

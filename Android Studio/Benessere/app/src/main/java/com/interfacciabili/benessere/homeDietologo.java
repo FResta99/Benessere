@@ -1,7 +1,5 @@
 package com.interfacciabili.benessere;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
@@ -34,7 +34,7 @@ public class homeDietologo extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
-                Intent intent = new Intent(homeDietologo.this, DettagliCliente.class);
+                Intent intent = new Intent(com.interfacciabili.benessere.homeDietologo.this, com.interfacciabili.benessere.DettagliCliente.class);
                 intent.putExtra("USERNAME", clienteCliccato.getUsername());
                 startActivity(intent);
             }
@@ -44,12 +44,12 @@ public class homeDietologo extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        dietDBH = new DietDBHelper(homeDietologo.this);
+        dietDBH = new DietDBHelper(com.interfacciabili.benessere.homeDietologo.this);
         ShowCustomersOnListView(dietDBH);
     }
 
     private void ShowCustomersOnListView(DietDBHelper dbh) {
-        clientAdapter = new ArrayAdapter<Cliente>(homeDietologo.this,
+        clientAdapter = new ArrayAdapter<Cliente>(com.interfacciabili.benessere.homeDietologo.this,
                 android.R.layout.simple_list_item_1,
                 dbh.recuperaClienti());
         lvClienti.setAdapter(clientAdapter);
