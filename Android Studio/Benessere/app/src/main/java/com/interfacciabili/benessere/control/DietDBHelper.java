@@ -232,8 +232,8 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public List<RichiestaDieta> recuperaRichiesteDieta(String username){
         List<RichiestaDieta> returnList = new ArrayList<>();
 
-        String queryRichieste = "SELECT * FROM " + REQUEST_DIET_TABLE +" WHERE " + COLUMN_REQUEST_DIET_DIETOLOGIST + " = \"" + username + "\" AND "
-                + COLUMN_REQUEST_DIET_APPROVED + " = FALSE";
+        String queryRichieste = "SELECT * FROM " + REQUEST_DIET_TABLE +" WHERE " + COLUMN_REQUEST_DIET_DIETOLOGIST + " = \"" + username + "\""
+                + " AND " + COLUMN_REQUEST_DIET_APPROVED +  " = \"FALSE\"";
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -248,7 +248,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
                 String alimentoRichiesto = risultato.getString(4);
                 boolean isApprovata = risultato.getInt(5) == 1 ? true: false;
 
-                RichiestaDieta richiestaRestituita = new RichiestaDieta ();
+                RichiestaDieta richiestaRestituita = new RichiestaDieta(idRichiesta, usernameCliente, usernameDietologo, alimentoDaModificare, alimentoRichiesto, isApprovata);
                 returnList.add(richiestaRestituita);
             } while (risultato.moveToNext());
         } else {

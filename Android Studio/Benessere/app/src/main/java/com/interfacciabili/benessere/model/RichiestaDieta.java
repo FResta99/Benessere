@@ -8,16 +8,22 @@ public class RichiestaDieta {
     private String alimentoRichiesto;
     private boolean isApprovata;
 
-    public RichiestaDieta(String usernameCliente, String usernameDietologo, String alimentoDaModificare, String alimentoRichiesto) {
+    public RichiestaDieta(String usernameCliente, String usernameDietologo, String alimentoDaModificare, String alimentoRichiesto, boolean isApprovata) {
         this.id = -1;
         this.usernameCliente = usernameCliente;
         this.usernameDietologo = usernameDietologo;
         this.alimentoDaModificare = alimentoDaModificare;
         this.alimentoRichiesto = alimentoRichiesto;
-        this.isApprovata = false;
+        this.isApprovata = isApprovata;
     }
 
-    public RichiestaDieta() {
+    public RichiestaDieta(int idRichiesta, String usernameCliente, String usernameDietologo, String alimentoDaModificare, String alimentoRichiesto, boolean isApprovata) {
+        this.id = idRichiesta;
+        this.usernameCliente = usernameCliente;
+        this.usernameDietologo = usernameDietologo;
+        this.alimentoDaModificare = alimentoDaModificare;
+        this.alimentoRichiesto = alimentoRichiesto;
+        this.isApprovata = isApprovata;
     }
 
     public int getId() {

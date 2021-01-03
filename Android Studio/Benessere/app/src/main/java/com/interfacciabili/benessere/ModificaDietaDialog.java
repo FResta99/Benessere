@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
+import static java.lang.Boolean.FALSE;
+
 public class ModificaDietaDialog extends AppCompatDialogFragment {
     String alimento;
     String utente;
@@ -53,7 +55,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
                     if(etAlimentoModifica.getText().toString().length()>0)
                     {
                         String alimentoModifier = etAlimentoModifica.getText().toString();
-                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier);
+                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier, FALSE);
                         dbh.aggiungiRichestaDieta(rd);
                         wantToCloseDialog = true;
 
