@@ -21,6 +21,10 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USERNAME = "CLIENT_USERNAME";
     public static final String COLUMN_PASSWORD = "CLIENT_PASSWORD";
 
+    public static final String DIETOLOGIST_TABLE = "DIETOLOGIST_TABLE";
+    public static final String COLUMN_DIETOLOGIST_USERNAME = "DIETOLOGIST_USERNAME";
+    public static final String COLUMN_DIETOLOGIST_PASSWORD = "DIETOLOGIST_PASSWORD";
+
     public static final String DIET_TABLE = "DIET_TABLE";
     public static final String COLUMN_DIET_USERNAME = "DIET_USERNAME";
     public static final String COLUMN_DIET_BREAKFAST1 = "DIET_BREAKFAST1";
@@ -48,9 +52,19 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_REQUEST_DIET_MODIFIER = "REQUEST_MODIFIER";
     public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
 
+    String createRequestDietTable = "CREATE TABLE " + REQUEST_DIET_TABLE +" (" +
+            COLUMN_REQUEST_DIET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_REQUEST_DIET_CLIENT + " TEXT, "  +
+            COLUMN_REQUEST_DIET_DIETOLOGIST + " TEXT, "  +
+            COLUMN_REQUEST_DIET_MODIFY + " TEXT NOT NULL, "  +
+            COLUMN_REQUEST_DIET_MODIFIER + " TEXT NOT NULL, "  +
+            COLUMN_REQUEST_DIET_APPROVED + " TEXT) ";
+
+    public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
+    public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";
 
     public DietDBHelper(@Nullable Context context) {
-        super(context, "benessere.db", null, 3);
+        super(context, "benessere.db", null, 4);
     }
 
     @Override
@@ -65,15 +79,20 @@ public class DietDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion > oldVersion) {
-            String createRequestDietTable = "CREATE TABLE " + REQUEST_DIET_TABLE +" (" +
-                    COLUMN_REQUEST_DIET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_REQUEST_DIET_CLIENT + " TEXT, "  +
-                    COLUMN_REQUEST_DIET_DIETOLOGIST + " TEXT, "  +
-                    COLUMN_REQUEST_DIET_MODIFY + " TEXT NOT NULL, "  +
-                    COLUMN_REQUEST_DIET_MODIFIER + " TEXT NOT NULL, "  +
-                    COLUMN_REQUEST_DIET_APPROVED + " TEXT) ";
 
-            db.execSQL(createRequestDietTable);
+            String createDietologistTable = "CREATE TABLE " + DIETOLOGIST_TABLE + " (" +
+                    COLUMN_DIETOLOGIST_USERNAME + " TEXT PRIMARY KEY, " +
+                    COLUMN_DIETOLOGIST_PASSWORD + " TEXT) ";
+            //TODO Inserire gli altri campi
+            db.execSQL(createDietologistTable);
+
+            String createClientDietologistTable = "CREATE TABLE " + CLIENT_DIETOLOGIST_TABLE +" (" +
+                    COLUMN_CLIENT_USERNAME + " TEXT , " +
+                    COLUMN_DIETOLOGIST_USERNAME + " TEXT , "  +
+                    " PRIMARY KEY(" + COLUMN_CLIENT_USERNAME + ", " + COLUMN_DIETOLOGIST_USERNAME + "), " +
+                    " FOREIGN KEY ("+COLUMN_CLIENT_USERNAME+") REFERENCES "+CLIENT_TABLE+"("+COLUMN_USERNAME+"), " +
+                    " FOREIGN KEY ("+COLUMN_DIETOLOGIST_USERNAME+") REFERENCES "+DIETOLOGIST_TABLE+"("+COLUMN_DIETOLOGIST_USERNAME+"));";
+            db.execSQL(createClientDietologistTable);
 
         }
     }
@@ -209,6 +228,50 @@ public class DietDBHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
+
+    public List<RichiestaDieta> recuperaRichiesteDieta(String username){
+        List<RichiestaDieta> returnList = new ArrayList<>();
+
+        String queryRichieste = "SELECT * FROM " + REQUEST_DIET_TABLE +" WHERE " + COLUMN_REQUEST_DIET_DIETOLOGIST + " = \"" + username + "\" AND "
+                + COLUMN_REQUEST_DIET_APPROVED + " = FALSE";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryRichieste, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idRichiesta = risultato.getInt(0);
+                String usernameCliente = risultato.getString(1);
+                String usernameDietologo = risultato.getString(2);
+                String alimentoDaModificare = risultato.getString(3);
+                String alimentoRichiesto = risultato.getString(4);
+                boolean isApprovata = risultato.getInt(5) == 1 ? true: false;
+
+                RichiestaDieta richiestaRestituita = new RichiestaDieta ();
+                returnList.add(richiestaRestituita);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        risultato.close();
+        db.close();
+
+        return returnList;
+    }
+
+    public boolean approvaDieta(RichiestaDieta richiesta){
+        SQLiteDatabase mDb= this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_REQUEST_DIET_CLIENT, richiesta.getUsernameCliente());
+        cv.put(COLUMN_REQUEST_DIET_DIETOLOGIST, richiesta.getUsernameDietologo());
+        cv.put(COLUMN_REQUEST_DIET_MODIFY, richiesta.getAlimentoDaModificare());
+        cv.put(COLUMN_REQUEST_DIET_MODIFIER, richiesta.getAlimentoRichiesto());
+        cv.put(COLUMN_REQUEST_DIET_APPROVED, "TRUE"); // approva la modifica
+        return mDb.update(REQUEST_DIET_TABLE, cv, COLUMN_REQUEST_DIET_ID + "= " + richiesta.getId(), null)>0;
+    }
+
+
 
     public boolean modificaDieta(Dieta dieta){
         SQLiteDatabase mDb= this.getWritableDatabase();
