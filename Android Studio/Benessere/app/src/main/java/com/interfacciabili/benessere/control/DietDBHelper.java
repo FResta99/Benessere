@@ -267,7 +267,13 @@ public class DietDBHelper extends SQLiteOpenHelper {
         return mDb.update(REQUEST_DIET_TABLE, cv, COLUMN_REQUEST_DIET_ID + "= " + idRichiesta, null)>0;
     }
 
-
+    public boolean approvaDieta(int idRichiesta, String modifier){
+        SQLiteDatabase mDb= this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_REQUEST_DIET_MODIFIER, modifier); //modifica l'alimento
+        cv.put(COLUMN_REQUEST_DIET_APPROVED, "TRUE"); // approva la modifica
+        return mDb.update(REQUEST_DIET_TABLE, cv, COLUMN_REQUEST_DIET_ID + "= " + idRichiesta, null)>0;
+    }
 
     public boolean modificaDieta(Dieta dieta){
         SQLiteDatabase mDb= this.getWritableDatabase();

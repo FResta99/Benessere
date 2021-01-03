@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,6 +28,25 @@ public class DettagliRichiesta extends AppCompatActivity {
         setContentView(R.layout.activity_dettagli_richiesta);
         tvAlimentoModify = findViewById(R.id.tvAlimentoModifica);
         etAlimentoModifier = findViewById(R.id.etAlimentoModifier);
+        etAlimentoModifier.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0){
+                    dbh = new DietDBHelper(DettagliRichiesta.this);
+                    dbh.approvaDieta(id, s.toString());
+                }
+            }
+        });
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -46,4 +67,5 @@ public class DettagliRichiesta extends AppCompatActivity {
         dbh.approvaDieta(id);
         //TODO Automodifica della dieta
     }
+
 }
