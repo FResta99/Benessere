@@ -20,6 +20,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     String utente;
     String dietologo;
     EditText etAlimentoModifica;
+    DietDBHelper dbh;
 
     @NonNull
     @Override
@@ -29,26 +30,41 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_modificadieta, null);
         etAlimentoModifica = view.findViewById(R.id.etAlimentoModifica);
-        DietDBHelper dbh = new DietDBHelper(getActivity());
+        dbh = new DietDBHelper(getActivity());
 
         builder.setView(view)
                 .setTitle("Modifica alimento " + alimento)
-                .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                       String alimentoModifier = etAlimentoModifica.getText().toString();
-                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier);
-                       dbh.aggiungiRichestaDieta(rd);
-                       dialog.dismiss();
-                    }
-                });
+                .setNegativeButton("Annulla", null)
+                .setPositiveButton("Inserisci", null);
         return builder.create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final AlertDialog dialog = (AlertDialog)getDialog();
+        if(dialog!=null){
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Boolean wantToCloseDialog = false;
+                    if(etAlimentoModifica.getText().toString().length()>0)
+                    {
+                        String alimentoModifier = etAlimentoModifica.getText().toString();
+                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier);
+                        dbh.aggiungiRichestaDieta(rd);
+                        wantToCloseDialog = true;
+
+                    }else {
+                        etAlimentoModifica.setError("Inserisci alimento");
+                    }
+                    if(wantToCloseDialog)
+                        dialog.dismiss();
+                }
+            });
+        }
     }
 
     public void setAlimento(String valore){
