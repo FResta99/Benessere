@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     String utente;
     String dietologo;
     EditText etAlimentoModifica;
+    TextView tvTestoDialog;
     DietDBHelper dbh;
 
     @NonNull
@@ -32,10 +34,12 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_modificadieta, null);
         etAlimentoModifica = view.findViewById(R.id.etAlimentoModifica);
+        tvTestoDialog = view.findViewById(R.id.tvTestoDialog);
+        tvTestoDialog.append(alimento + "?");
         dbh = new DietDBHelper(getActivity());
 
         builder.setView(view)
-                .setTitle("Modifica alimento " + alimento)
+                .setTitle("Modifica alimento")
                 .setNegativeButton("Annulla", null)
                 .setPositiveButton("Inserisci", null);
         return builder.create();

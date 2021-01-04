@@ -25,7 +25,7 @@ public class DettagliCliente extends AppCompatActivity {
         if(bundle!=null)
         {
             username =(String) bundle.get("USERNAME");
-            tvUsername.setText(username);
+            tvUsername.append(username);
         }
 
     }

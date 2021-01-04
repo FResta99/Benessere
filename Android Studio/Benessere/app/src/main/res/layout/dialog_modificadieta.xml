@@ -9,7 +9,7 @@
     android:id="@+id/tvTestoDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Con cosa vuoi modificare"/>
+    android:text="Con cosa vuoi modificare "/>
 
     <EditText
         android:id="@+id/etAlimentoModifica"

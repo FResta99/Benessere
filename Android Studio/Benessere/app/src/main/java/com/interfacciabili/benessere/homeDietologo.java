@@ -28,7 +28,7 @@ public class homeDietologo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_dietologo);
         tvBenvenuto = findViewById(R.id.tvBenvenuto);
-        tvBenvenuto.setText("Benvenuto " + dietologo.getUsername() + " !");
+        tvBenvenuto.append(dietologo.getUsername() + " !");
         lvClienti = findViewById(R.id.lvClienti);
         lvClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
