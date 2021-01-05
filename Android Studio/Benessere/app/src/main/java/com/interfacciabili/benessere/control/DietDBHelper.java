@@ -121,6 +121,30 @@ public class DietDBHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean aggiungiClienteADietologo(String cliente, String dietologo){
+
+        // ottengo un db in scrittura utilizzando il metodo della classe dbhelper
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // creo un contenitore per i valori da inserire e li inserisco
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CLIENT_USERNAME, cliente);
+        cv.put(COLUMN_DIETOLOGIST_USERNAME, dietologo);
+
+        // inserisco i dati e controllo l'operazione, poi chiudo il db
+        long insert = db.insert(CLIENT_DIETOLOGIST_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+
     public boolean aggiungiDieta(Dieta dieta){
 
         SQLiteDatabase db = this.getWritableDatabase();

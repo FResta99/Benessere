@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DettagliCliente extends AppCompatActivity {
@@ -30,6 +31,10 @@ public class DettagliCliente extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     public void gestisciDieta(View v){
         Intent intent = new Intent(com.interfacciabili.benessere.DettagliCliente.this, com.interfacciabili.benessere.InserimentoDieta.class);

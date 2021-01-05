@@ -61,11 +61,6 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         if(!utente.isEmpty()){outState.putString("USERNAME", utente);}
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     public void setUtente(String valore){
         utente = valore;
     }
