@@ -45,6 +45,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    //Previene che il dialog sia chiuso premendo il bottone ok se l'input e' errato
     @Override
     public void onResume() {
         super.onResume();

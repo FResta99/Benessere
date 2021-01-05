@@ -36,4 +36,10 @@ public class DettagliCliente extends AppCompatActivity {
         intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
+
+    public void eliminaCliente(View view) {
+        EliminaClienteDialog ecd = new EliminaClienteDialog();
+        ecd.setUtente(username);
+        ecd.show(getSupportFragmentManager(), "Elimina cliente");
+    }
 }
