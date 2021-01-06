@@ -17,9 +17,10 @@ import com.interfacciabili.benessere.control.DietDBHelper;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
 
-    String utente = "";
+    String utente;
     TextView tvMessaggioElimina;
     DietDBHelper dbh;
+
 
     @NonNull
     @Override
@@ -49,6 +50,9 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbh.eliminaCliente(utente);
+
+                        ((HomeDietologo) getActivity()).clienteCliccato = null;
+
                         dismiss();
                     }
                 });
@@ -65,5 +69,12 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         utente = valore;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((HomeDietologo) getActivity()).updateMasterFragment();
+        ((HomeDietologo) getActivity()).updateClientDetailFragment("", R.layout.dettagli_cliente_blank);
 
+
+    }
 }

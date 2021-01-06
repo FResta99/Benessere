@@ -44,6 +44,7 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbh.aggiungiClienteADietologo(username, dietologo);
+                        ((RicercaCliente)getActivity()).finish();
                         dismiss();
                     }
                 });
@@ -57,6 +58,7 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     public void setDietologo(String valore){
         dietologo = valore;
     }
+
 }
 
 

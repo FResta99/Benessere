@@ -1,20 +1,21 @@
 package com.interfacciabili.benessere;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 
-public class InserimentoCliente extends AppCompatActivity {
+public class RicercaCliente extends AppCompatActivity {
 
     TextView etName;
     Button btnAggiungi;
@@ -25,9 +26,10 @@ public class InserimentoCliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inserimento_cliente);
+        setContentView(R.layout.activity_ricerca_cliente);
 
-        dietDBH = new DietDBHelper(com.interfacciabili.benessere.InserimentoCliente.this);
+
+        dietDBH = new DietDBHelper(RicercaCliente.this);
 
         btnAggiungi = findViewById(R.id.btnCerca);
         etName = findViewById(R.id.etName);
@@ -45,12 +47,13 @@ public class InserimentoCliente extends AppCompatActivity {
 
     }
 
-    public void aggiungiCliente(View v){
+    public void cercaCliente(View v){
         if(!etName.getText().toString().isEmpty()){
-            clientAdapter = new ArrayAdapter<Cliente>(com.interfacciabili.benessere.InserimentoCliente.this,
+            clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
                     android.R.layout.simple_list_item_1,
                     dietDBH.ricercaClienti(etName.getText().toString()));
             lvRicercaClienti.setAdapter(clientAdapter);
         }
     }
+
 }

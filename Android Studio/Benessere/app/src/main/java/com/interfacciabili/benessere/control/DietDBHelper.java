@@ -258,6 +258,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
 
         // query per ottenere tutti i clienti
 
+        //TODO exclude in sql
         String queryClienti = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + COLUMN_USERNAME + " LIKE \'%" + usernameCercato + "%\' ;";
 
         // prendiamo il db in lettura

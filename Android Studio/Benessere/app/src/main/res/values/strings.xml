@@ -3,4 +3,6 @@
 
     <string name="label_turnstile">Turnstile</string>
     <string name="button_turnstile">OPEN</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

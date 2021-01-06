@@ -17,8 +17,8 @@
         <activity android:name=".DietaCliente" />
         <activity android:name=".InserimentoDieta" />
         <activity android:name=".DettagliCliente" />
-        <activity android:name=".homeDietologo" />
-        <activity android:name=".InserimentoCliente" />
+        <activity android:name=".HomeDietologo" />
+        <activity android:name=".RicercaCliente" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -92,5 +92,4 @@ public class InserimentoDieta extends AppCompatActivity {
             etCena2.setText(dieta.getCena2());
         }
     }
-
 }

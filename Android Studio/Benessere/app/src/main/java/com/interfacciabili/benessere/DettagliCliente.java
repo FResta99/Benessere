@@ -1,6 +1,7 @@
 package com.interfacciabili.benessere;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -10,36 +11,55 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DettagliCliente extends AppCompatActivity {
     //TODO Mostrare gli dettagli del cliente
-    TextView tvUsername;
-    String username;
+    public TextView tvUsername;
+    public String username;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dettagli_cliente);
+        setContentView(R.layout.dettagli_cliente);
+
         tvUsername = findViewById(R.id.tvDettaglioUsernameCliente);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if(bundle!=null)
-        {
-            username =(String) bundle.get("USERNAME");
-            tvUsername.append(username);
+        Intent intentFrom = getIntent();
+        Bundle bundle = intentFrom.getExtras();
+        if (bundle != null) {
+            username = (String) bundle.get("USERNAME");
+            tvUsername.setText(username);
         }
 
+        /* Verifico l'orientamento del dispositivo e se esso è in orizzontale, lancio l'activity dell'home passando il cliente
+         * che dovrà essere visualizzato nel fragment.
+         */
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            goToClientDetailActivity(username);
+        }
     }
 
+    /* Se viene premuto il pulsante "back", lancio l'activity della home passando il cliente che dovrà essere visualizzato se l'orientamento di quest'ultima
+     * cambierà dal verticale all'orizzontale.
+     */
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToClientDetailActivity(username);
     }
 
-    public void gestisciDieta(View v){
-        Intent intent = new Intent(com.interfacciabili.benessere.DettagliCliente.this, com.interfacciabili.benessere.InserimentoDieta.class);
-        intent.putExtra("USERNAME", username);
-        startActivity(intent);
+    private void goToClientDetailActivity(String param1) {
+        Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
+        intentOut.putExtra("USERNAME", username);
+
+        startActivity(intentOut);
+        finish();
+    }
+
+    public void goToGestisciDieta(View v){
+        Intent intentTo = new Intent(DettagliCliente.this, HomeDietologo.class);
+        intentTo.putExtra("USERNAME", username);
+
+        startActivity(intentTo);
+        finish();
     }
 
     public void eliminaCliente(View view) {
