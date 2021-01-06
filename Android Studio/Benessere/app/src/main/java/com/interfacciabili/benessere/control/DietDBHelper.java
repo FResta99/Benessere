@@ -221,6 +221,39 @@ public class DietDBHelper extends SQLiteOpenHelper {
      return returnList;
     }
 
+    public List<Cliente> recuperaClientiSenzaDietologo(String usernameCercato){
+        List<Cliente> returnList = new ArrayList<>();
+
+        // query per ottenere tutti i clienti
+
+        String queryClienti = "SELECT * FROM " + CLIENT_TABLE + " WHERE " + COLUMN_USERNAME + " LIKE \'%" + usernameCercato + "%\' AND " +
+                CLIENT_TABLE + "."+COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + COLUMN_CLIENT_USERNAME +" FROM "+ CLIENT_DIETOLOGIST_TABLE +");";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            // cicliamo sul risultato
+            do{
+                String username = risultato.getString(0);
+                String password = risultato.getString(1);
+                //TODO Recuparare gli altri campi
+                Cliente clienteRestituito = new Cliente (username, password);
+                returnList.add(clienteRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return returnList;
+    }
+
     public List<Cliente> recuperaClientiDiDietologo(String usernameDietologo){
         List<Cliente> returnList = new ArrayList<>();
 
@@ -252,7 +285,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-
+/*
     public List<Cliente> ricercaClienti(String usernameCercato){
         List<Cliente> returnList = new ArrayList<>();
 
@@ -285,7 +318,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-
+*/
     public boolean eliminaCliente(String usernameCliente){
         // se trova il cliente lo cancella e ritorna true
         // altrimenti se non lo trova ritorna false

@@ -51,7 +51,7 @@ public class RicercaCliente extends AppCompatActivity {
         if(!etName.getText().toString().isEmpty()){
             clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
                     android.R.layout.simple_list_item_1,
-                    dietDBH.ricercaClienti(etName.getText().toString()));
+                    dietDBH.recuperaClientiSenzaDietologo(etName.getText().toString()));
             lvRicercaClienti.setAdapter(clientAdapter);
         }
     }
