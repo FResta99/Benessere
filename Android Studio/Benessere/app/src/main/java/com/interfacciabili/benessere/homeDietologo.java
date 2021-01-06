@@ -16,7 +16,7 @@ import com.interfacciabili.benessere.model.Dietologo;
 
 public class homeDietologo extends AppCompatActivity {
 
-    public Dietologo dietologo = new Dietologo("Boh", "password");
+    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
     TextView tvBenvenuto;
     ListView lvClienti;
 
@@ -51,7 +51,7 @@ public class homeDietologo extends AppCompatActivity {
     private void ShowCustomersOnListView(DietDBHelper dbh) {
         clientAdapter = new ArrayAdapter<Cliente>(com.interfacciabili.benessere.homeDietologo.this,
                 android.R.layout.simple_list_item_1,
-                dbh.recuperaClienti());
+                dbh.recuperaClientiDiDietologo(dietologo.getUsername()));
         lvClienti.setAdapter(clientAdapter);
     }
 }

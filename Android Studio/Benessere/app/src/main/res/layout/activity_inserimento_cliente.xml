@@ -10,32 +10,25 @@
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Nome cliente"
+        android:hint="Ricerca username"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
     <Button
+        android:id="@+id/btnCerca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAggiungi"
-        android:onClick="aggiungiCliente"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/etPassword"
         android:layout_marginTop="20dp"
-        android:text="Aggiungi"/>
+        android:onClick="aggiungiCliente"
+        android:text="Cerca"
+        android:layout_toRightOf="@+id/etName" />
+
+    <ListView
+        android:id="@+id/lvRicercaClienti"
+        android:layout_below="@id/btnCerca"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>

@@ -2,7 +2,10 @@ package com.interfacciabili.benessere;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,9 +16,10 @@ import com.interfacciabili.benessere.model.Cliente;
 
 public class InserimentoCliente extends AppCompatActivity {
 
-    TextView etName, etPassword;
+    TextView etName;
     Button btnAggiungi;
-
+    ListView lvRicercaClienti;
+    ArrayAdapter clientAdapter;
     DietDBHelper dietDBH;
 
     @Override
@@ -23,23 +27,30 @@ public class InserimentoCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inserimento_cliente);
 
-        btnAggiungi = findViewById(R.id.btnAggiungi);
-        etName = findViewById(R.id.etName);
-        etPassword = findViewById(R.id.etPassword);
-
         dietDBH = new DietDBHelper(com.interfacciabili.benessere.InserimentoCliente.this);
+
+        btnAggiungi = findViewById(R.id.btnCerca);
+        etName = findViewById(R.id.etName);
+        lvRicercaClienti = findViewById(R.id.lvRicercaClienti);
+        lvRicercaClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
+                InserisciClienteDialog icd = new InserisciClienteDialog();
+                icd.setDietologo("Dietologo1");
+                icd.setUsername(clienteCliccato.getUsername());
+                icd.show(getSupportFragmentManager(), "Inserisci cliente");
+            }
+        });
+
     }
 
     public void aggiungiCliente(View v){
-        Cliente clienteDaAggiungere;
-        try {
-            clienteDaAggiungere = new Cliente(etName.getText().toString(), etPassword.getText().toString());
-            boolean successo = dietDBH.aggiungiCliente(clienteDaAggiungere);
-            Toast.makeText(this, "Cliente aggiunto: " + successo, Toast.LENGTH_SHORT).show();
-        } catch (Exception e){
-            Toast.makeText(this, "Cliente non aggiunto", Toast.LENGTH_SHORT).show();
+        if(!etName.getText().toString().isEmpty()){
+            clientAdapter = new ArrayAdapter<Cliente>(com.interfacciabili.benessere.InserimentoCliente.this,
+                    android.R.layout.simple_list_item_1,
+                    dietDBH.ricercaClienti(etName.getText().toString()));
+            lvRicercaClienti.setAdapter(clientAdapter);
         }
-
-
     }
 }
