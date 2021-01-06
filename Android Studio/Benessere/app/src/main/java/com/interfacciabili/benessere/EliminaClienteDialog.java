@@ -48,7 +48,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO Chiama dbh
+                        dbh.eliminaCliente(utente);
                         dismiss();
                     }
                 });

@@ -285,6 +285,26 @@ public class DietDBHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    public boolean eliminaCliente(String usernameCliente){
+        // se trova il cliente lo cancella e ritorna true
+        // altrimenti se non lo trova ritorna false
+
+        SQLiteDatabase db = getWritableDatabase();
+        String queryString = "DELETE FROM " + CLIENT_DIETOLOGIST_TABLE + " WHERE " + COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        } else {
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
+
     public List<Dieta> recuperaDieta(String username){
         List<Dieta> returnList = new ArrayList<>();
 
