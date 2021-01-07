@@ -34,6 +34,11 @@
         <activity android:name=".Register_benessere" />
         <activity android:name=".Register_coach" />
         <activity android:name=".Register_dietologo" />
+        <service
+            android:name="com.interfacciabili.benessere.control.DatabaseService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

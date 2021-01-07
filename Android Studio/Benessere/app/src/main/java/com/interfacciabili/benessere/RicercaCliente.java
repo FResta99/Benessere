@@ -1,7 +1,10 @@
 package com.interfacciabili.benessere;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 
@@ -21,15 +25,25 @@ public class RicercaCliente extends AppCompatActivity {
     Button btnAggiungi;
     ListView lvRicercaClienti;
     ArrayAdapter clientAdapter;
-    DietDBHelper dietDBH;
+
+    public DatabaseService databaseService;
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
+            databaseService = localBinder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ricerca_cliente);
-
-
-        dietDBH = new DietDBHelper(RicercaCliente.this);
 
         btnAggiungi = findViewById(R.id.btnCerca);
         etName = findViewById(R.id.etName);
@@ -51,9 +65,24 @@ public class RicercaCliente extends AppCompatActivity {
         if(!etName.getText().toString().isEmpty()){
             clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
                     android.R.layout.simple_list_item_1,
-                    dietDBH.recuperaClientiSenzaDietologo(etName.getText().toString()));
+                    databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
             lvRicercaClienti.setAdapter(clientAdapter);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intentDatabaseService = new Intent(this, DatabaseService.class);
+        startService(intentDatabaseService);
+        bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
     }
 
 }

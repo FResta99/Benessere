@@ -2,13 +2,17 @@ package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dietologo;
@@ -20,7 +24,21 @@ public class RichiesteDietologo extends AppCompatActivity {
     ListView lvRichieste;
 
     ArrayAdapter requestAdapter;
-    DietDBHelper dietDBH;
+    public DatabaseService databaseService;
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
+            databaseService = localBinder.getService();
+
+            ShowRequestsOnListView();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +62,23 @@ public class RichiesteDietologo extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        dietDBH = new DietDBHelper(RichiesteDietologo.this);
-        ShowRequestsOnListView(dietDBH);
+        Intent intentDatabaseService = new Intent(this, DatabaseService.class);
+        startService(intentDatabaseService);
+        bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+
     }
 
-    private void ShowRequestsOnListView(DietDBHelper dbh){
+    private void ShowRequestsOnListView(){
         requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
                 android.R.layout.simple_list_item_1,
-                dbh.recuperaRichiesteDieta(dietologo.getUsername()));
+                databaseService.recuperaRichiesteDieta(dietologo.getUsername()));
         lvRichieste.setAdapter(requestAdapter);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
+    }
+
 }

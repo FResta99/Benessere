@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btnCoach.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeDietologo.class);
+                Intent intent = new Intent(MainActivity.this, RichiesteDietologo.class);
                 startActivity(intent);
             }
         });
