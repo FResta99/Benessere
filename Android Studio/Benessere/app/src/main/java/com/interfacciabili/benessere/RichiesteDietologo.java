@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -13,15 +14,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
-import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dietologo;
 import com.interfacciabili.benessere.model.RichiestaDieta;
+
+import java.util.List;
 
 public class RichiesteDietologo extends AppCompatActivity {
 
     public Dietologo dietologo = new Dietologo("Dietologo1", "password");
     ListView lvRichieste;
+
+    UpdateTask mTask = null;
 
     ArrayAdapter requestAdapter;
     public DatabaseService databaseService;
@@ -30,8 +33,9 @@ public class RichiesteDietologo extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
-
-            ShowRequestsOnListView();
+            mTask = new UpdateTask();
+            mTask.execute();
+            //ShowRequestsOnListView();
         }
 
         @Override
@@ -45,6 +49,8 @@ public class RichiesteDietologo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_richieste_dietologo);
 
+
+
         lvRichieste = findViewById(R.id.lvRichieste);
         lvRichieste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,6 +63,8 @@ public class RichiesteDietologo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -67,18 +75,35 @@ public class RichiesteDietologo extends AppCompatActivity {
         bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
 
     }
+/*
+    public void ShowRequestsOnListView(){
 
-    private void ShowRequestsOnListView(){
-        requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
-                android.R.layout.simple_list_item_1,
-                databaseService.recuperaRichiesteDieta(dietologo.getUsername()));
-        lvRichieste.setAdapter(requestAdapter);
+                requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
+                        android.R.layout.simple_list_item_1,
+                        databaseService.recuperaRichiesteDieta(dietologo.getUsername()));
+                lvRichieste.setAdapter(requestAdapter);
+
     }
-
+*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+    }
+
+    public class UpdateTask extends AsyncTask<Void,Void, List<RichiestaDieta>> {
+        protected List<RichiestaDieta> doInBackground(Void... params) {
+            // Add your HTTPClient code here
+            return databaseService.recuperaRichiesteDieta(dietologo.getUsername());
+
+        }
+
+        protected void onPostExecute(List<RichiestaDieta> result) {
+            requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
+                    android.R.layout.simple_list_item_1,
+                    result);
+            lvRichieste.setAdapter(requestAdapter);
+        }
     }
 
 }

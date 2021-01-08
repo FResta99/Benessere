@@ -5,11 +5,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Message;
 import android.util.Log;
 
+import com.interfacciabili.benessere.RichiesteDietologo;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dieta;
 import com.interfacciabili.benessere.model.RichiestaDieta;
@@ -20,8 +23,10 @@ import java.util.List;
 import static com.interfacciabili.benessere.control.DietDBHelper.getDbIstance;
 
 public class DatabaseService extends Service {
+    public static final int MSG_IMG_SET = 1;
     private DietDBHelper dietDB;
     public IBinder binder = new LocalBinder();
+    private Handler mImagesProgressHandler;
 
     public class LocalBinder extends Binder {
         public DatabaseService getService() {
@@ -332,29 +337,30 @@ public class DatabaseService extends Service {
                 + " AND " + dietDB.COLUMN_REQUEST_DIET_APPROVED +  " = \"FALSE\"";
 
         SQLiteDatabase db = dietDB.getReadableDatabase();
+                    Cursor risultato = db.rawQuery(queryRichieste, null);
 
-        Cursor risultato = db.rawQuery(queryRichieste, null);
+                    if(risultato.moveToFirst()){
+                        do{
+                            int idRichiesta = risultato.getInt(0);
+                            String usernameCliente = risultato.getString(1);
+                            String usernameDietologo = risultato.getString(2);
+                            String alimentoDaModificare = risultato.getString(3);
+                            String alimentoRichiesto = risultato.getString(4);
+                            boolean isApprovata = risultato.getInt(5) == 1 ? true: false;
 
-        if(risultato.moveToFirst()){
-            do{
-                int idRichiesta = risultato.getInt(0);
-                String usernameCliente = risultato.getString(1);
-                String usernameDietologo = risultato.getString(2);
-                String alimentoDaModificare = risultato.getString(3);
-                String alimentoRichiesto = risultato.getString(4);
-                boolean isApprovata = risultato.getInt(5) == 1 ? true: false;
+                            RichiestaDieta richiestaRestituita = new RichiestaDieta(idRichiesta, usernameCliente, usernameDietologo, alimentoDaModificare, alimentoRichiesto, isApprovata);
+                            returnList.add(richiestaRestituita);
+                        } while (risultato.moveToNext());
 
-                RichiestaDieta richiestaRestituita = new RichiestaDieta(idRichiesta, usernameCliente, usernameDietologo, alimentoDaModificare, alimentoRichiesto, isApprovata);
-                returnList.add(richiestaRestituita);
-            } while (risultato.moveToNext());
-        } else {
-            // 0 risultati, ritorna una lista vuota
-        }
-        risultato.close();
-        db.close();
+                    } else {
+                        // 0 risultati, ritorna una lista vuota
+                    }
 
+                    risultato.close();
+                    db.close();
         return returnList;
     }
+
 
     public boolean approvaDieta(int idRichiesta){
         SQLiteDatabase mDb= dietDB.getWritableDatabase();
