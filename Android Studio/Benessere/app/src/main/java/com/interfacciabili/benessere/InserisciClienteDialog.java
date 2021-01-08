@@ -81,15 +81,9 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
-        getActivity().startService(intentDatabaseService);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unbindService(serviceConnection);
-    }
 
 }
 

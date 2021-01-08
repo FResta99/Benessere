@@ -93,7 +93,6 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
-        //TODO Rimuovi getActivity().startService(intentDatabaseService);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
@@ -107,12 +106,6 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
 
     public void setUtente(Cliente cliente){
         this.cliente = cliente;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unbindService(serviceConnection);
     }
 
     @Override
