@@ -57,7 +57,6 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     private FragmentManager fragmentManager = null;
     private Fragment detailFragment = null;
     private Fragment masterFragment = null;
-    Intent intentFrom;
 
     private boolean landscapeView;
 
@@ -86,7 +85,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             /* Recupero l'intent, verifico se vi è un cliente specifico da visualizzare ed aggiorno il fragment se la condizione è rispettata. Quest'activity, infatti,
              *  potrà essere lanciata da un'applicazione esterna o da un'altra activity come "DettagliCliente".
              */
-            intentFrom = getIntent();
+            Intent intentFrom = getIntent();
             if (intentFrom != null && intentFrom.hasExtra(CLIENTE)) {
                 clienteCliccato = intentFrom.getParcelableExtra(CLIENTE);
                 updateClientDetailFragment(R.layout.dettagli_cliente);
@@ -194,7 +193,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     @Override
     public void updateEliminaClienteDialogCallback() {
         clienteCliccato = null;
-        intentFrom.removeExtra(CLIENTE);
+        getIntent().removeExtra(CLIENTE);
         updateMasterFragment();
         updateClientDetailFragment(R.layout.dettagli_cliente_blank);
     }
