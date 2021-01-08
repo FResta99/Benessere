@@ -48,6 +48,7 @@ public class DettagliRichiesta extends AppCompatActivity {
                 public void afterTextChanged(Editable s) {
 
                     if(s.length()>0 ){
+                        // TODO Richiesta approvata anche senza premere il bottone
                         databaseService.approvaDieta(id, s.toString());
                     }
                 }

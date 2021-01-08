@@ -6,25 +6,29 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.interfacciabili.benessere.model.Cliente;
+
 public class DetailHomeFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String LAYOUT_ID = "LAYOUT_ID";
+    private static final String CLIENTE = "CLIENTE";
 
-    private String mParam1;
-    private int mParam2;
+    private int layoutID;
+    private Cliente cliente;
 
-    public static DetailHomeFragment newInstance(String param1, int layout) {
+    public static DetailHomeFragment newInstance(int layoutID) {
         DetailHomeFragment fragment = new DetailHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, layout);
-        fragment.setArguments(args);
+
+        Bundle bundleFragment = new Bundle();
+        bundleFragment.putInt(LAYOUT_ID, layoutID);
+
+        fragment.setArguments(bundleFragment);
         return fragment;
     }
 
@@ -36,32 +40,32 @@ public class DetailHomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getInt(ARG_PARAM2);
+            layoutID = getArguments().getInt(LAYOUT_ID);
+            if (getArguments().containsKey(CLIENTE)) {
+                cliente = getArguments().getParcelable(CLIENTE);
+            }
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(mParam2, container, false);
-        if(mParam2 == R.layout.dettagli_cliente) {
+        View rootView = inflater.inflate(layoutID, container, false);
+        if (layoutID == R.layout.dettagli_cliente) {
 
             TextView tvUsername = rootView.findViewById(R.id.tvDettaglioUsernameCliente);
-            tvUsername.setText(mParam1);
+            tvUsername.setText(cliente.getUsername());
 
-
-            Button btnDettagli = rootView.findViewById(R.id.btnGestisciDieta);
+            Button btnGestisci = rootView.findViewById(R.id.btnGestisciDieta);
             Button btnElimina = rootView.findViewById(R.id.btnElimina);
 
-            btnDettagli.setOnClickListener(new View.OnClickListener() {
+            btnGestisci.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO Passare il parcelable cliente
                     Intent intentTo = new Intent(getContext(), InserimentoDieta.class);
-                    intentTo.putExtra("USERNAME", mParam1);
+                    intentTo.putExtra(CLIENTE, cliente);
                     startActivity(intentTo);
-
                 }
             });
 
@@ -69,12 +73,12 @@ public class DetailHomeFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     EliminaClienteDialog ecd = new EliminaClienteDialog();
-                    ecd.setUtente(mParam1);
+                    ecd.setUtente(cliente);
                     ecd.show(getFragmentManager(), "Elimina cliente");
                 }
             });
-
         }
+
         return rootView;
     }
 }

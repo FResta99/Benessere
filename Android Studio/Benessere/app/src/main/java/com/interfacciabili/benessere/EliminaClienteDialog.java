@@ -3,6 +3,7 @@ package com.interfacciabili.benessere;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -19,12 +20,20 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.control.DietDBHelper;
+import com.interfacciabili.benessere.model.Cliente;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
 
-    private String utente;
+    public static final String CLIENTE = "CLIENTE";
+
+    public interface EliminaClienteDialogCallback {
+        public void updateEliminaClienteDialogCallback();
+    }
+    public EliminaClienteDialogCallback listener;
+
+    public Cliente cliente;
     private TextView tvMessaggioElimina;
 
     public DatabaseService databaseService;
@@ -49,12 +58,16 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_elimina_cliente, null);
         tvMessaggioElimina = view.findViewById(R.id.tvMessaggioEliminaCliente);
-        if(!utente.isEmpty()){tvMessaggioElimina.append(utente);}
+        if (cliente != null) {
+            tvMessaggioElimina.append(cliente.getUsername());
+        }
 
 
-        if(savedInstanceState!=null){
-            utente = savedInstanceState.getString("USERNAME");
-            if(!utente.isEmpty()){tvMessaggioElimina.append(utente);}
+        if (savedInstanceState!=null) {
+            cliente = savedInstanceState.getParcelable(CLIENTE);
+            if (cliente != null) {
+                tvMessaggioElimina.append(cliente.getUsername());
+            }
         }
 
         builder.setView(view)
@@ -68,10 +81,8 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        databaseService.eliminaCliente(utente);
-
-                        ((HomeDietologo) getActivity()).clienteCliccato = null;
-
+                        databaseService.eliminaCliente(cliente.getUsername());
+                        listener.updateEliminaClienteDialogCallback();
                         dismiss();
                     }
                 });
@@ -82,26 +93,43 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
-        getActivity().startService(intentDatabaseService);
+        //TODO Rimuovi getActivity().startService(intentDatabaseService);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(!utente.isEmpty()){outState.putString("USERNAME", utente);}
+        if (cliente != null) {
+            outState.putParcelable(CLIENTE, cliente);
+        }
     }
 
-    public void setUtente(String valore){
-        utente = valore;
+    public void setUtente(Cliente cliente){
+        this.cliente = cliente;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //((HomeDietologo) getActivity()).updateMasterFragment();
-        //((HomeDietologo) getActivity()).updateClientDetailFragment("", R.layout.dettagli_cliente_blank);
         getActivity().unbindService(serviceConnection);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof EliminaClienteDialogCallback) {
+            listener = (EliminaClienteDialogCallback) context;
+        } else {
+            throw new RuntimeException(context.toString() + " deve implementare EliminaClienteDialogCallback");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
 }
