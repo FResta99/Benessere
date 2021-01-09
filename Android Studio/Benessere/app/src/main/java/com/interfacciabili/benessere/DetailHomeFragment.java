@@ -18,6 +18,7 @@ import com.interfacciabili.benessere.model.Cliente;
 public class DetailHomeFragment extends Fragment {
     private static final String LAYOUT_ID = "LAYOUT_ID";
     private static final String CLIENTE = "CLIENTE";
+    private static final String TAG_LOG = "DetailHomeFragment";
 
     private int layoutID;
     private Cliente cliente;
@@ -43,8 +44,11 @@ public class DetailHomeFragment extends Fragment {
 
         if (getArguments() != null) {
             layoutID = getArguments().getInt(LAYOUT_ID);
+
             if (getArguments().containsKey(CLIENTE)) {
                 cliente = getArguments().getParcelable(CLIENTE);
+            } else {
+                Log.d(TAG_LOG, "The bundle doesn't contain a client.");
             }
         }
     }
@@ -52,8 +56,8 @@ public class DetailHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(layoutID, container, false);
-        if (layoutID == R.layout.dettagli_cliente) {
 
+        if ((layoutID == R.layout.dettagli_cliente) && (cliente != null)) {
             TextView tvUsername = rootView.findViewById(R.id.tvDettaglioUsernameCliente);
             tvUsername.setText(cliente.getUsername());
 
@@ -73,10 +77,12 @@ public class DetailHomeFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     EliminaClienteDialog ecd = new EliminaClienteDialog();
-                    ecd.setUtente(cliente);
+                    ecd.setCliente(cliente);
                     ecd.show(getFragmentManager(), "Elimina cliente");
                 }
             });
+        } else {
+            Log.d(TAG_LOG, "There is not a client.");
         }
 
         return rootView;

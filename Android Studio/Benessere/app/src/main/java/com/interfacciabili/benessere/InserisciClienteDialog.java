@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -17,14 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class InserisciClienteDialog extends AppCompatDialogFragment {
+    private static final String TAG_LOG = "InserisciClienteDialog";
 
     TextView tvMessaggioInserisciCliente;
-    String username, dietologo;
+    String usernameCliente, usernameExpert;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -48,43 +49,47 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_inserisci_cliente, null);
 
         tvMessaggioInserisciCliente = view.findViewById(R.id.tvMessaggioInserisciCliente);
-        tvMessaggioInserisciCliente.append(username +  "?");
+        tvMessaggioInserisciCliente.append(usernameCliente +  "?");
 
-        builder.setView(view)
-                .setTitle("Inserisci cliente")
-                .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                    }
-                })
-                .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        databaseService.aggiungiClienteADietologo(username, dietologo);
-                        ((RicercaCliente)getActivity()).finish();
-                        dismiss();
-                    }
-                });
-        return builder.create();
-    }
-
-    public void setUsername(String valore){
-        username = valore;
-    }
-
-    public void setDietologo(String valore){
-        dietologo = valore;
+        if (usernameExpert != null) {
+            builder.setView(view)
+                    .setTitle("Inserisci cliente")
+                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dismiss();
+                        }
+                    })
+                    .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            databaseService.aggiungiClienteADietologo(usernameCliente, usernameExpert);
+                            getActivity().finish();
+                            dismiss();
+                        }
+                    });
+            return builder.create();
+        } else {
+            Log.d(TAG_LOG, "There is not an expert.");
+            return null;
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
+    public void setUsernameCliente(String username){
+        usernameCliente = username;
+    }
 
+    public void setUsernameExpert(String username){
+        usernameExpert = username;
+    }
 }
 
 

@@ -26,9 +26,6 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     private static final String EXPERT = "EXPERT";
     private static final String CLIENTE = "CLIENTE";
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
-    public Cliente clienteCliccato;
-
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -36,11 +33,9 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
 
-            if(!landscapeView){
+            if (!landscapeView) {
                 updateListview();
             }
-
-
         }
 
         @Override
@@ -49,16 +44,18 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
+    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Cliente clienteCliccato;
+
+    private boolean landscapeView;
+
     private TextView tvBenvenuto;
     private ListView lvClienti;
-
     private ArrayAdapter clientAdapter;
 
     private FragmentManager fragmentManager = null;
     private Fragment detailFragment = null;
     private Fragment masterFragment = null;
-
-    private boolean landscapeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,18 +113,15 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     @Override
     protected void onStart() {
         super.onStart();
-        /*Intent intentDatabaseService = new Intent(this, DatabaseService.class);
-        bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
-        if ((!landscapeView) && (databaseService != null)){
-            updateListview();
-        }*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         Intent intentDatabaseService = new Intent(this, DatabaseService.class);
         bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+
         if(databaseService != null){
             if(!landscapeView){
                 updateListview();
@@ -146,23 +140,32 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
          */
         if (detailFragment != null && clienteCliccato != null) {
             outState.putParcelable(CLIENTE, clienteCliccato);
-        } else if (clienteCliccato == null && outState.containsKey(CLIENTE)){
+        } else if ((clienteCliccato == null) && (outState.containsKey(CLIENTE))){
             outState.remove(CLIENTE);
         }
     }
 
-    private void updateListview() {
-            clientAdapter = new ArrayAdapter<Cliente>(HomeDietologo.this,
-                    android.R.layout.simple_list_item_1,
-                    databaseService.recuperaClientiDiDietologo(dietologo.getUsername()));
-
-            lvClienti.setAdapter(clientAdapter);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (databaseService != null) {
+            unbindService(serviceConnection);
+        }
     }
 
-    private void goToClientDetailActivity() {
-        Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
-        intentTo.putExtra(CLIENTE, clienteCliccato);
-        startActivity(intentTo);
+    @Override
+    public void updateEliminaClienteDialogCallback() {
+        clienteCliccato = null;
+        getIntent().removeExtra(CLIENTE);
+
+        updateMasterFragment();
+        updateClientDetailFragment(R.layout.dettagli_cliente_blank);
+    }
+
+    @Override
+    public void updateMasterHomeFragmentCallback(Cliente cliente) {
+        clienteCliccato = cliente;
+        updateClientDetailFragment(R.layout.dettagli_cliente);
     }
 
     public void updateMasterFragment() {
@@ -184,29 +187,21 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();
     }
 
+    private void updateListview() {
+        clientAdapter = new ArrayAdapter<Cliente>(HomeDietologo.this, android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo(dietologo.getUsername()));
+        lvClienti.setAdapter(clientAdapter);
+    }
+
+    private void goToClientDetailActivity() {
+        Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
+        intentTo.putExtra(CLIENTE, clienteCliccato);
+        startActivity(intentTo);
+    }
+
     //FLOATING ACTION BUTTON LISTENER
     public void aggiungiCliente(View view) {
-        Intent aggiungiCliente = new Intent(HomeDietologo.this, RicercaCliente.class);
-        startActivity(aggiungiCliente);
-    }
-
-    @Override
-    public void updateEliminaClienteDialogCallback() {
-        clienteCliccato = null;
-        getIntent().removeExtra(CLIENTE);
-        updateMasterFragment();
-        updateClientDetailFragment(R.layout.dettagli_cliente_blank);
-    }
-
-    @Override
-    public void updateMasterHomeFragmentCallback(Cliente clienteCliccato) {
-        this.clienteCliccato = clienteCliccato;
-        updateClientDetailFragment(R.layout.dettagli_cliente);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(serviceConnection);
+        Intent intentTo = new Intent(HomeDietologo.this, RicercaCliente.class);
+        intentTo.putExtra(EXPERT, dietologo.getUsername());
+        startActivity(intentTo);
     }
 }

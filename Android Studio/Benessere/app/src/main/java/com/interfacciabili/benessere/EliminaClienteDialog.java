@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -25,8 +26,8 @@ import com.interfacciabili.benessere.model.Cliente;
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
-
     public static final String CLIENTE = "CLIENTE";
+    private static final String TAG_LOG = "EliminaClienteDialog";
 
     public interface EliminaClienteDialogCallback {
         public void updateEliminaClienteDialogCallback();
@@ -34,6 +35,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public EliminaClienteDialogCallback listener;
 
     public Cliente cliente;
+
     private TextView tvMessaggioElimina;
 
     public DatabaseService databaseService;
@@ -57,41 +59,48 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_elimina_cliente, null);
+
         tvMessaggioElimina = view.findViewById(R.id.tvMessaggioEliminaCliente);
+
         if (cliente != null) {
             tvMessaggioElimina.append(cliente.getUsername());
         }
 
-
-        if (savedInstanceState!=null) {
+        if (savedInstanceState != null) {
             cliente = savedInstanceState.getParcelable(CLIENTE);
             if (cliente != null) {
                 tvMessaggioElimina.append(cliente.getUsername());
             }
         }
 
-        builder.setView(view)
-                .setTitle("Elimina cliente")
-                .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                    }
-                })
-                .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        databaseService.eliminaCliente(cliente.getUsername());
-                        listener.updateEliminaClienteDialogCallback();
-                        dismiss();
-                    }
-                });
-        return builder.create();
+        if (cliente != null) {
+            builder.setView(view)
+                    .setTitle("Elimina cliente")
+                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dismiss();
+                        }
+                    })
+                    .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            databaseService.eliminaCliente(cliente.getUsername());
+                            listener.updateEliminaClienteDialogCallback();
+                            dismiss();
+                        }
+                    });
+            return builder.create();
+        } else {
+            Log.d(TAG_LOG, "There is not a client.");
+            return null;
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
@@ -104,10 +113,6 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         }
     }
 
-    public void setUtente(Cliente cliente){
-        this.cliente = cliente;
-    }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -115,14 +120,18 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         if (context instanceof EliminaClienteDialogCallback) {
             listener = (EliminaClienteDialogCallback) context;
         } else {
-            throw new RuntimeException(context.toString() + " deve implementare EliminaClienteDialogCallback");
+            throw new RuntimeException(context.toString() + " you must implements \"EliminaClienteDialogCallback\".");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+
         listener = null;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

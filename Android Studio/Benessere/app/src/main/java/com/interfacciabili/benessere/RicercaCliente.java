@@ -16,10 +16,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 
 public class RicercaCliente extends AppCompatActivity {
+    private static final String EXPERT = "EXPERT";
+    private static final String TAG_LOG = "RicercaCliente";
 
     TextView etName;
     Button btnAggiungi;
@@ -40,33 +41,34 @@ public class RicercaCliente extends AppCompatActivity {
         }
     };
 
+    private String usernameExpert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ricerca_cliente);
 
-        btnAggiungi = findViewById(R.id.btnCerca);
-        etName = findViewById(R.id.etName);
-        lvRicercaClienti = findViewById(R.id.lvRicercaClienti);
-        lvRicercaClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
-                InserisciClienteDialog icd = new InserisciClienteDialog();
-                icd.setDietologo("Dietologo1");
-                icd.setUsername(clienteCliccato.getUsername());
-                icd.show(getSupportFragmentManager(), "Inserisci cliente");
-            }
-        });
+        Intent intentFrom = getIntent();
+        if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
+            usernameExpert = intentFrom.getStringExtra(EXPERT);
 
-    }
+            btnAggiungi = findViewById(R.id.btnCerca);
+            etName = findViewById(R.id.etName);
 
-    public void cercaCliente(View v){
-        if(!etName.getText().toString().isEmpty()){
-            clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
-                    android.R.layout.simple_list_item_1,
-                    databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
-            lvRicercaClienti.setAdapter(clientAdapter);
+            lvRicercaClienti = findViewById(R.id.lvRicercaClienti);
+            lvRicercaClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
+                    InserisciClienteDialog icd = new InserisciClienteDialog();
+                    icd.setUsernameExpert(usernameExpert);
+                    icd.setUsernameCliente(clienteCliccato.getUsername());
+                    icd.show(getSupportFragmentManager(), "Inserisci cliente");
+                }
+            });
+        } else {
+            Log.d(TAG_LOG, "The bundle doesn't contain an expert.");
+            finish();
         }
     }
 
@@ -82,7 +84,17 @@ public class RicercaCliente extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(serviceConnection);
+        if (databaseService != null) {
+            unbindService(serviceConnection);
+        }
     }
 
+    public void cercaCliente(View v){
+        if(!etName.getText().toString().isEmpty()){
+            clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
+                    android.R.layout.simple_list_item_1,
+                    databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
+            lvRicercaClienti.setAdapter(clientAdapter);
+        }
+    }
 }
