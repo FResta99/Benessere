@@ -18,6 +18,8 @@ import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Dietologo;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RichiesteDietologo extends AppCompatActivity {
@@ -35,8 +37,8 @@ public class RichiesteDietologo extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
-            mTask = new taskMostraRichieste();
-            mTask.execute();
+            mTask = new taskMostraRichieste(RichiesteDietologo.this);
+            mTask.execute(dietologo.getUsername());
             //ShowRequestsOnListView();
         }
 
@@ -78,8 +80,8 @@ public class RichiesteDietologo extends AppCompatActivity {
          * altrimenti riesegui per tenere la lista aggiornata
          */
         if(databaseService!=null){
-            mTask = new taskMostraRichieste();
-            mTask.execute();
+            mTask = new taskMostraRichieste(RichiesteDietologo.this);
+            mTask.execute(dietologo.getUsername());
         }
         Log.d("TAG", "Onstart");
     }
@@ -99,20 +101,45 @@ public class RichiesteDietologo extends AppCompatActivity {
         unbindService(serviceConnection);
     }
 
-    public class taskMostraRichieste extends AsyncTask<Void,Void, List<RichiestaDieta>> {
+    public class taskMostraRichieste extends AsyncTask<String,Void, List<RichiestaDieta>> {
 
-        protected List<RichiestaDieta> doInBackground(Void... params) {
+        //Weak reference permette al garbage collector di eliminare i riferimenti all'acitivty principale
+        //Senza weak reference la classe dell'AsyncTask potrebbe rimanere in memoria e causare problemi
+        private WeakReference<RichiesteDietologo> weakReference;
+
+        //Costruttore per ottenere il riferimento all'activity e memorizzarlo come weak reference
+        taskMostraRichieste(RichiesteDietologo activity) {
+            weakReference = new WeakReference<RichiesteDietologo>(activity);
+        }
+
+        protected List<RichiestaDieta> doInBackground(String... params) {
+            List<RichiestaDieta> richieste = new ArrayList<>();
+
+            //Ottengo un riferimento all'activity dalla weak reference
+            RichiesteDietologo activity = weakReference.get();
+            //Se l'activty non esiste o sta per essere distrutta ritorno una lista vuota
+            if (activity == null || activity.isFinishing()) {
+                return richieste;
+            }
             // Ottengo i dati richiamando il database service
-            return databaseService.recuperaRichiesteDieta(dietologo.getUsername());
+            richieste = activity.databaseService.recuperaRichiesteDieta(params[0]);
+
+            return richieste;
 
         }
             // Inserisci i dati nell'adapter appena il thread termina
         protected void onPostExecute(List<RichiestaDieta> result) {
-            requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
+
+            RichiesteDietologo activity = weakReference.get();
+            if (activity == null || activity.isFinishing()) {
+                return;
+            }
+
+            activity.requestAdapter = new ArrayAdapter<RichiestaDieta>(RichiesteDietologo.this,
                     android.R.layout.simple_list_item_1,
                     result);
-            lvRichieste.setAdapter(requestAdapter);
-            requestAdapter.notifyDataSetChanged();
+            activity.lvRichieste.setAdapter(requestAdapter);
+            activity.requestAdapter.notifyDataSetChanged();
         }
     }
 
