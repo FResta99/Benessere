@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="239dp"
+        android:layout_marginEnd="8dp"
+        android:text="" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="8dp"
+        android:text="" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="118dp"
+        android:layout_marginEnd="8dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/alimento2"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="104dp"
+        android:text="ALIMENTO 2" />
+
+    <TextView
+        android:id="@+id/alimento4"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="245dp"
+        android:text="ALIMENTO 4" />
+
+    <TextView
+        android:id="@+id/alimento1"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:text="ALIMENTO 1" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="193dp"
+        android:layout_marginEnd="8dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/alimento3"
+        android:layout_width="253dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="181dp"
+        android:text="ALIMENTO 3" />
+
+
+</RelativeLayout>
