@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +22,18 @@ import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
 
 public class MasterHomeFragment extends Fragment {
-
     private static final String EXPERT = "EXPERT";
+    private static final String TAG_LOG = "MasterHomeFragment";
 
     public interface MasterHomeFragmentCallback {
         public void updateMasterHomeFragmentCallback(Cliente clienteCliccato);
     }
-
     public MasterHomeFragmentCallback listener;
+
+    private String usernameExpert;              // Può essere dietologo o coach.
 
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
-
-    private String usernameExpert;              // Può essere dietologo o coach.
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -63,42 +63,37 @@ public class MasterHomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            if (getArguments().containsKey(EXPERT)) {
-                usernameExpert = getArguments().getString(EXPERT);
-            }
+        if ((getArguments() != null) && (getArguments().containsKey(EXPERT))) {
+            usernameExpert = getArguments().getString(EXPERT);
+        } else {
+            Log.d(TAG_LOG, "The bundle doesn't contain an expert.");
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_master_home, container, false);
 
         lvClienti = rootView.findViewById(R.id.lvClienti);
         lvClienti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listener.updateMasterHomeFragmentCallback((Cliente) parent.getItemAtPosition(position));
+                if (listener != null) {
+                    listener.updateMasterHomeFragmentCallback((Cliente) parent.getItemAtPosition(position));
+                } else {
+                    Log.d(TAG_LOG, "There is not a listener for the activity.");
+                }
             }
         });
 
-        //showCustomerOnListView();
         return rootView;
-    }
-
-    private void showCustomerOnListView() {
-        clientAdapter = new ArrayAdapter<Cliente>(getContext(),
-                android.R.layout.simple_list_item_1,
-                databaseService.recuperaClientiDiDietologo((usernameExpert)));
-        lvClienti.setAdapter(clientAdapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
-        //getActivity().startService(intentDatabaseService);
         getActivity().bindService(intentDatabaseService, serviceConnection, getActivity().BIND_AUTO_CREATE);
     }
 
@@ -106,16 +101,26 @@ public class MasterHomeFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        if(context instanceof MasterHomeFragmentCallback) {
+        if (context instanceof MasterHomeFragmentCallback) {
             listener = (MasterHomeFragmentCallback) context;
         } else {
-            throw new RuntimeException(context.toString() + " deve implementare MasterHomeFragmentCallback");
+            throw new RuntimeException(context.toString() + " you must implements \"MasterHomeFragmentCallback\".");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+
         listener = null;
+    }
+
+    private void showCustomerOnListView() {
+        if (usernameExpert != null) {
+            clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo((usernameExpert)));
+            lvClienti.setAdapter(clientAdapter);
+        } else {
+            Log.d(TAG_LOG, "There is not an expert.");
+        }
     }
 }

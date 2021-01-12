@@ -27,42 +27,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".DettagliCliente"
-        android:padding="25dp" >
+        tools:context=".RicercaCliente">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-
-
-        <TextView
-            android:id="@+id/tvDettaglioUsernameCliente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="Username: "
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/btnGestisciDieta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gestisci dieta"
-            android:layout_centerInParent="true"
-            app:icon="@drawable/ic_baseline_create_24" />
-
-        <Button
-            android:id="@+id/btnElimina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Elimina cliente"
-            android:layout_below="@+id/btnGestisciDieta"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#FF0000"
-            app:icon="@drawable/ic_baseline_delete_24" />
+            android:hint="Ricerca username"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnCerca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="cercaCliente"
+            android:text="Cerca"
+            android:layout_toRightOf="@+id/etName" />
+
+        <ListView
+            android:id="@+id/lvRicercaClienti"
+            android:layout_below="@id/btnCerca"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </RelativeLayout>
 </LinearLayout>
 
