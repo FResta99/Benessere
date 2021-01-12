@@ -6,6 +6,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
@@ -46,11 +50,19 @@ public class RicercaCliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ricerca_cliente);
+        setContentView(R.layout.activity_aggiungi_cliente);
+
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        setSupportActionBar(homeToolbar);
+
+        ActionBar mainActionbar = getSupportActionBar();
+        mainActionbar.setDisplayHomeAsUpEnabled(true);
 
         Intent intentFrom = getIntent();
         if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
             usernameExpert = intentFrom.getStringExtra(EXPERT);
+
+            homeToolbar.setSubtitle(usernameExpert);
 
             btnAggiungi = findViewById(R.id.btnCerca);
             etName = findViewById(R.id.etName);
@@ -87,6 +99,25 @@ public class RicercaCliente extends AppCompatActivity {
         if (databaseService != null) {
             unbindService(serviceConnection);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        if (item.getItemId() == R.id.actionbar_button_1) {
+            Log.d(TAG_LOG, "Button one pressed");
+        } else if (item.getItemId() == R.id.actionbar_button_2) {
+            Log.d(TAG_LOG, "Button two pressed");
+        } else if (item.getItemId() == R.id.actionbar_button_3) {
+            Log.d(TAG_LOG, "Button three pressed");
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void cercaCliente(View v){

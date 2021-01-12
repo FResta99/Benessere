@@ -7,24 +7,29 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dietologo;
 
 public class HomeDietologo extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
     private static final String EXPERT = "EXPERT";
     private static final String CLIENTE = "CLIENTE";
+    private static final String TAG_LOG = "Home";
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -44,7 +49,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Dietologo dietologo = new Dietologo("Ciccio Pasticcio", "password");
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
@@ -67,8 +72,10 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
 
         setContentView(R.layout.activity_home_dietologo);
-        tvBenvenuto = findViewById(R.id.tvBenvenuto);
-        tvBenvenuto.setText("Benvenuto " + dietologo.getUsername() + "!");
+
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        setSupportActionBar(homeToolbar);
+        homeToolbar.setSubtitle(dietologo.getUsername());
 
         fragmentManager = getSupportFragmentManager();
 
@@ -168,6 +175,25 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         updateClientDetailFragment(R.layout.dettagli_cliente);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        if (item.getItemId() == R.id.actionbar_button_1) {
+            Log.d(TAG_LOG, "Button one pressed");
+        } else if (item.getItemId() == R.id.actionbar_button_2) {
+            Log.d(TAG_LOG, "Button two pressed");
+        } else if (item.getItemId() == R.id.actionbar_button_3) {
+            Log.d(TAG_LOG, "Button three pressed");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void updateMasterFragment() {
         masterFragment = MasterHomeFragment.newInstance();
 
@@ -194,6 +220,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
     private void goToClientDetailActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
+        intentTo.putExtra(EXPERT, dietologo.getUsername());
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
     }

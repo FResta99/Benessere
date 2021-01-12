@@ -12,13 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
-        <activity android:name=".DettagliRichiesta"></activity>
+        <activity android:name=".HomeDietologo" />
+        <activity android:name=".DettagliRichiesta" />
         <activity android:name=".RichiesteDietologo" />
         <activity android:name=".DietaCliente" />
         <activity android:name=".InserimentoDieta" />
-        <activity android:name=".DettagliCliente" />
-        <activity android:name=".HomeDietologo" />
-        <activity android:name=".RicercaCliente" />
+        <activity
+            android:name=".DettagliCliente"
+            android:parentActivityName=".HomeDietologo"/>
+        <activity
+            android:name=".RicercaCliente"
+            android:parentActivityName=".HomeDietologo" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

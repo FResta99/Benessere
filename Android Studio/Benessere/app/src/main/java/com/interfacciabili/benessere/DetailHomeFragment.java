@@ -1,9 +1,12 @@
 package com.interfacciabili.benessere;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -58,6 +61,9 @@ public class DetailHomeFragment extends Fragment {
         View rootView = inflater.inflate(layoutID, container, false);
 
         if ((layoutID == R.layout.dettagli_cliente) && (cliente != null)) {
+            Toolbar action = (Toolbar) rootView.findViewById(R.id.toolbar_home);
+            action.setVisibility(View.GONE);
+
             TextView tvUsername = rootView.findViewById(R.id.tvDettaglioUsernameCliente);
             tvUsername.setText(cliente.getUsername());
 
