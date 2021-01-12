@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.interfacciabili.benessere.control.DatabaseService;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
         Button btnRegister = (Button) findViewById(R.id.btnRegister);
         btnRegister.setBackgroundColor(0x703AC9BA);
 
+        Intent intentDatabaseService = new Intent(this, DatabaseService.class);
+        startService(intentDatabaseService);
 
 
         btnCoach.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, com.interfacciabili.benessere.homeDietologo.class);
+                Intent intent = new Intent(MainActivity.this, HomeDietologo.class);
                 startActivity(intent);
             }
         });

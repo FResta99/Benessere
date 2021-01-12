@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.interfacciabili.benessere.control.DatabaseService;
+
 public class Register_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

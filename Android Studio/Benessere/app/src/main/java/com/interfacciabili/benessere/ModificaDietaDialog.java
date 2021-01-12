@@ -2,8 +2,12 @@ package com.interfacciabili.benessere;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
+import static android.content.Context.BIND_AUTO_CREATE;
 import static java.lang.Boolean.FALSE;
 
 public class ModificaDietaDialog extends AppCompatDialogFragment {
@@ -24,7 +30,21 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     String dietologo;
     EditText etAlimentoModifica;
     TextView tvTestoDialog;
-    DietDBHelper dbh;
+
+    public DatabaseService databaseService;
+    public ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
+            databaseService = localBinder.getService();
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @NonNull
     @Override
@@ -36,7 +56,6 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         etAlimentoModifica = view.findViewById(R.id.etAlimentoModifica);
         tvTestoDialog = view.findViewById(R.id.tvTestoDialog);
         tvTestoDialog.append(alimento + "?");
-        dbh = new DietDBHelper(getActivity());
 
         builder.setView(view)
                 .setTitle("Modifica alimento")
@@ -61,7 +80,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
                     {
                         String alimentoModifier = etAlimentoModifica.getText().toString();
                         RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier, FALSE);
-                        dbh.aggiungiRichestaDieta(rd);
+                        databaseService.aggiungiRichestaDieta(rd);
                         wantToCloseDialog = true;
 
                     }else {
@@ -85,4 +104,20 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     public void setDietologo(String valore){
         dietologo = valore;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
+        getActivity().startService(intentDatabaseService);
+        getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unbindService(serviceConnection);
+    }
+
 }

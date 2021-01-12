@@ -17,8 +17,8 @@
         <activity android:name=".DietaCliente" />
         <activity android:name=".InserimentoDieta" />
         <activity android:name=".DettagliCliente" />
-        <activity android:name=".homeDietologo" />
-        <activity android:name=".InserimentoCliente" />
+        <activity android:name=".HomeDietologo" />
+        <activity android:name=".RicercaCliente" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +34,11 @@
         <activity android:name=".Register_benessere" />
         <activity android:name=".Register_coach" />
         <activity android:name=".Register_dietologo" />
+        <service
+            android:name="com.interfacciabili.benessere.control.DatabaseService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>
