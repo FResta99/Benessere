@@ -99,6 +99,7 @@ public class RichiesteDietologo extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+        if (mTask != null) mTask.cancel(true);
     }
 
     public class taskMostraRichieste extends AsyncTask<String,Void, List<RichiestaDieta>> {
