@@ -102,12 +102,27 @@ public class DietaCliente extends AppCompatActivity {
 
     private void mostraDietaCliente() {
         List<Alimento> dietaRecuperata = databaseService.recuperaDieta(cliente.getUsername());
-        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
+        List<Alimento> listColazione = new ArrayList<>(), listPranzo = new ArrayList<>(), listCena = new ArrayList<>();
+        for (Alimento a: dietaRecuperata) {
+            switch (a.getTipoPasto()){
+                case "Colazione":
+                    listColazione.add(a);
+                    break;
+                case "Pranzo":
+                    listPranzo.add(a);
+                    break;
+                case "Cena":
+                    listCena.add(a);
+                    break;
+            }
+
+        }
+        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listColazione);
         lvDietaColazione.setAdapter(dietAdapterColazione);
-        dietAdapterPranzo = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
-        lvDietaPranzo.setAdapter(dietAdapterColazione);
-        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
-        lvDietaColazione.setAdapter(dietAdapterColazione);
+        dietAdapterPranzo = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listPranzo);
+        lvDietaPranzo.setAdapter(dietAdapterPranzo);
+        dietAdapterCena = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listCena);
+        lvDietaCena.setAdapter(dietAdapterCena);
 
     }
 
