@@ -26,6 +26,7 @@ public class RichiesteDietologo extends AppCompatActivity {
 
     public Dietologo dietologo = new Dietologo("Dietologo1", "password");
     ListView lvRichieste;
+    private static final String RICHIESTA = "RICHIESTA";
 
     taskMostraRichieste mTask;
 
@@ -60,10 +61,8 @@ public class RichiesteDietologo extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RichiestaDieta richiestaCliccata = (RichiestaDieta) parent.getItemAtPosition(position);
-                Intent intent = new Intent(com.interfacciabili.benessere.RichiesteDietologo.this, com.interfacciabili.benessere.DettagliRichiesta.class);
-                intent.putExtra("ID", richiestaCliccata.getId());
-                intent.putExtra("ALIMENTO_MODIFY", richiestaCliccata.getAlimentoDaModificare());
-                intent.putExtra("ALIMENTO_MODIFIER", richiestaCliccata.getAlimentoRichiesto());
+                Intent intent = new Intent(RichiesteDietologo.this, DettagliRichiesta.class);
+                intent.putExtra(RICHIESTA, richiestaCliccata);
                 startActivity(intent);
             }
         });

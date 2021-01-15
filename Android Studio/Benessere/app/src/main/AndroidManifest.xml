@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
+        <activity android:name=".InserimentoAlimento"></activity>
         <activity android:name=".HomeDietologo" />
         <activity android:name=".DettagliRichiesta" />
         <activity android:name=".RichiesteDietologo" />
@@ -19,7 +20,7 @@
         <activity android:name=".InserimentoDieta" />
         <activity
             android:name=".DettagliCliente"
-            android:parentActivityName=".HomeDietologo"/>
+            android:parentActivityName=".HomeDietologo" />
         <activity
             android:name=".RicercaCliente"
             android:parentActivityName=".HomeDietologo" />
@@ -38,11 +39,12 @@
         <activity android:name=".Register_benessere" />
         <activity android:name=".Register_coach" />
         <activity android:name=".Register_dietologo" />
+
         <service
-            android:name="com.interfacciabili.benessere.control.DatabaseService"
+            android:name=".control.DatabaseService"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true"></service>
+
         <receiver android:name=".control.AlertReceiver" />
     </application>
 

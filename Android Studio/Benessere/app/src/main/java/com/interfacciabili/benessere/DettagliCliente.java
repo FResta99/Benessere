@@ -54,7 +54,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
              * che dovrà essere visualizzato nel fragment.
              */
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                goToHomeDietologolActivity(cliente);
+                goToHomeDietologolActivity();
             }
 
             homeToolbar.setSubtitle(usernameExpert);
@@ -66,7 +66,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
             btnGestisci.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    goToGestisciActivity(cliente);
+                    goToGestisciActivity();
                 }
             });
 
@@ -106,15 +106,17 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         return super.onOptionsItemSelected(item);
     }
 
-    private void goToHomeDietologolActivity(Cliente cliente) {
+    private void goToHomeDietologolActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
         intentOut.putExtra(CLIENTE, cliente);
 
         startActivity(intentOut);
     }
 
-    // TODO: Fabio, qui dovrai implementare qualcosa.
-    private void goToGestisciActivity(Cliente cliente) {
+    private void goToGestisciActivity() {
+        Intent intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
+        intentTo.putExtra(CLIENTE, cliente);
+        startActivity(intentTo);
 
     }
 

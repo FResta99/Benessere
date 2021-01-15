@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".InserimentoAlimento"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvNomeAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome alimento"/>
+
+    <EditText
+        android:id="@+id/etNomeAlimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNomeAlimento"/>
+
+    <TextView
+        android:id="@+id/tvPorzioneAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Porzione alimento"
+        android:layout_below="@+id/etNomeAlimento"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/etPorzioneAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Inserisci una porzione"
+        android:layout_below="@+id/tvPorzioneAlimento"/>
+
+    <Spinner
+        android:id="@+id/spinnerPorzione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPorzioneAlimento"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/etPorzioneAlimento"
+        android:entries="@array/porzioni" />
+
+    <TextView
+        android:id="@+id/tvTipoPasto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo pasto"
+        android:layout_below="@+id/etPorzioneAlimento"/>
+
+    <Spinner
+        android:id="@+id/spinnerPasto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTipoPasto"
+        android:entries="@array/tipoPasto"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giorno della settimana"
+        android:layout_below="@+id/spinnerPasto"/>
+
+    <Button
+        android:id="@+id/btnAggiungiAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserisci"
+        android:onClick="aggiungiAlimento"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/btnModificaAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifica"
+        tools:visibility="visible"
+        android:onClick="modificaAlimento"
+        android:visibility="gone"
+        app:icon="@drawable/ic_baseline_create_24"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/btnEliminaAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Elimina"
+        android:onClick="eliminaAlimento"
+        tools:visibility="visible"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FF0000"
+        app:icon="@drawable/ic_baseline_delete_24"
+        android:layout_below="@+id/btnModificaAlimento"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

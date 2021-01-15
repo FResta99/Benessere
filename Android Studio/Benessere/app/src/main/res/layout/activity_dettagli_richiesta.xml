@@ -16,6 +16,8 @@
     <TextView
         android:layout_marginTop="20dp"
         android:id="@+id/tvAlimentoModifica"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -33,6 +35,30 @@
         android:layout_below="@+id/tvAlimentoModifica"
         android:layout_marginTop="20dp"
         />
+    <TextView
+        android:id="@+id/tvAlimentoPorzione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etAlimentoModifier"
+        android:text="Porzione:"/>
+
+    <EditText
+        android:id="@+id/etQuantitaAlimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Inserisci una porzione"
+        android:layout_below="@+id/tvAlimentoPorzione"
+        />
+    <Spinner
+        android:id="@+id/porzioneSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAlimentoModifier"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="32dp"
+        android:layout_toRightOf="@+id/etQuantitaAlimento"
+        android:entries="@array/porzioni" />
+
 
     <Button
         android:id="@+id/btnApprova"
@@ -42,6 +68,7 @@
         android:text="Approva richiesta"
         android:onClick="approvaRichiesta"
         />
+
 
 
 

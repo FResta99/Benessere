@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,17 +21,20 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.control.DietDBHelper;
+import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 import static java.lang.Boolean.FALSE;
 
 public class ModificaDietaDialog extends AppCompatDialogFragment {
-    String alimento;
+    Alimento alimento;
     String utente;
     String dietologo;
-    EditText etAlimentoModifica;
+    String porzioneModificaSpinner;
+    EditText etAlimentoModifica, etPorzioneModifica;
     TextView tvTestoDialog;
+    Spinner spinnerPorzioneModifica;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -57,6 +62,21 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         tvTestoDialog = view.findViewById(R.id.tvTestoDialog);
         tvTestoDialog.append(alimento + "?");
 
+        etPorzioneModifica = view.findViewById(R.id.etPorzioneModifica);
+
+        spinnerPorzioneModifica = view.findViewById(R.id.spinnerPorzioneModifca);
+        spinnerPorzioneModifica.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                porzioneModificaSpinner = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                porzioneModificaSpinner = (String) parent.getItemAtPosition(0);
+            }
+        });
+
         builder.setView(view)
                 .setTitle("Modifica alimento")
                 .setNegativeButton("Annulla", null)
@@ -76,10 +96,11 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
                 public void onClick(View v)
                 {
                     Boolean wantToCloseDialog = false;
-                    if(etAlimentoModifica.getText().toString().length()>0)
+                    if(etAlimentoModifica.getText().toString().length()>0 && etPorzioneModifica.getText().toString().length()>0)
                     {
                         String alimentoModifier = etAlimentoModifica.getText().toString();
-                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento, alimentoModifier, FALSE);
+                        String porzioneModifier = etPorzioneModifica.getText().toString();
+                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento.getId(), alimento.getNome(), alimentoModifier, porzioneModifier, porzioneModificaSpinner, FALSE);
                         databaseService.aggiungiRichestaDieta(rd);
                         wantToCloseDialog = true;
 
@@ -93,7 +114,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         }
     }
 
-    public void setAlimento(String valore){
+    public void setAlimento(Alimento valore){
         alimento = valore;
     }
 

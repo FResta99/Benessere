@@ -5,4 +5,15 @@
     <string name="button_turnstile">OPEN</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="porzioni">
+        <item>gr.</item>
+        <item>pz.</item>
+        <item>et.</item>
+    </string-array>
+    <string-array name="tipoPasto">
+        <item>Colazione</item>
+        <item>Pranzo</item>
+        <item>Cena</item>
+    </string-array>
 </resources>

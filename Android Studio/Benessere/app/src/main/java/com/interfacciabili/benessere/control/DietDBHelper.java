@@ -25,6 +25,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DIETOLOGIST_USERNAME = "DIETOLOGIST_USERNAME";
     public static final String COLUMN_DIETOLOGIST_PASSWORD = "DIETOLOGIST_PASSWORD";
 
+    /*
     public static final String DIET_TABLE = "DIET_TABLE";
     public static final String COLUMN_DIET_USERNAME = "DIET_USERNAME";
     public static final String COLUMN_DIET_BREAKFAST1 = "DIET_BREAKFAST1";
@@ -43,7 +44,8 @@ public class DietDBHelper extends SQLiteOpenHelper {
             COLUMN_DIET_DINNER1 + " TEXT, "  +
             COLUMN_DIET_DINNER2 + " TEXT, "  +
             " FOREIGN KEY ("+COLUMN_DIET_USERNAME+") REFERENCES "+CLIENT_TABLE+"("+COLUMN_USERNAME+"));";
-
+*/
+    /*
     public static final String REQUEST_DIET_TABLE = "REQUEST_DIET_TABLE";
     public static final String COLUMN_REQUEST_DIET_ID = "REQUEST_ID";
     public static final String COLUMN_REQUEST_DIET_CLIENT = "REQUEST_CLIENT";
@@ -59,6 +61,26 @@ public class DietDBHelper extends SQLiteOpenHelper {
             COLUMN_REQUEST_DIET_MODIFY + " TEXT NOT NULL, "  +
             COLUMN_REQUEST_DIET_MODIFIER + " TEXT NOT NULL, "  +
             COLUMN_REQUEST_DIET_APPROVED + " TEXT) ";
+*/
+    public static final String DIET_TABLE = "DIET_TABLE";
+    public static final String COLUMN_EDIBLE_ID = "EDIBLE_ID";
+    public static final String COLUMN_DIET_USERNAME = "DIET_USERNAME";
+    public static final String COLUMN_EDIBLE_NAME = "EDIBLE_NAME";
+    public static final String COLUMN_EDIBLE_PORTION = "EDIBLE_PORTION";
+    public static final String COLUMN_EDIBLE_PORTION_TYPE = "EDIBLE_PORTION_TYPE";
+    public static final String COLUMN_EDIBLE_TYPE = "EDIBLE_TYPE";
+    public static final String COLUMN_EDIBLE_DAY = "EDIBLE_DAY";
+
+    public static final String REQUEST_DIET_TABLE = "REQUEST_DIET_TABLE";
+    public static final String COLUMN_REQUEST_DIET_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_DIET_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_DIET_DIETOLOGIST = "REQUEST_DIETOLOGIST";
+    public static final String COLUMN_REQUEST_DIET_ID_MODIFY = "REQUEST_ID_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_DIET_PORTION = "REQUEST_PORTION";
+    public static final String COLUMN_REQUEST_DIET_PORTION_TYPE = "REQUEST_PORTION_TYPE";
+    public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
 
     public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
     public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";

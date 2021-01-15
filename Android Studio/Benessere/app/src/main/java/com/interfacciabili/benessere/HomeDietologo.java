@@ -49,7 +49,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
-    public Dietologo dietologo = new Dietologo("Ciccio Pasticcio", "password");
+    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
