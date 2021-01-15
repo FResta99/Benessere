@@ -26,8 +26,8 @@ import java.util.List;
 public class DietaCliente extends AppCompatActivity {
 
     public Cliente cliente = new Cliente("Silvio", "password");
-    ListView lvDieta;
-    ArrayAdapter dietAdapter;
+    ListView lvDietaColazione, lvDietaPranzo, lvDietaCena;
+    ArrayAdapter dietAdapterColazione, dietAdapterPranzo, dietAdapterCena;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -51,8 +51,8 @@ public class DietaCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dieta_cliente);
 
-        lvDieta = findViewById(R.id.lvDieta);
-        lvDieta.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvDietaColazione = findViewById(R.id.lvDietaColazione);
+        lvDietaColazione.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
@@ -64,6 +64,31 @@ public class DietaCliente extends AppCompatActivity {
             }
         });
 
+        lvDietaPranzo = findViewById(R.id.lvDietaPranzo);
+        lvDietaPranzo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
+                ModificaDietaDialog mdd = new ModificaDietaDialog();
+                mdd.setAlimento(alimentoCliccato);
+                mdd.setUtente(cliente.getUsername());
+                mdd.setDietologo("Dietologo1");
+                mdd.show(getSupportFragmentManager(), "Modifica");
+            }
+        });
+
+        lvDietaCena = findViewById(R.id.lvDietaCena);
+        lvDietaCena.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
+                ModificaDietaDialog mdd = new ModificaDietaDialog();
+                mdd.setAlimento(alimentoCliccato);
+                mdd.setUtente(cliente.getUsername());
+                mdd.setDietologo("Dietologo1");
+                mdd.show(getSupportFragmentManager(), "Modifica");
+            }
+        });
     }
 
     @Override
@@ -77,8 +102,12 @@ public class DietaCliente extends AppCompatActivity {
 
     private void mostraDietaCliente() {
         List<Alimento> dietaRecuperata = databaseService.recuperaDieta(cliente.getUsername());
-        dietAdapter = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
-        lvDieta.setAdapter(dietAdapter);
+        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
+        lvDietaColazione.setAdapter(dietAdapterColazione);
+        dietAdapterPranzo = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
+        lvDietaPranzo.setAdapter(dietAdapterColazione);
+        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, dietaRecuperata);
+        lvDietaColazione.setAdapter(dietAdapterColazione);
 
     }
 
