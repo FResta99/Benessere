@@ -9,27 +9,44 @@
     android:padding="20dp">
 
 
+
+    <TextView
+        android:id="@+id/tvColazione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Colazione"/>
     <ListView
         android:id="@+id/lvDietaColazione"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="20dp"
         />
-
+    <TextView
+        android:id="@+id/tvPranzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pranzo"
+        android:layout_below="@+id/lvDietaColazione"/>
     <ListView
         android:id="@+id/lvDietaPranzo"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/lvDietaColazione"
+        android:layout_below="@+id/tvPranzo"
         />
+    <TextView
+        android:id="@+id/tvCena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cena"
+        android:layout_below="@+id/lvDietaPranzo"/>
 
     <ListView
         android:id="@+id/lvDietaCena"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/lvDietaPranzo"
+        android:layout_below="@+id/tvCena"
         />
 
 

@@ -27,6 +27,7 @@ public class DietaCliente extends AppCompatActivity {
 
     public Cliente cliente = new Cliente("Silvio", "password");
     ListView lvDietaColazione, lvDietaPranzo, lvDietaCena;
+    TextView tvDietaColazione, tvDietaPranzo, tvDietaCena;
     ArrayAdapter dietAdapterColazione, dietAdapterPranzo, dietAdapterCena;
 
     public DatabaseService databaseService;
@@ -50,6 +51,10 @@ public class DietaCliente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dieta_cliente);
+
+        tvDietaColazione = findViewById(R.id.tvColazione);
+        tvDietaPranzo = findViewById(R.id.tvPranzo);
+        tvDietaCena = findViewById(R.id.tvCena);
 
         lvDietaColazione = findViewById(R.id.lvDietaColazione);
         lvDietaColazione.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,12 +122,30 @@ public class DietaCliente extends AppCompatActivity {
             }
 
         }
-        dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listColazione);
-        lvDietaColazione.setAdapter(dietAdapterColazione);
-        dietAdapterPranzo = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listPranzo);
-        lvDietaPranzo.setAdapter(dietAdapterPranzo);
-        dietAdapterCena = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listCena);
-        lvDietaCena.setAdapter(dietAdapterCena);
+        if(listColazione.isEmpty()){
+            tvDietaColazione.setText("Digiuno mattutino");
+            lvDietaColazione.setVisibility(View.GONE);
+        } else {
+            dietAdapterColazione = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listColazione);
+            lvDietaColazione.setAdapter(dietAdapterColazione);
+        }
+
+        if(listPranzo.isEmpty()){
+            tvDietaPranzo.setText("Digiuno a pranzo");
+            lvDietaPranzo.setVisibility(View.GONE);
+        } else {
+            dietAdapterPranzo = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listPranzo);
+            lvDietaPranzo.setAdapter(dietAdapterPranzo);
+        }
+
+        if (listCena.isEmpty()){
+            tvDietaCena.setText("Digiuno serale");
+            lvDietaCena.setVisibility(View.GONE);
+        } else {
+            dietAdapterCena = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, listCena);
+            lvDietaCena.setAdapter(dietAdapterCena);
+        }
+
 
     }
 
