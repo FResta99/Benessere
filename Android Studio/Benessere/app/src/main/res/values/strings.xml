@@ -16,4 +16,8 @@
         <item>Pranzo</item>
         <item>Cena</item>
     </string-array>
+    <plurals name="alimenti_dieta">
+        <item quantity="one">Un alimento nella dieta</item>
+        <item quantity="other">Ci sono %d alimenti nella dieta</item>
+    </plurals>
 </resources>

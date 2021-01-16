@@ -27,7 +27,7 @@ public class DietaCliente extends AppCompatActivity {
 
     public Cliente cliente = new Cliente("Silvio", "password");
     ListView lvDietaColazione, lvDietaPranzo, lvDietaCena;
-    TextView tvDietaColazione, tvDietaPranzo, tvDietaCena;
+    TextView tvDietaColazione, tvDietaPranzo, tvDietaCena, tvAlimentiDieta;
     ArrayAdapter dietAdapterColazione, dietAdapterPranzo, dietAdapterCena;
 
     public DatabaseService databaseService;
@@ -55,6 +55,7 @@ public class DietaCliente extends AppCompatActivity {
         tvDietaColazione = findViewById(R.id.tvColazione);
         tvDietaPranzo = findViewById(R.id.tvPranzo);
         tvDietaCena = findViewById(R.id.tvCena);
+        tvAlimentiDieta = findViewById(R.id.tvAlimentiDieta);
 
         lvDietaColazione = findViewById(R.id.lvDietaColazione);
         lvDietaColazione.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,6 +108,8 @@ public class DietaCliente extends AppCompatActivity {
 
     private void mostraDietaCliente() {
         List<Alimento> dietaRecuperata = databaseService.recuperaDieta(cliente.getUsername());
+        String alimenti = getResources().getQuantityString(R.plurals.alimenti_dieta, dietaRecuperata.size(), dietaRecuperata.size());
+        tvAlimentiDieta.setText(alimenti);
         List<Alimento> listColazione = new ArrayList<>(), listPranzo = new ArrayList<>(), listCena = new ArrayList<>();
         for (Alimento a: dietaRecuperata) {
             switch (a.getTipoPasto()){
