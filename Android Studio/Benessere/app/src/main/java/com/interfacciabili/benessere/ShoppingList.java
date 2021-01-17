@@ -11,6 +11,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.interfacciabili.benessere.adapter.ShoppingListAdapter;
@@ -43,6 +44,13 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
             mAdapter.setProductList(mList);
 
             rvShoppingList.setLayoutManager(mLayoutManager);
+
+            mAdapter.setOnItemClickListener(new ShoppingListAdapter.setOnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Toast.makeText(ShoppingList.this, "Posizione" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override

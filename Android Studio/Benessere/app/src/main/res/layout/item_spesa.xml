@@ -13,12 +13,18 @@
         android:layout_margin="4dp">
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="match_parent"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:id="@+id/mCheckbox"
-            android:layoutDirection="rtl"
+            android:paddingEnd="8dp"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Alimento 1"
-            android:paddingEnd="8dp"/>
+            android:layout_centerVertical="true"
+            android:id="@+id/tvItemSpesa"/>
 
     </RelativeLayout>
 
