@@ -85,6 +85,12 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
     public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";
 
+    public static final String PRODUCT_TABLE = "PRODUCT_TABLE";
+    public static final String COLUMN_PRODUCT_ID = "PRODUCT_ID";
+    public static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
+    public static final String COLUMN_PRODUCT_STATUS = "PRODUCT_STATUS";
+
+
     private static DietDBHelper dbIstance = null;
 
     private DietDBHelper(@Nullable Context context) {

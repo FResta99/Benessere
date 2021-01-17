@@ -13,6 +13,7 @@ import com.interfacciabili.benessere.RichiesteDietologo;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dieta;
+import com.interfacciabili.benessere.model.Prodotto;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
 import java.util.ArrayList;
@@ -546,5 +547,67 @@ public class DatabaseService extends Service {
         mDb.update(dietDB.DIET_TABLE, cv2, dietDB.COLUMN_EDIBLE_ID + "= " + richiesta.getIdAlimentoDaModificare() + " AND " + dietDB.COLUMN_DIET_USERNAME + " = \"" + richiesta.getUsernameCliente() + "\"", null);
 
         return mDb.update(dietDB.REQUEST_DIET_TABLE, cv, dietDB.COLUMN_REQUEST_DIET_ID + "= " + richiesta.getId(), null)>0;
+    }
+
+
+    //QUERY SHOPPING LIST
+    public void inserisciProdotto(Prodotto prodotto){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(dietDB.COLUMN_PRODUCT_NAME, prodotto.getNome());
+        cv.put(dietDB.COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        db.insert(dietDB.PRODUCT_TABLE, null, cv);
+    }
+
+    public void aggiornaProdotto(int id, String nome){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(dietDB.COLUMN_PRODUCT_NAME, nome);
+
+        db.update(dietDB.PRODUCT_TABLE, cv, "PRODUCT_ID=?", new String[]{String.valueOf(id)});
+    }
+
+    public void aggiornaStatus(int id, int status){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(dietDB.COLUMN_PRODUCT_STATUS, status);
+
+        db.update(dietDB.PRODUCT_TABLE, cv, "PRODUCT_ID=?", new String[]{String.valueOf(id)});
+    }
+
+    public void eliminaProdotto(int id){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        db.delete(dietDB.PRODUCT_TABLE, "PRODUCT_ID=?", new String[]{String.valueOf(id)});
+    }
+
+    public List<Prodotto> ottieniProdotti(){
+        List<Prodotto> returnList = new ArrayList<>();
+
+        String queryDieta = "SELECT * FROM " + dietDB.PRODUCT_TABLE;
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idProdotto = risultato.getInt(0);
+                String nomeProdotto = risultato.getString(1);
+                int statusProdotto = risultato.getInt(2);
+
+
+                Prodotto prodottoRestituito = new Prodotto(idProdotto, nomeProdotto, statusProdotto);
+                returnList.add(prodottoRestituito);
+            } while (risultato.moveToNext());
+        } else {
+
+        }
+
+        risultato.close();
+        db.close();
+        return returnList;
+
     }
 }

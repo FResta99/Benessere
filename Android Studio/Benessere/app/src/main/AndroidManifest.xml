@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/splashScreenTheme">
-        <activity android:name=".InserimentoAlimento"></activity>
+        <activity android:name=".ShoppingList"></activity>
+        <activity android:name=".InserimentoAlimento" />
         <activity android:name=".HomeDietologo" />
         <activity android:name=".DettagliRichiesta" />
         <activity android:name=".RichiesteDietologo" />
@@ -43,7 +44,7 @@
         <service
             android:name=".control.DatabaseService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <receiver android:name=".control.AlertReceiver" />
     </application>
