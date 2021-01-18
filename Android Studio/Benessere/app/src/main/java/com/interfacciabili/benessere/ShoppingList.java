@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.interfacciabili.benessere.adapter.ShoppingListAdapter;
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Prodotto;
 
 import java.util.Collections;
@@ -31,6 +32,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
     List<Prodotto> mList;
     FloatingActionButton fabAggiungiProdotto;
     int posizioneCliccata = -1;
+    Cliente cliente = new Cliente("Silvio", "");
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -43,7 +45,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
             rvShoppingList.setAdapter(mAdapter);
             mLayoutManager = new LinearLayoutManager(ShoppingList.this);
 
-            mList = databaseService.ottieniProdotti();
+            mList = databaseService.ottieniProdotti(cliente.getUsername());
             Collections.reverse(mList); //mostra i piu' recenti sopra
             mAdapter.setProductList(mList);
 
@@ -97,7 +99,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
 
     @Override
     public void onDialogClose(DialogInterface dialogInterface) {
-        mList = databaseService.ottieniProdotti();
+        mList = databaseService.ottieniProdotti(cliente.getUsername());
         Collections.reverse(mList); //mostra i piu' recenti sopra
         mAdapter.setProductList(mList);
         mAdapter.notifyDataSetChanged();

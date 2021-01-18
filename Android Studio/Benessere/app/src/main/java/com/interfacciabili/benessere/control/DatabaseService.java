@@ -556,6 +556,7 @@ public class DatabaseService extends Service {
         ContentValues cv = new ContentValues();
         cv.put(dietDB.COLUMN_PRODUCT_NAME, prodotto.getNome());
         cv.put(dietDB.COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv.put(dietDB.COLUMN_PRODUCT_CLIENT, prodotto.getCliente());
         db.insert(dietDB.PRODUCT_TABLE, null, cv);
     }
 
@@ -582,11 +583,10 @@ public class DatabaseService extends Service {
         db.delete(dietDB.PRODUCT_TABLE, "PRODUCT_ID=?", new String[]{String.valueOf(id)});
     }
 
-    public List<Prodotto> ottieniProdotti(){
+    public List<Prodotto> ottieniProdotti(String usernameCliente){
         List<Prodotto> returnList = new ArrayList<>();
 
-        String queryDieta = "SELECT * FROM " + dietDB.PRODUCT_TABLE;
-
+        String queryDieta = "SELECT * FROM " + dietDB.PRODUCT_TABLE + " WHERE PRODUCT_CLIENT " +" = \"" + usernameCliente + "\"";
         SQLiteDatabase db = dietDB.getReadableDatabase();
 
         Cursor risultato = db.rawQuery(queryDieta, null);
@@ -596,9 +596,9 @@ public class DatabaseService extends Service {
                 int idProdotto = risultato.getInt(0);
                 String nomeProdotto = risultato.getString(1);
                 int statusProdotto = risultato.getInt(2);
+                String clienteProdotto = risultato.getString(3);
 
-
-                Prodotto prodottoRestituito = new Prodotto(idProdotto, nomeProdotto, statusProdotto);
+                Prodotto prodottoRestituito = new Prodotto(idProdotto, nomeProdotto, statusProdotto, clienteProdotto);
                 returnList.add(prodottoRestituito);
             } while (risultato.moveToNext());
         } else {

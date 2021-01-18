@@ -5,17 +5,20 @@ public class Prodotto {
     private int id;
     private String nome;
     private int status;
+    private String cliente;
 
-    public Prodotto(int id, String nome, int status) {
+    public Prodotto(int id, String nome, int status, String cliente) {
         this.id = id;
         this.nome = nome;
         this.status = status;
+        this.cliente = cliente;
     }
 
-    public Prodotto(String nome, int status) {
+    public Prodotto(String nome, int status, String cliente) {
         this.id = -1;
         this.nome = nome;
         this.status = status;
+        this.cliente = cliente;
     }
 
     public int getId() {
@@ -40,5 +43,13 @@ public class Prodotto {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 }

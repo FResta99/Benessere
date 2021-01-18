@@ -19,12 +19,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Prodotto;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class InserisciProdottoDialog extends AppCompatDialogFragment {
     private EditText etInserisciProdotto;
+    Cliente cliente = new Cliente("Nicola", ""); //TODO PASSARE
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -60,7 +62,7 @@ public class InserisciProdottoDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseService.inserisciProdotto(new Prodotto(etInserisciProdotto.getText().toString(), 0));
+                            databaseService.inserisciProdotto(new Prodotto(etInserisciProdotto.getText().toString(), 0, cliente.getUsername()));
                             dismiss();
                         }
                     });

@@ -89,7 +89,7 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCT_ID = "PRODUCT_ID";
     public static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
     public static final String COLUMN_PRODUCT_STATUS = "PRODUCT_STATUS";
-
+    public static final String COLUMN_PRODUCT_CLIENT = "PRODUCT_CLIENT";
 
     private static DietDBHelper dbIstance = null;
 
