@@ -3,19 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="20dp">
-
-    <TextView
-        android:id="@+id/tvMessaggioModificaProdotto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Con cosa vuoi modificare " />
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/etModificaProdotto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvMessaggioModificaProdotto"
         android:hint="Inserisci nuovo prodotto"/>
 
 </RelativeLayout>

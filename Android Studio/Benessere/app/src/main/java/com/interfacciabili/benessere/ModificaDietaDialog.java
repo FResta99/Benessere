@@ -33,7 +33,6 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     String dietologo;
     String porzioneModificaSpinner;
     EditText etAlimentoModifica, etPorzioneModifica;
-    TextView tvTestoDialog;
     Spinner spinnerPorzioneModifica;
 
     public DatabaseService databaseService;
@@ -59,8 +58,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_modificadieta, null);
         etAlimentoModifica = view.findViewById(R.id.etAlimentoModifica);
-        tvTestoDialog = view.findViewById(R.id.tvTestoDialog);
-        tvTestoDialog.append(alimento + "?");
+
 
         etPorzioneModifica = view.findViewById(R.id.etPorzioneModifica);
 
@@ -79,6 +77,7 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Modifica alimento")
+                .setMessage("Con cosa vuoi modificare " + alimento + "?")
                 .setNegativeButton("Annulla", null)
                 .setPositiveButton("Inserisci", null);
         return builder.create();
@@ -105,7 +104,12 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
                         wantToCloseDialog = true;
 
                     }else {
-                        etAlimentoModifica.setError("Inserisci alimento");
+                        if(etAlimentoModifica.getText().toString().length()==0){
+                            etAlimentoModifica.setError("Inserisci alimento");
+                        }
+                        if(etPorzioneModifica.getText().toString().length()==0){
+                            etPorzioneModifica.setError("Inserisci porzione");
+                        }
                     }
                     if(wantToCloseDialog)
                         dialog.dismiss();
@@ -138,7 +142,9 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unbindService(serviceConnection);
+        if(serviceConnection!= null){
+            getActivity().unbindService(serviceConnection);
+        }
     }
 
 }

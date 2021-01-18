@@ -17,6 +17,7 @@ import com.interfacciabili.benessere.ModificaProdottoDialog;
 import com.interfacciabili.benessere.R;
 import com.interfacciabili.benessere.ShoppingList;
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Prodotto;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     private DatabaseService mDatabaseService;
     private setOnItemClickListener mListener;
     private ShoppingList mActivity;
+
 
     public interface setOnItemClickListener{
         void onItemClick(int position);
@@ -104,8 +106,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         Prodotto item = mProductList.get(position);
 
         Bundle bundle = new Bundle();
-        bundle.putInt("id", item.getId());
-        bundle.putString("task", item.getNome());
+        bundle.putInt("ID", item.getId());
+        bundle.putString("NOME", item.getNome());
 
         EliminaProdottoDialog epd = new EliminaProdottoDialog();
         epd.setArguments(bundle);
@@ -119,8 +121,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         Prodotto item = mProductList.get(position);
 
         Bundle bundle = new Bundle();
-        bundle.putInt("id", item.getId());
-        bundle.putString("task", item.getNome());
+        bundle.putInt("ID", item.getId());
+        bundle.putString("NOME", item.getNome());
 
         ModificaProdottoDialog mpd = new ModificaProdottoDialog();
         mpd.setArguments(bundle);

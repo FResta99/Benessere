@@ -23,8 +23,9 @@ import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaProdottoDialog extends AppCompatDialogFragment {
 
-    private TextView tvMessaggioElimina;
-    int task;
+    private int idProdotto;
+    private String nomeProdotto;
+
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -43,20 +44,17 @@ public class EliminaProdottoDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_elimina_prodotto, null);
+        View view = inflater.inflate(R.layout.dialog_solo_bottoni, null);
 
-        tvMessaggioElimina = view.findViewById(R.id.tvMessaggioEliminaProdotto);
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            task = bundle.getInt("id");
-
+        Bundle prodottoBundle = getArguments();
+        if (prodottoBundle!=null){
+            idProdotto = prodottoBundle.getInt("ID");
+            nomeProdotto = prodottoBundle.getString("NOME");
         }
         builder.setView(view)
-                .setTitle("Modifica prodotto")
+                .setTitle("Elimina prodotto")
+                .setMessage("Vuoi davvero eliminare " + nomeProdotto + "?")
                 .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -66,7 +64,7 @@ public class EliminaProdottoDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        databaseService.eliminaProdotto(task);
+                        databaseService.eliminaProdotto(idProdotto);
                         dismiss();
                     }
                 });
@@ -101,6 +99,14 @@ public class EliminaProdottoDialog extends AppCompatDialogFragment {
         Activity activity = getActivity();
         if (activity instanceof InserisciProdottoDialog.OnDialogCloseListener){
             ((EliminaProdottoDialog.OnDialogCloseListener)activity).onDialogClose(dialog);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(serviceConnection!= null){
+            getActivity().unbindService(serviceConnection);
         }
     }
 }

@@ -29,10 +29,10 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
     private RecyclerView rvShoppingList;
     private ShoppingListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    List<Prodotto> mList;
-    FloatingActionButton fabAggiungiProdotto;
-    int posizioneCliccata = -1;
-    Cliente cliente = new Cliente("Silvio", "");
+    private List<Prodotto> mList;
+    private FloatingActionButton fabAggiungiProdotto;
+    private int posizioneCliccata = -1;
+    private Cliente cliente = new Cliente("Silvio", ""); // TODO Passare cliente tramite intent
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -54,7 +54,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
             mAdapter.setOnItemClickListener(new ShoppingListAdapter.setOnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    Toast.makeText(ShoppingList.this, "Posizione" + position, Toast.LENGTH_SHORT).show();
+
                     posizioneCliccata = position;
                     View v = mLayoutManager.findViewByPosition(position);
                     PopupMenu popupMenu = new PopupMenu(ShoppingList.this, v);
@@ -94,6 +94,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
 
     public void aggiungiProdotto(View view) {
         InserisciProdottoDialog ipd = new InserisciProdottoDialog();
+        ipd.setCliente(cliente.getUsername());
         ipd.show(getSupportFragmentManager(), "Aggiungi prodotto");
     }
 

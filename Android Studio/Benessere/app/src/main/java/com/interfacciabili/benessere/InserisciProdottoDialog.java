@@ -26,7 +26,7 @@ import static android.content.Context.BIND_AUTO_CREATE;
 
 public class InserisciProdottoDialog extends AppCompatDialogFragment {
     private EditText etInserisciProdotto;
-    Cliente cliente = new Cliente("Nicola", ""); //TODO PASSARE
+    private String usernameCliente;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -53,6 +53,7 @@ public class InserisciProdottoDialog extends AppCompatDialogFragment {
 
             builder.setView(view)
                     .setTitle("Inserisci prodotto")
+                    .setMessage("Scrivi il prodotto da inserire")
                     .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -62,7 +63,13 @@ public class InserisciProdottoDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseService.inserisciProdotto(new Prodotto(etInserisciProdotto.getText().toString(), 0, cliente.getUsername()));
+                            if(etInserisciProdotto.getText().toString().length()>0){
+                                String prodottoInserito = etInserisciProdotto.getText().toString();
+                                databaseService.inserisciProdotto(new Prodotto(prodottoInserito, 0, usernameCliente));
+                            } else {
+                                etInserisciProdotto.setError("Inserisci prodotto");
+                            }
+
                             dismiss();
                         }
                     });
@@ -91,4 +98,17 @@ public class InserisciProdottoDialog extends AppCompatDialogFragment {
             ((OnDialogCloseListener)activity).onDialogClose(dialog);
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(serviceConnection!= null){
+            getActivity().unbindService(serviceConnection);
+        }
+    }
+
+    public void setCliente (String cliente){
+        this.usernameCliente = cliente;
+    }
+
 }

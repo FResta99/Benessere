@@ -4,10 +4,4 @@
     android:background="@color/white"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvMessaggioEliminaProdotto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vuoi davvero eliminare "/>
-
 </RelativeLayout>

@@ -24,8 +24,8 @@ import static android.content.Context.BIND_AUTO_CREATE;
 public class InserisciClienteDialog extends AppCompatDialogFragment {
     private static final String TAG_LOG = "InserisciClienteDialog";
 
-    TextView tvMessaggioInserisciCliente;
-    String usernameCliente, usernameExpert;
+
+    private String usernameCliente, usernameExpert;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -44,16 +44,13 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_inserisci_cliente, null);
-
-        tvMessaggioInserisciCliente = view.findViewById(R.id.tvMessaggioInserisciCliente);
-        tvMessaggioInserisciCliente.append(usernameCliente +  "?");
+        View view = inflater.inflate(R.layout.dialog_solo_bottoni, null);
 
         if (usernameExpert != null) {
             builder.setView(view)
                     .setTitle("Inserisci cliente")
+                    .setMessage("Vuoi aggiungere " + usernameCliente + "?")
                     .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -81,6 +78,14 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
 
         Intent intentDatabaseService = new Intent(getActivity(), DatabaseService.class);
         getActivity().bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(serviceConnection!= null){
+            getActivity().unbindService(serviceConnection);
+        }
     }
 
     public void setUsernameCliente(String username){

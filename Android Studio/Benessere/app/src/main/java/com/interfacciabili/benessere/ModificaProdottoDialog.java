@@ -24,6 +24,8 @@ import static android.content.Context.BIND_AUTO_CREATE;
 
 public class ModificaProdottoDialog extends AppCompatDialogFragment {
     private EditText etModificaProdotto;
+    private String prodottoVecchioNome = "";
+    private int prodottoVecchioId;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -42,20 +44,20 @@ public class ModificaProdottoDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_modifica_prodotto, null);
 
         etModificaProdotto = view.findViewById(R.id.etModificaProdotto);
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            String task = bundle.getString("task");
-            etModificaProdotto.setText(task);
+
+        Bundle prodottoBundle = getArguments();
+        if (prodottoBundle!=null){
+            prodottoVecchioId = prodottoBundle.getInt("ID");
+            prodottoVecchioNome = prodottoBundle.getString("NOME");
         }
+
         builder.setView(view)
                 .setTitle("Modifica prodotto")
+                .setMessage("Con cosa vuoi modificare " + prodottoVecchioNome + "?")
                 .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -65,8 +67,12 @@ public class ModificaProdottoDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Modifica", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO Implementare
-                        databaseService.aggiornaProdotto(bundle.getInt("id"), etModificaProdotto.getText().toString());
+                        if(etModificaProdotto.getText().toString().length()>0){
+                            String prodottoModificato = etModificaProdotto.getText().toString();
+                            databaseService.aggiornaProdotto(prodottoVecchioId, prodottoModificato);
+                        } else {
+                            etModificaProdotto.setError("Inserisci prodotto");
+                        }
                         dismiss();
                     }
                 });
@@ -104,4 +110,11 @@ public class ModificaProdottoDialog extends AppCompatDialogFragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(serviceConnection!= null){
+            getActivity().unbindService(serviceConnection);
+        }
+    }
 }
