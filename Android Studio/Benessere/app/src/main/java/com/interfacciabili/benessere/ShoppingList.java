@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,12 +23,14 @@ import com.interfacciabili.benessere.model.Prodotto;
 import java.util.Collections;
 import java.util.List;
 
-public class ShoppingList extends AppCompatActivity implements InserisciProdottoDialog.OnDialogCloseListener {
+public class ShoppingList extends AppCompatActivity implements InserisciProdottoDialog.OnDialogCloseListener, PopupMenu.OnMenuItemClickListener,
+        ModificaProdottoDialog.OnDialogCloseListener, EliminaProdottoDialog.OnDialogCloseListener {
     private RecyclerView rvShoppingList;
     private ShoppingListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     List<Prodotto> mList;
     FloatingActionButton fabAggiungiProdotto;
+    int posizioneCliccata = -1;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -35,7 +39,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
 
-            mAdapter = new ShoppingListAdapter(databaseService);
+            mAdapter = new ShoppingListAdapter(databaseService, ShoppingList.this);
             rvShoppingList.setAdapter(mAdapter);
             mLayoutManager = new LinearLayoutManager(ShoppingList.this);
 
@@ -49,6 +53,12 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
                 @Override
                 public void onItemClick(int position) {
                     Toast.makeText(ShoppingList.this, "Posizione" + position, Toast.LENGTH_SHORT).show();
+                    posizioneCliccata = position;
+                    View v = mLayoutManager.findViewByPosition(position);
+                    PopupMenu popupMenu = new PopupMenu(ShoppingList.this, v);
+                    popupMenu.setOnMenuItemClickListener(ShoppingList.this);
+                    popupMenu.inflate(R.menu.menu_popup);
+                    popupMenu.show();
                 }
             });
         }
@@ -91,5 +101,20 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
         Collections.reverse(mList); //mostra i piu' recenti sopra
         mAdapter.setProductList(mList);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.pmModifica:
+                mAdapter.aggiornaProdotto(posizioneCliccata);
+                return true;
+            case R.id.pmCancella:
+                mAdapter.cancellaProdotto(posizioneCliccata);
+                return true;
+            default:
+                return false;
+        }
+
     }
 }

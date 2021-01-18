@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvMessaggioModificaProdotto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Con cosa vuoi modificare " />
+
+    <EditText
+        android:id="@+id/etModificaProdotto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvMessaggioModificaProdotto"
+        android:hint="Inserisci nuovo prodotto"/>
+
+</RelativeLayout>

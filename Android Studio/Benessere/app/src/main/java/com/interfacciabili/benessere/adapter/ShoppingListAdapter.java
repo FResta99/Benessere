@@ -12,7 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.interfacciabili.benessere.EliminaProdottoDialog;
+import com.interfacciabili.benessere.ModificaProdottoDialog;
 import com.interfacciabili.benessere.R;
+import com.interfacciabili.benessere.ShoppingList;
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Prodotto;
 
@@ -23,6 +26,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     private List<Prodotto> mProductList;
     private DatabaseService mDatabaseService;
     private setOnItemClickListener mListener;
+    private ShoppingList mActivity;
 
     public interface setOnItemClickListener{
         void onItemClick(int position);
@@ -56,8 +60,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         }
     }
 
-    public ShoppingListAdapter(DatabaseService databaseService){
+    public ShoppingListAdapter(DatabaseService databaseService, ShoppingList activity){
         mDatabaseService = databaseService;
+        mActivity = activity;
     }
 
     @NonNull
@@ -97,22 +102,30 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     public void cancellaProdotto(int position){
         Prodotto item = mProductList.get(position);
-        mDatabaseService.eliminaProdotto(item.getId());
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", item.getId());
+        bundle.putString("task", item.getNome());
+
+        EliminaProdottoDialog epd = new EliminaProdottoDialog();
+        epd.setArguments(bundle);
+        epd.show(mActivity.getSupportFragmentManager(), "ELIMINA_PRODOTTO");
+
         mProductList.remove(position);
         notifyItemRemoved(position);
     }
 
     public void aggiornaProdotto(int position){
         Prodotto item = mProductList.get(position);
-/*
+
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
-        bundle.putString("task", item.getTask());
+        bundle.putString("task", item.getNome());
 
-        AddNewTask task = new AddNewTask();
-        task.setArguments(bundle);
-        task.show(mActivity.getSupportFragmentManager(), task.getTag());
+        ModificaProdottoDialog mpd = new ModificaProdottoDialog();
+        mpd.setArguments(bundle);
+        mpd.show(mActivity.getSupportFragmentManager(), "MODIFICA_PRODOTTO");
 
- */
+
     }
 }
