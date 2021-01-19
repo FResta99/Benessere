@@ -3,6 +3,7 @@ package com.interfacciabili.benessere;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
@@ -20,18 +21,22 @@ import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dieta;
+import com.interfacciabili.benessere.model.RichiestaDieta;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InserimentoDieta extends AppCompatActivity {
-    Cliente cliente;
-    Alimento alimentoCliccato;
-    ListView lvDietaDietologo;
-    FloatingActionButton facAggiungiAlimento;
-    ArrayAdapter dietAdapter;
+    private Cliente cliente;
+    private Alimento alimentoCliccato;
+    private ListView lvDietaDietologo;
+    private ArrayAdapter dietAdapter;
     private static final String CLIENTE = "CLIENTE";
     public static final String ALIMENTO = "ALIMENTO";
-    //TODO Inserire la modifica di un alimento
+    private taskMostraAlimento mTask;
+
+
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -39,8 +44,8 @@ public class InserimentoDieta extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
-
-            recuperaDietaCliente();
+            mTask = new taskMostraAlimento(InserimentoDieta.this);
+            mTask.execute(cliente.getUsername());
         }
 
         @Override
@@ -90,24 +95,69 @@ public class InserimentoDieta extends AppCompatActivity {
         super.onStart();
         Intent intentDatabaseService = new Intent(this, DatabaseService.class);
         bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
+
+        if(databaseService!=null){
+            mTask = new taskMostraAlimento(InserimentoDieta.this);
+            mTask.execute(cliente.getUsername());
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if(databaseService!=null){
-            recuperaDietaCliente();
+            mTask = new taskMostraAlimento(InserimentoDieta.this);
+            mTask.execute(cliente.getUsername());
         }
     }
-
-    private void recuperaDietaCliente() {
-        dietAdapter = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, databaseService.recuperaDieta(cliente.getUsername()));
-        lvDietaDietologo.setAdapter(dietAdapter);
-    }
-
+    /*
+        private void recuperaDietaCliente() {
+            dietAdapter = new ArrayAdapter<Alimento>(this, android.R.layout.simple_list_item_1, databaseService.recuperaDieta(cliente.getUsername()));
+            lvDietaDietologo.setAdapter(dietAdapter);
+        }
+    */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+        if(mTask != null ){mTask.cancel(true);}
+    }
+
+    public class taskMostraAlimento extends AsyncTask<String,Void, List<Alimento>> {
+
+        private WeakReference<InserimentoDieta> weakReference;
+        taskMostraAlimento(InserimentoDieta activity) {
+            weakReference = new WeakReference<InserimentoDieta>(activity);
+        }
+
+        protected List<Alimento> doInBackground(String... params) {
+            List<Alimento> richieste = new ArrayList<>();
+
+
+            InserimentoDieta activity = weakReference.get();
+
+            if (activity == null || activity.isFinishing()) {
+                return richieste;
+            }
+
+            richieste = activity.databaseService.recuperaDieta(params[0]);
+
+            return richieste;
+
+        }
+        // Inserisci i dati nell'adapter appena il thread termina
+        protected void onPostExecute(List<Alimento> result) {
+
+            InserimentoDieta activity = weakReference.get();
+            if (activity == null || activity.isFinishing()) {
+                return;
+            }
+
+            activity.dietAdapter = new ArrayAdapter<Alimento>(InserimentoDieta.this,
+                    android.R.layout.simple_list_item_1,
+                    result);
+            activity.lvDietaDietologo.setAdapter(dietAdapter);
+            activity.dietAdapter.notifyDataSetChanged();
+        }
     }
 }

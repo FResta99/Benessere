@@ -119,7 +119,7 @@ public class Alimento implements Parcelable {
 
     @Override
     public String toString() {
-        return nome + ", " + porzione + tipoPorzione;
+        return nome + ", " + porzione + tipoPorzione + " " +  giorno;
     }
 
 

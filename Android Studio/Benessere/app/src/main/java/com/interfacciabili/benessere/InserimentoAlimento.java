@@ -21,13 +21,15 @@ import com.interfacciabili.benessere.model.Cliente;
 public class InserimentoAlimento extends AppCompatActivity {
 
     EditText etNomeAliemento, etPorzioneAlimento;
-    Spinner spinnerPorzione, spinnerPasto;
+    Spinner spinnerPorzione, spinnerPasto, spinneGiorno;
     Button btnAggiungiAlimento, btnModificaAlimento, btnEliminaAlimento;
     String nomeAlimento, porzioneAlimento, porzioneAlimentoSpinner, tipoPasto;
     Cliente cliente;
     Alimento alimento;
     private static final String CLIENTE = "CLIENTE";
     public static final String ALIMENTO = "ALIMENTO";
+
+    String giornoPasto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -95,25 +97,39 @@ public class InserimentoAlimento extends AppCompatActivity {
                 porzioneAlimentoSpinner = (String) parent.getItemAtPosition(0);
             }
         });
+
+        spinneGiorno = findViewById(R.id.spinnerGiorno);
+        spinneGiorno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                giornoPasto = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                giornoPasto = (String) parent.getItemAtPosition(0);
+            }
+        });
         setAlimento();
     }
 
     public void aggiungiAlimento(View view) {
         nomeAlimento = etNomeAliemento.getText().toString();
         porzioneAlimento = etPorzioneAlimento.getText().toString();
-        Alimento alimentoDaInserire = new Alimento(nomeAlimento, porzioneAlimento, porzioneAlimentoSpinner, tipoPasto, null);
+        Alimento alimentoDaInserire = new Alimento(nomeAlimento, porzioneAlimento, porzioneAlimentoSpinner, tipoPasto, String.valueOf(giornoPasto));
         boolean risultato = databaseService.aggiungiAlimentoADieta(cliente, alimentoDaInserire);
         Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    //TODO Aggiustare la selezione della porzione
     public void setAlimento(){
         if(alimento!=null){
             etNomeAliemento.setText(alimento.getNome());
             etPorzioneAlimento.setText(alimento.getPorzione());
             spinnerPorzione.setSelection(getIndex(spinnerPorzione, alimento.getTipoPorzione()));
             spinnerPasto.setSelection(getIndex(spinnerPasto, alimento.getTipoPasto()));
+            spinneGiorno.setSelection(getIndex(spinneGiorno, alimento.getGiorno()));
+            //spinneGiorno.setSelection(Integer.parseInt(alimento.getGiorno()));
         }
     }
 
@@ -147,7 +163,7 @@ public class InserimentoAlimento extends AppCompatActivity {
     public void modificaAlimento(View view) {
         nomeAlimento = etNomeAliemento.getText().toString();
         porzioneAlimento = etPorzioneAlimento.getText().toString();
-        boolean risultato = databaseService.modificaAlimentoDieta(alimento, nomeAlimento, Integer.parseInt(porzioneAlimento), porzioneAlimentoSpinner, tipoPasto);
+        boolean risultato = databaseService.modificaAlimentoDieta(alimento, nomeAlimento, Integer.parseInt(porzioneAlimento), porzioneAlimentoSpinner, tipoPasto, String.valueOf(giornoPasto));
         Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }

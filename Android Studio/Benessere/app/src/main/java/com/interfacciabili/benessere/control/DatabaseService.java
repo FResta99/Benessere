@@ -141,7 +141,7 @@ public class DatabaseService extends Service {
         cv.put(dietDB.COLUMN_EDIBLE_PORTION, alimento.getPorzione());
         cv.put(dietDB.COLUMN_EDIBLE_PORTION_TYPE, alimento.getTipoPorzione());
         cv.put(dietDB.COLUMN_EDIBLE_TYPE, alimento.getTipoPasto());
-
+        cv.put(dietDB.COLUMN_EDIBLE_DAY, alimento.getGiorno());
 
         long insert = db.insert(dietDB.DIET_TABLE, null, cv);
         if(insert == -1){
@@ -225,6 +225,31 @@ public class DatabaseService extends Service {
         risultato.close();
         db.close();
         return returnList;
+    }
+
+    public String recuperaDietologoDiCliente(String usernameCliente){
+        String dietologoRestituito;
+
+        // query per ottenere tutti i clienti
+
+        String queryClienti = "SELECT DIETOLOGIST_USERNAME FROM " + dietDB.CLIENT_DIETOLOGIST_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            dietologoRestituito = risultato.getString(1);
+        } else {
+            dietologoRestituito = "";
+        }
+
+        risultato.close();
+        db.close();
+        return dietologoRestituito;
     }
 
     public List<Cliente> recuperaClientiSenzaDietologo(String usernameCercato){
@@ -392,8 +417,8 @@ public class DatabaseService extends Service {
                 String porzioneAlimento = risultato.getString(3);
                 String tipoPorzione = risultato.getString(4);
                 String tipoAlimento = risultato.getString(5);
-
-                Alimento alimentoRestituito = new Alimento(idAlimento, nomeAlimento, porzioneAlimento, tipoPorzione, tipoAlimento, null);
+                String giornoAlimeno = risultato.getString(6);
+                Alimento alimentoRestituito = new Alimento(idAlimento, nomeAlimento, porzioneAlimento, tipoPorzione, tipoAlimento, giornoAlimeno);
                 returnList.add(alimentoRestituito);
             } while (risultato.moveToNext());
         } else {
@@ -453,13 +478,14 @@ public class DatabaseService extends Service {
     }
 */
 
-    public boolean modificaAlimentoDieta(Alimento alimento, String nome, int porzione, String tipoPorzione, String tipoPasto){
+    public boolean modificaAlimentoDieta(Alimento alimento, String nome, int porzione, String tipoPorzione, String tipoPasto, String giornoPasto){
         SQLiteDatabase mDb= dietDB.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(dietDB.COLUMN_EDIBLE_NAME, nome);
         cv.put(dietDB.COLUMN_EDIBLE_PORTION, porzione);
         cv.put(dietDB.COLUMN_EDIBLE_PORTION_TYPE, tipoPorzione);
         cv.put(dietDB.COLUMN_EDIBLE_TYPE, tipoPasto);
+        cv.put(dietDB.COLUMN_EDIBLE_DAY, giornoPasto);
         return mDb.update(dietDB.DIET_TABLE, cv, dietDB.COLUMN_EDIBLE_ID + "= \"" + alimento.getId() + "\"", null)>0;
     }
 

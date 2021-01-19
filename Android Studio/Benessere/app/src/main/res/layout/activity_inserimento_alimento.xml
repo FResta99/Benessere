@@ -60,10 +60,19 @@
         android:entries="@array/tipoPasto"/>
 
     <TextView
+        android:id="@+id/tvGiornoSettimana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Giorno della settimana"
         android:layout_below="@+id/spinnerPasto"/>
+
+    <Spinner
+        android:id="@+id/spinnerGiorno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvGiornoSettimana"
+        android:entries="@array/settimana"/>
+
 
     <Button
         android:id="@+id/btnAggiungiAlimento"

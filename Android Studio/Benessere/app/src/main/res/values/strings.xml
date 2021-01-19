@@ -16,6 +16,35 @@
         <item>Pranzo</item>
         <item>Cena</item>
     </string-array>
+
+    <string name="week_mon">LUN</string>
+    <string name="week_tue">MAR</string>
+    <string name="week_wed">MER</string>
+    <string name="week_thu">GIO</string>
+    <string name="week_fri">VEN</string>
+    <string name="week_sat">SAB</string>
+    <string name="week_sun">DOM</string>
+
+    <string-array name="week">
+        <item>@string/week_mon</item>
+        <item>@string/week_tue</item>
+        <item>@string/week_wed</item>
+        <item>@string/week_thu</item>
+        <item>@string/week_fri</item>
+        <item>@string/week_sat</item>
+        <item>@string/week_sun</item>
+    </string-array>
+
+    <string-array name="settimana">
+        <item>LUN</item>
+        <item>MAR</item>
+        <item>MER</item>
+        <item>GIO</item>
+        <item>VEN</item>
+        <item>SAB</item>
+        <item>DOM</item>
+    </string-array>
+
     <plurals name="alimenti_dieta">
         <item quantity="one">Un alimento nella dieta</item>
         <item quantity="other">Ci sono %d alimenti nella dieta</item>
