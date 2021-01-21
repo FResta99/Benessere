@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".DietaClienteFragment"
+    android:padding="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAlimentiDieta"/>
+            <TextView
+                android:id="@+id/tvColazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Colazione"
+                android:layout_below="@+id/tvAlimentiDieta"/>
+            <ListView
+                android:id="@+id/lvDietaColazione"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/tvColazione"
+                />
+            <TextView
+                android:id="@+id/tvPranzo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pranzo"
+                android:layout_below="@+id/lvDietaColazione"/>
+            <ListView
+                android:id="@+id/lvDietaPranzo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/tvPranzo"
+                />
+            <TextView
+                android:id="@+id/tvCena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cena"
+                android:layout_below="@+id/lvDietaPranzo"/>
+
+            <ListView
+                android:id="@+id/lvDietaCena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/tvCena"
+                />
+
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

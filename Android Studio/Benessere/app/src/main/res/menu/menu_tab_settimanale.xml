@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menutab_week_mon"
+        android:title="@string/week_mon"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_tue"
+        android:title="@string/week_tue"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_wed"
+        android:title="@string/week_wed"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_thu"
+        android:title="@string/week_thu"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_fri"
+        android:title="@string/week_fri"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_sat"
+        android:title="@string/week_sat"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/menutab_week_sun"
+        android:title="@string/week_sun"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+</menu>
