@@ -1,21 +1,12 @@
 package com.interfacciabili.benessere.control;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.interfacciabili.benessere.model.Cliente;
-import com.interfacciabili.benessere.model.Dieta;
-import com.interfacciabili.benessere.model.RichiestaDieta;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class DietDBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String COLUMN_USERNAME = "CLIENT_USERNAME";
@@ -91,15 +82,21 @@ public class DietDBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCT_STATUS = "PRODUCT_STATUS";
     public static final String COLUMN_PRODUCT_CLIENT = "PRODUCT_CLIENT";
 
-    private static DietDBHelper dbIstance = null;
+    public static final String EQUIP_TABLE = "EQUIP_TABLE";
+    public static final String COLUMN_EQUIP_NAME = "EQUIP_NAME";
+    public static final String COLUMN_EQUIP_DESCRIPTION = "EQUIP_DESCRIPTION";
 
-    private DietDBHelper(@Nullable Context context) {
+    String createEquipmentsTableStatement = "CREATE TABLE " + EQUIP_TABLE + " (" + COLUMN_EQUIP_NAME + " TEXT PRIMARY KEY, " + COLUMN_EQUIP_DESCRIPTION + " TEXT)";
+
+    private static DBHelper dbIstance = null;
+
+    private DBHelper(@Nullable Context context) {
         super(context, "benessere.db", null, 4);
     }
 
-    public static synchronized DietDBHelper getDbIstance(@Nullable Context context) {
+    public static synchronized DBHelper getDbIstance(@Nullable Context context) {
         if (dbIstance == null) {
-            dbIstance = new DietDBHelper(context);
+            dbIstance = new DBHelper(context);
         }
         return dbIstance;
     }

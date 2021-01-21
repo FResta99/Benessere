@@ -32,7 +32,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dettagli_cliente);
 
-        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
 
         ActionBar mainActionbar = getSupportActionBar();

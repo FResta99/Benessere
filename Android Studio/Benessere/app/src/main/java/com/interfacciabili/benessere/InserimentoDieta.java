@@ -9,19 +9,13 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Cliente;
-import com.interfacciabili.benessere.model.Dieta;
-import com.interfacciabili.benessere.model.RichiestaDieta;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

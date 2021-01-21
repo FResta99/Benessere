@@ -73,7 +73,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
         setContentView(R.layout.activity_home_dietologo);
 
-        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
         homeToolbar.setSubtitle(dietologo.getUsername());
 

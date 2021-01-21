@@ -52,7 +52,7 @@ public class RicercaCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiungi_cliente);
 
-        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_home);
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
 
         ActionBar mainActionbar = getSupportActionBar();

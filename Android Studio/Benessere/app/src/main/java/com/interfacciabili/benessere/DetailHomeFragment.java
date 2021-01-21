@@ -61,7 +61,7 @@ public class DetailHomeFragment extends Fragment {
         View rootView = inflater.inflate(layoutID, container, false);
 
         if ((layoutID == R.layout.dettagli_cliente) && (cliente != null)) {
-            Toolbar action = (Toolbar) rootView.findViewById(R.id.toolbar_home);
+            Toolbar action = (Toolbar) rootView.findViewById(R.id.toolbar_main);
             action.setVisibility(View.GONE);
 
             TextView tvUsername = rootView.findViewById(R.id.tvDettaglioUsernameCliente);

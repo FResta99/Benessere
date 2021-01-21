@@ -9,21 +9,20 @@ import android.os.IBinder;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.interfacciabili.benessere.RichiesteDietologo;
 import com.interfacciabili.benessere.model.Alimento;
+import com.interfacciabili.benessere.model.Attrezzo;
 import com.interfacciabili.benessere.model.Cliente;
-import com.interfacciabili.benessere.model.Dieta;
 import com.interfacciabili.benessere.model.Prodotto;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.interfacciabili.benessere.control.DietDBHelper.getDbIstance;
+import static com.interfacciabili.benessere.control.DBHelper.getDbIstance;
 
 public class DatabaseService extends Service {
 
-    private DietDBHelper dietDB;
+    private DBHelper dietDB;
     public IBinder binder = new LocalBinder();
 
 
@@ -429,6 +428,36 @@ public class DatabaseService extends Service {
         db.close();
         return returnList;
     }
+
+    public List<Alimento> recuperaDietaGiorno(String username, String giorno){
+        List<Alimento> returnList = new ArrayList<>();
+
+        String queryDieta = "SELECT * FROM " + dietDB.DIET_TABLE + " WHERE " + dietDB.COLUMN_DIET_USERNAME + " = \"" + username + "\" AND " + dietDB.COLUMN_EDIBLE_DAY  + "=\'" + giorno + "\'";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idAlimento = risultato.getInt(0);
+                String nomeAlimento = risultato.getString(2);
+                String porzioneAlimento = risultato.getString(3);
+                String tipoPorzione = risultato.getString(4);
+                String tipoAlimento = risultato.getString(5);
+
+                Alimento alimentoRestituito = new Alimento(idAlimento, nomeAlimento, porzioneAlimento, tipoPorzione, tipoAlimento, "");
+                returnList.add(alimentoRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return returnList;
+    }
+
     /*
     public List<RichiestaDieta> recuperaRichiesteDieta(String username){
         List<RichiestaDieta> returnList = new ArrayList<>();
@@ -635,5 +664,29 @@ public class DatabaseService extends Service {
         db.close();
         return returnList;
 
+    }
+
+    public List<Attrezzo> recuperaAttrezzi(){
+        List<Attrezzo> returnList = new ArrayList<>();
+
+        String queryAttrezzi = "SELECT * FROM " + dietDB.EQUIP_TABLE + ";";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+        Cursor risultato = db.rawQuery(queryAttrezzi, null);
+
+        if (risultato.moveToFirst()) {
+            do {
+                String nome = risultato.getString(0);
+                String descrizione = risultato.getString(1);
+
+                Attrezzo attrezzoRestituito = new Attrezzo(nome, descrizione);
+                returnList.add(attrezzoRestituito);
+            } while (risultato.moveToNext());
+        }
+
+        risultato.close();
+        db.close();
+
+        return returnList;
     }
 }

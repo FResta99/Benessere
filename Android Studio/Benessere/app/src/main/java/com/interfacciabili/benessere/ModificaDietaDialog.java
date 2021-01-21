@@ -3,7 +3,6 @@ package com.interfacciabili.benessere;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -13,14 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 

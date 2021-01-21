@@ -7,17 +7,13 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
 public class DettagliRichiesta extends AppCompatActivity {
