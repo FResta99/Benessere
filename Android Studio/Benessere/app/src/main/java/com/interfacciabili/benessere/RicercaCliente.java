@@ -47,6 +47,7 @@ public class RicercaCliente extends AppCompatActivity {
 
     private String usernameExpert;
 
+    //TODO Differenziare tra coach e dietologo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

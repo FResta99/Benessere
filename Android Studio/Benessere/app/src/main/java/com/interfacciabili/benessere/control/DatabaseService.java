@@ -12,6 +12,7 @@ import android.util.Log;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Attrezzo;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Esercizio;
 import com.interfacciabili.benessere.model.Prodotto;
 import com.interfacciabili.benessere.model.RichiestaDieta;
 
@@ -347,7 +348,7 @@ public class DatabaseService extends Service {
             return returnList;
         }
     */
-    public boolean eliminaCliente(String usernameCliente){
+    public boolean eliminaClienteDaDietologo(String usernameCliente){
         // se trova il cliente lo cancella e ritorna true
         // altrimenti se non lo trova ritorna false
 
@@ -687,6 +688,186 @@ public class DatabaseService extends Service {
         risultato.close();
         db.close();
 
+        return returnList;
+    }
+
+    public boolean aggiungiEsercizioASchedaAllenamento(Cliente cliente, Esercizio esercizio){
+
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(dietDB.COLUMN_EXERCISE_USERNAME, cliente.getUsername());
+        cv.put(dietDB.COLUMN_EXERCISE_NAME, esercizio.getNome());
+        cv.put(dietDB.COLUMN_EXERCISE_REPS, esercizio.getRipetizioni());
+
+
+        long insert = db.insert(dietDB.EXERCISE_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiClienteACoach (String cliente, String coach){
+
+        // ottengo un db in scrittura utilizzando il metodo della classe dbhelper
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        // creo un contenitore per i valori da inserire e li inserisco
+        ContentValues cv = new ContentValues();
+
+        cv.put(dietDB.COLUMN_COACHCLIENT_USERNAME, cliente);
+        cv.put(dietDB.COLUMN_COACH_USERNAME, coach);
+
+        // inserisco i dati e controllo l'operazione, poi chiudo il db
+        long insert = db.insert(dietDB.CLIENT_COACH_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean eliminaEsercizio (Esercizio esercizio){
+        // se trova il cliente lo cancella e ritorna true
+        // altrimenti se non lo trova ritorna false
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        String queryString = "DELETE FROM " + dietDB.EXERCISE_TABLE + " WHERE " + dietDB.COLUMN_EXERCISE_ID + " = \'" + esercizio.getId() + "\';";
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        } else {
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
+
+    public List<Cliente> recuperaClientiSenzaCoach (String usernameCercato){
+        List<Cliente> returnList = new ArrayList<>();
+
+        String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " LIKE \'%" + usernameCercato + "%\' AND " +
+                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_COACHCLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_COACHCLIENT_USERNAME +" FROM "+ dietDB.COACH_TABLE +");";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            // cicliamo sul risultato
+            do{
+                String username = risultato.getString(0);
+                String password = risultato.getString(1);
+                //TODO Recuparare gli altri campi
+                Cliente clienteRestituito = new Cliente (username, password);
+                returnList.add(clienteRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return returnList;
+    }
+
+    public List<Cliente> recuperaClientiDiCoach (String usernameCoach){
+        List<Cliente> returnList = new ArrayList<>();
+
+        String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " JOIN " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.CLIENT_TABLE + "." + dietDB.COLUMN_CLIENT_USERNAME
+                + " = " + dietDB.CLIENT_COACH_TABLE + "." + dietDB.COLUMN_CLIENT_USERNAME + " AND " + dietDB.CLIENT_COACH_TABLE + "." + dietDB.COLUMN_COACH_USERNAME
+                + " = \'" + usernameCoach + "\';";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            // cicliamo sul risultato
+            do{
+                String username = risultato.getString(0);
+                String password = risultato.getString(1);
+                //TODO Recuparare gli altri campi
+                Cliente clienteRestituito = new Cliente (username, password);
+                returnList.add(clienteRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return returnList;
+    }
+
+    public boolean eliminaClienteDaCoach (String usernameCliente){
+        // se trova il cliente lo cancella e ritorna true
+        // altrimenti se non lo trova ritorna false
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        String queryString = "DELETE FROM " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.COLUMN_COACHCLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        } else {
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
+
+    public List<Esercizio> recuperaAlleamento (String username){
+        List<Esercizio> returnList = new ArrayList<>();
+
+        String queryDieta = "SELECT * FROM " + dietDB.EXERCISE_TABLE + " WHERE " + dietDB.COLUMN_EXERCISE_USERNAME + " = \"" + username + "\"";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idEsercizio = risultato.getInt(0);
+                String nomeEsercizio = risultato.getString(2);
+
+                int numeroRipetizioni = risultato.getInt(3);
+                String giornoEsercizio = risultato.getString(4);
+
+                String spiegazione = risultato.getString(5);
+
+                Esercizio esercizioRestituito = new Esercizio(idEsercizio, nomeEsercizio, numeroRipetizioni,giornoEsercizio, spiegazione);
+                returnList.add(esercizioRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
         return returnList;
     }
 }

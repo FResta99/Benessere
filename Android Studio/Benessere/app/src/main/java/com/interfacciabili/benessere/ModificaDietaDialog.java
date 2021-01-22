@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Alimento;
@@ -24,13 +26,14 @@ import com.interfacciabili.benessere.model.RichiestaDieta;
 import static android.content.Context.BIND_AUTO_CREATE;
 import static java.lang.Boolean.FALSE;
 
-public class ModificaDietaDialog extends AppCompatDialogFragment {
+public class ModificaDietaDialog extends DialogFragment {
     Alimento alimento;
     String utente;
     String dietologo;
     String porzioneModificaSpinner;
     EditText etAlimentoModifica, etPorzioneModifica;
     Spinner spinnerPorzioneModifica;
+    AlertDialog.Builder builder;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -47,11 +50,15 @@ public class ModificaDietaDialog extends AppCompatDialogFragment {
         }
     };
 
+
+
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        setRetainInstance(true);
+        builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_modificadieta, null);
         etAlimentoModifica = view.findViewById(R.id.etAlimentoModifica);

@@ -146,18 +146,7 @@ public class Cliente implements Parcelable {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", eta=" + eta +
-                ", fotoProfilo='" + fotoProfilo + '\'' +
-                ", sesso='" + sesso + '\'' +
-                ", peso=" + peso +
-                ", altezza=" + altezza +
-                '}';
+        return username;
     }
 
     @Override

@@ -34,6 +34,7 @@
         <activity android:name=".ShoppingList" />
         <activity android:name=".InserimentoAlimento" />
         <activity android:name=".HomeDietologo" />
+        <activity android:name=".HomeCoach" />
         <activity android:name=".DettagliRichiesta" />
         <activity android:name=".RichiesteDietologo" />
         <activity android:name=".DietaClienteActivity" />

@@ -88,6 +88,36 @@ public class DBHelper extends SQLiteOpenHelper {
 
     String createEquipmentsTableStatement = "CREATE TABLE " + EQUIP_TABLE + " (" + COLUMN_EQUIP_NAME + " TEXT PRIMARY KEY, " + COLUMN_EQUIP_DESCRIPTION + " TEXT)";
 
+    public static final String COLUMN_DIETOLOGISTCLIENT_USERNAME = "DIETOLOGISTCLIENT_USERNAME";
+
+    public static final String COACH_TABLE = "COACH_TABLE";
+    public static final String COLUMN_COACH_USERNAME = "COACH_USERNAME";
+    public static final String COLUMN_COACH_PASSWORD = "COACH_PASSWORD";
+
+
+    public static final String EXERCISE_TABLE = "EXERCISE_TABLE";
+    public static final String COLUMN_EXERCISE_ID = "EXERCISE_ID";
+    public static final String COLUMN_EXERCISE_USERNAME = "EXERCISE_USERNAME";
+    public static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
+    public static final String COLUMN_EXERCISE_REPS = "EXERCISE_REPS";
+    public static final String COLUMN_EXERCISE_EXPLAINATION = "EXERCISE_EXPLAINATION";
+    public static final String COLUMN_EXERCISE_DAY = "EXERCISE_DAY";
+
+    public static final String REQUEST_EXERCISE_TABLE = "REQUEST_EXERCISE_TABLE";
+    public static final String COLUMN_REQUEST_EXERCISE_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_EXERCISE_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_EXERCISE_COACH = "REQUEST_COACH";
+    public static final String COLUMN_REQUEST_EXERCISE_ID_MODIFY = "REQUEST_ID_MODIFY";
+    public static final String COLUMN_REQUEST_EXERCISE_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_EXERCISE_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_EXERCISE_REPS = "REQUEST_REPS";
+    public static final String COLUMN_REQUEST_EXERCISE_APPROVED = "REQUEST_APPROVED";
+
+    public static final String CLIENT_COACH_TABLE = "CLIENT_COACH_TABLE";
+    public static final String COLUMN_COACHCLIENT_USERNAME = "COAHCLIENT_USERNAME";
+
+
+
     private static DBHelper dbIstance = null;
 
     private DBHelper(@Nullable Context context) {

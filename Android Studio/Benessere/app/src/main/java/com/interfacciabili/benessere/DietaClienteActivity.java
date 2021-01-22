@@ -9,20 +9,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import com.google.android.material.tabs.TabLayout;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.personalView.ScrollViewTab;
 
-public class DietaClienteActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class DietaClienteActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ScrollViewTab.ScrollViewTabCallback {
     //TODO: Eliminare quando si implementa il passaggio dell'oggetto dall'altra activity.
     public Cliente cliente = new Cliente("Silvio", "password");
 
     private static final String CLIENTE = "CLIENTE";
+    private static final String TAB_SELECTED = "TAB_SELECTED";
 
     private FragmentManager fragmentManager = null;
     private Fragment dayFragment = null;
 
-    String[] menutabWeekLabels;
+    private TabLayout tabLayoutWeek = null;
+
+    private String[] tabLayoutDaysLabel = null;
+    int tabSelected = 0;
+
+    private float swipePositionDownX, swipePositionUpX;
+    private int swipeMinDistance = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +63,18 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
             toolbarHome.setSubtitle(cliente.getUsername());
 
             // Setting menutab
-            menutabWeekLabels = getResources().getStringArray(R.array.week);
-            TabLayout menutabWeek = (TabLayout) findViewById(R.id.menutab_week);
-            menutabWeek.addOnTabSelectedListener(this);
+            tabLayoutDaysLabel = getResources().getStringArray(R.array.week);
+            tabLayoutWeek = (TabLayout) findViewById(R.id.menutab_week);
+            tabLayoutWeek.addOnTabSelectedListener(this);
 
-            for (int i = 0; i < menutabWeekLabels.length; i++) {
-                menutabWeek.addTab(menutabWeek.newTab().setText(menutabWeekLabels[i]).setTag(i));
+            for (int i = 0; i < tabLayoutDaysLabel.length; i++) {
+                tabLayoutWeek.addTab(tabLayoutWeek.newTab().setText(tabLayoutDaysLabel[i]).setTag(i));
             }
 
-            if (savedInstanceState == null) {
-                dayFragment = DietaClienteFragment.newInstance(cliente, menutabWeekLabels[0]);
-                fragmentManager.beginTransaction().add(R.id.fragment_week, dayFragment).commit();
+            if ((savedInstanceState != null) && (savedInstanceState.containsKey(TAB_SELECTED))) {
+                tabLayoutWeek.selectTab(tabLayoutWeek.getTabAt(savedInstanceState.getInt(TAB_SELECTED)));
             }
+
         } else {
             finish();
         }
@@ -74,7 +83,11 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
     @Override
     protected void onStart() {
         super.onStart();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -83,6 +96,11 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
 
         if (cliente != null) {
             outState.putParcelable(CLIENTE, cliente);
+        }
+
+
+        if (tabLayoutWeek != null) {
+            outState.putInt(TAB_SELECTED, tabSelected);
         }
     }
 
@@ -104,9 +122,37 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        int tagValue = (Integer) tab.getTag();
-        dayFragment = DietaClienteFragment.newInstance(cliente, menutabWeekLabels[tagValue]);
-        fragmentManager.beginTransaction().add(R.id.fragment_week, dayFragment).commit();
+        tabSelected = (Integer) tab.getTag();
+        String daySelected = null;
+
+        switch (tabSelected) {
+            case 0:
+                daySelected = "LUN";
+                break;
+            case 1:
+                daySelected = "MAR";
+                break;
+            case 2:
+                daySelected = "MER";
+                break;
+            case 3:
+                daySelected = "GIO";
+                break;
+            case 4:
+                daySelected = "VEN";
+                break;
+            case 5:
+                daySelected = "SAB";
+                break;
+            case 6:
+                daySelected = "DOM";
+                break;
+        }
+
+        if (daySelected != null) {
+            dayFragment = DietaClienteFragment.newInstance(cliente, daySelected);
+            fragmentManager.beginTransaction().replace(R.id.fragment_week, dayFragment).commit();
+        }
     }
 
     @Override
@@ -117,5 +163,54 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                swipePositionDownX = event.getX();
+            case MotionEvent.ACTION_UP:
+                swipePositionUpX = event.getX();
+                float deltaX = swipePositionUpX - swipePositionDownX;
+                if (Math.abs(deltaX) > swipeMinDistance) {
+                    if (swipePositionUpX > swipePositionDownX) {
+                        swipeRight();
+                    } else {
+                        swipeLeft();
+                    }
+                }
+                break;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    public void swipeRight() {
+        if (tabSelected != 0) {
+            tabSelected--;
+            tabLayoutWeek.selectTab(tabLayoutWeek.getTabAt(tabSelected));
+        } else {
+            tabLayoutWeek.selectTab(tabLayoutWeek.getTabAt(0));
+        }
+    }
+
+    public void swipeLeft() {
+        if (tabSelected != tabLayoutDaysLabel.length) {
+            tabSelected++;
+            tabLayoutWeek.selectTab(tabLayoutWeek.getTabAt(tabSelected));
+        } else {
+            tabLayoutWeek.selectTab(tabLayoutWeek.getTabAt(tabLayoutDaysLabel.length));
+        }
+    }
+
+    @Override
+    public void swipeRightScrollView() {
+        swipeRight();
+    }
+
+    @Override
+    public void swipeLeftScrollView() {
+        swipeLeft();
     }
 }

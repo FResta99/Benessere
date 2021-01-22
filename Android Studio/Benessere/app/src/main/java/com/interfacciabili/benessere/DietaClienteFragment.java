@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -151,30 +152,38 @@ public class DietaClienteFragment extends Fragment {
                     listCena.add(a);
                     break;
             }
-
         }
-        if(listColazione.isEmpty()){
+
+        if (listColazione.isEmpty()) {
             tvDietaColazione.setText("Digiuno mattutino");
             lvDietaColazione.setVisibility(View.GONE);
         } else {
             dietAdapterColazione = new ArrayAdapter<Alimento>(getContext(), android.R.layout.simple_list_item_1, listColazione);
             lvDietaColazione.setAdapter(dietAdapterColazione);
+            adaptLayoutListView(lvDietaColazione, (listColazione.size() + 1));
         }
 
-        if(listPranzo.isEmpty()){
+        if (listPranzo.isEmpty()) {
             tvDietaPranzo.setText("Digiuno a pranzo");
             lvDietaPranzo.setVisibility(View.GONE);
         } else {
             dietAdapterPranzo = new ArrayAdapter<Alimento>(getContext(), android.R.layout.simple_list_item_1, listPranzo);
             lvDietaPranzo.setAdapter(dietAdapterPranzo);
+            adaptLayoutListView(lvDietaPranzo, (listPranzo.size() + 1));
         }
 
-        if (listCena.isEmpty()){
+        if (listCena.isEmpty()) {
             tvDietaCena.setText("Digiuno serale");
             lvDietaCena.setVisibility(View.GONE);
         } else {
             dietAdapterCena = new ArrayAdapter<Alimento>(getContext(), android.R.layout.simple_list_item_1, listCena);
             lvDietaCena.setAdapter(dietAdapterCena);
+            adaptLayoutListView(lvDietaCena, (listCena.size() + 1));
         }
+    }
+
+    private void adaptLayoutListView(ListView listView, int nItem) {
+        ViewGroup.LayoutParams layout = listView.getLayoutParams();
+        layout.height = 90 * nItem;
     }
 }
