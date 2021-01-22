@@ -201,6 +201,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
 
         Bundle bundleFragment = masterFragment.getArguments();
         bundleFragment.putString(EXPERT, coach.getUsername());
+        bundleFragment.putString(EXPERT_TYPE, COACH);
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -223,6 +224,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
     private void goToClientDetailActivity() {
         Intent intentTo = new Intent(HomeCoach.this, DettagliCliente.class);
         intentTo.putExtra(EXPERT, coach.getUsername());
+        intentTo.putExtra(EXPERT_TYPE, COACH);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
     }

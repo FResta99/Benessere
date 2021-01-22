@@ -23,6 +23,9 @@ import com.interfacciabili.benessere.model.Cliente;
 
 public class MasterHomeFragment extends Fragment {
     private static final String EXPERT = "EXPERT";
+    public static final String EXPERT_TYPE = "EXPERT_TYPE";
+    public static final String DIETOLOGO = "DIETOLOGO";
+    public static final String COACH = "COACH";
     private static final String TAG_LOG = "MasterHomeFragment";
 
     public interface MasterHomeFragmentCallback {
@@ -30,7 +33,7 @@ public class MasterHomeFragment extends Fragment {
     }
     public MasterHomeFragmentCallback listener;
 
-    private String usernameExpert;              // Può essere dietologo o coach.
+    private String usernameExpert, expertType;              // Può essere dietologo o coach.
 
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
@@ -65,6 +68,7 @@ public class MasterHomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if ((getArguments() != null) && (getArguments().containsKey(EXPERT))) {
             usernameExpert = getArguments().getString(EXPERT);
+            expertType = getArguments().getString(EXPERT_TYPE);
         } else {
             Log.d(TAG_LOG, "The bundle doesn't contain an expert.");
         }
@@ -117,7 +121,11 @@ public class MasterHomeFragment extends Fragment {
 
     private void showCustomerOnListView() {
         if (usernameExpert != null) {
-            clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo((usernameExpert)));
+            if(expertType.equals(DIETOLOGO)){
+                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo((usernameExpert)));
+            } else {
+                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiCoach((usernameExpert)));
+            }
             lvClienti.setAdapter(clientAdapter);
         } else {
             Log.d(TAG_LOG, "There is not an expert.");

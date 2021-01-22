@@ -19,13 +19,15 @@ import com.interfacciabili.benessere.model.Cliente;
 
 public class DettagliCliente extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback {
     private static final String EXPERT = "EXPERT";
+    public static final String EXPERT_TYPE = "EXPERT_TYPE";
+    public static final String DIETOLOGO = "DIETOLOGO";
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "DettagliCliente";
 
     public TextView tvUsername;
 
     public Cliente cliente;
-    public String usernameExpert;
+    public String usernameExpert, expertType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         Bundle bundle = intentFrom.getExtras();
         if ((bundle != null) && (bundle.containsKey(EXPERT)) && (bundle.containsKey(CLIENTE))) {
             usernameExpert = (String) bundle.getString(EXPERT);
+            expertType = bundle.getString(EXPERT_TYPE);
             cliente = (Cliente) bundle.get(CLIENTE);
         } else {
             Log.d(TAG_LOG, "The bundle doesn't contain a client and an expert.");
@@ -54,28 +57,17 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
              * che dovrà essere visualizzato nel fragment.
              */
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                goToHomeDietologolActivity();
+                if(expertType.equals(DIETOLOGO)){
+                    goToHomeDietologolActivity();
+                } else {
+                    goToHomeCoachActivity();
+                }
+
             }
 
             homeToolbar.setSubtitle(usernameExpert);
             tvUsername.setText(cliente.getUsername());
 
-            Button btnGestisci = findViewById(R.id.btnGestisciDieta);
-            Button btnElimina = findViewById(R.id.btnElimina);
-
-            btnGestisci.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goToGestisciActivity();
-                }
-            });
-
-            btnElimina.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goToEliminaCliente();
-                }
-            });
         } else {
             Log.d(TAG_LOG, "There is not a client.");
             finish();
@@ -109,20 +101,33 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     private void goToHomeDietologolActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
         intentOut.putExtra(CLIENTE, cliente);
-
         startActivity(intentOut);
     }
 
-    private void goToGestisciActivity() {
-        Intent intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
+    private void goToHomeCoachActivity() {
+        Intent intentOut = new Intent(DettagliCliente.this, HomeCoach.class);
+        intentOut.putExtra(CLIENTE, cliente);
+        startActivity(intentOut);
+    }
+
+    public void goToGestisciActivity(View v) {
+        Intent intentTo;
+        /*
+        if(expertType.equals(DIETOLOGO)){
+            intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
+        } else {
+            //TODO SCHEDA ALLENAMENTO intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
+        }*/
+        intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
         intentTo.putExtra(CLIENTE, cliente);
         startActivity(intentTo);
 
     }
 
-    public void goToEliminaCliente() {
+    public void goToEliminaCliente(View v) {
         EliminaClienteDialog ecd = new EliminaClienteDialog();
         ecd.setCliente(cliente);
+        ecd.setTipoEsperto(expertType);
         ecd.show(getSupportFragmentManager(), "Elimina cliente");
     }
 }

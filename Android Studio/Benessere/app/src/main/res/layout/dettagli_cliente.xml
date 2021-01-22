@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:text="Gestisci dieta"
             android:layout_centerInParent="true"
-            app:icon="@drawable/ic_baseline_create_24" />
+            app:icon="@drawable/ic_baseline_create_24"
+            android:onClick="goToGestisciActivity"/>
 
         <Button
             android:id="@+id/btnElimina"
@@ -62,7 +63,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:backgroundTint="#FF0000"
-            app:icon="@drawable/ic_baseline_delete_24" />
+            app:icon="@drawable/ic_baseline_delete_24"
+            android:onClick="goToEliminaCliente"/>
     </RelativeLayout>
 </LinearLayout>
 

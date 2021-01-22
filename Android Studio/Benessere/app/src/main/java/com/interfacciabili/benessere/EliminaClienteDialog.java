@@ -25,6 +25,7 @@ import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
     private static final String CLIENTE = "CLIENTE";
+    public static final String DIETOLOGO = "DIETOLOGO";
     private static final String TAG_LOG = "EliminaClienteDialog";
 
     public interface EliminaClienteDialogCallback {
@@ -33,6 +34,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public EliminaClienteDialogCallback listener;
 
     private Cliente cliente;
+    private String tipoEsperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -82,7 +84,11 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseService.eliminaClienteDaDietologo(cliente.getUsername());
+                            if(tipoEsperto.equals(DIETOLOGO)){
+                                databaseService.eliminaClienteDaDietologo(cliente.getUsername());
+                            } else {
+                                databaseService.eliminaClienteDaCoach(cliente.getUsername());
+                            }
                             listener.updateEliminaClienteDialogCallback();
                             dismiss();
                         }
@@ -131,4 +137,5 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+    public void setTipoEsperto (String tipo) { this.tipoEsperto = tipo; }
 }

@@ -205,6 +205,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
         Bundle bundleFragment = masterFragment.getArguments();
         bundleFragment.putString(EXPERT, dietologo.getUsername());
+        bundleFragment.putString(EXPERT_TYPE, DIETOLOGO);
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -227,6 +228,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     private void goToClientDetailActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
         intentTo.putExtra(EXPERT, dietologo.getUsername());
+        intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
     }
