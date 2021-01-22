@@ -722,7 +722,7 @@ public class DatabaseService extends Service {
         // creo un contenitore per i valori da inserire e li inserisco
         ContentValues cv = new ContentValues();
 
-        cv.put(dietDB.COLUMN_COACHCLIENT_USERNAME, cliente);
+        cv.put(dietDB.COLUMN_CLIENT_USERNAME, cliente);
         cv.put(dietDB.COLUMN_COACH_USERNAME, coach);
 
         // inserisco i dati e controllo l'operazione, poi chiudo il db
@@ -761,7 +761,7 @@ public class DatabaseService extends Service {
         List<Cliente> returnList = new ArrayList<>();
 
         String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " LIKE \'%" + usernameCercato + "%\' AND " +
-                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_COACHCLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_COACHCLIENT_USERNAME +" FROM "+ dietDB.COACH_TABLE +");";
+                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_CLIENT_USERNAME +" FROM "+ dietDB.CLIENT_COACH_TABLE +");";
 
         // prendiamo il db in lettura
         SQLiteDatabase db = dietDB.getReadableDatabase();
@@ -825,7 +825,7 @@ public class DatabaseService extends Service {
         // altrimenti se non lo trova ritorna false
 
         SQLiteDatabase db = dietDB.getWritableDatabase();
-        String queryString = "DELETE FROM " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.COLUMN_COACHCLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+        String queryString = "DELETE FROM " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
 
         Cursor cursor = db.rawQuery(queryString, null);
 

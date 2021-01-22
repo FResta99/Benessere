@@ -1,8 +1,6 @@
 package com.interfacciabili.benessere;
 
-import android.app.SearchManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
@@ -10,13 +8,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -28,12 +24,12 @@ import androidx.fragment.app.FragmentManager;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
-import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Coach;
 
-public class HomeDietologo extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
+public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
     private static final String EXPERT = "EXPERT";
     public static final String EXPERT_TYPE = "EXPERT_TYPE";
-    public static final String DIETOLOGO = "DIETOLOGO";
+    public static final String COACH = "COACH";
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "Home";
 
@@ -55,7 +51,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Coach coach = new Coach("Coach1", "password");
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
@@ -77,11 +73,11 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             clienteCliccato = savedInstanceState.getParcelable(CLIENTE);
         }
 
-        setContentView(R.layout.activity_home_dietologo);
+        setContentView(R.layout.activity_home_coach);
 
         Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
-        homeToolbar.setSubtitle(dietologo.getUsername());
+        homeToolbar.setSubtitle(coach.getUsername());
 
         fragmentManager = getSupportFragmentManager();
 
@@ -204,7 +200,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         masterFragment = MasterHomeFragment.newInstance();
 
         Bundle bundleFragment = masterFragment.getArguments();
-        bundleFragment.putString(EXPERT, dietologo.getUsername());
+        bundleFragment.putString(EXPERT, coach.getUsername());
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -220,22 +216,22 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     }
 
     private void updateListview() {
-        clientAdapter = new ArrayAdapter<Cliente>(HomeDietologo.this, android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo(dietologo.getUsername()));
+        clientAdapter = new ArrayAdapter<Cliente>(HomeCoach.this, android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiCoach(coach.getUsername()));
         lvClienti.setAdapter(clientAdapter);
     }
 
     private void goToClientDetailActivity() {
-        Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
-        intentTo.putExtra(EXPERT, dietologo.getUsername());
+        Intent intentTo = new Intent(HomeCoach.this, DettagliCliente.class);
+        intentTo.putExtra(EXPERT, coach.getUsername());
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
     }
 
     //FLOATING ACTION BUTTON LISTENER
     public void aggiungiCliente(View view) {
-        Intent intentTo = new Intent(HomeDietologo.this, RicercaCliente.class);
-        intentTo.putExtra(EXPERT, dietologo.getUsername());
-        intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
+        Intent intentTo = new Intent(HomeCoach.this, RicercaCliente.class);
+        intentTo.putExtra(EXPERT, coach.getUsername());
+        intentTo.putExtra(EXPERT_TYPE, COACH);
         startActivity(intentTo);
     }
 }

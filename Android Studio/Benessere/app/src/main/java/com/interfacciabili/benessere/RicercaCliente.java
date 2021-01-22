@@ -24,6 +24,9 @@ import com.interfacciabili.benessere.model.Cliente;
 
 public class RicercaCliente extends AppCompatActivity {
     private static final String EXPERT = "EXPERT";
+    public static final String EXPERT_TYPE = "EXPERT_TYPE";
+    public static final String DIETOLOGO = "DIETOLOGO";
+    public static final String COACH = "COACH";
     private static final String TAG_LOG = "RicercaCliente";
 
     TextView etName;
@@ -45,9 +48,8 @@ public class RicercaCliente extends AppCompatActivity {
         }
     };
 
-    private String usernameExpert;
+    private String usernameExpert, expertType;
 
-    //TODO Differenziare tra coach e dietologo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class RicercaCliente extends AppCompatActivity {
         Intent intentFrom = getIntent();
         if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
             usernameExpert = intentFrom.getStringExtra(EXPERT);
+            expertType = intentFrom.getStringExtra(EXPERT_TYPE);
+
 
             homeToolbar.setSubtitle(usernameExpert);
 
@@ -75,6 +79,7 @@ public class RicercaCliente extends AppCompatActivity {
                     Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
                     InserisciClienteDialog icd = new InserisciClienteDialog();
                     icd.setUsernameExpert(usernameExpert);
+                    icd.setTipoEsperto(expertType);
                     icd.setUsernameCliente(clienteCliccato.getUsername());
                     icd.show(getSupportFragmentManager(), "Inserisci cliente");
                 }
@@ -90,7 +95,6 @@ public class RicercaCliente extends AppCompatActivity {
         super.onStart();
 
         Intent intentDatabaseService = new Intent(this, DatabaseService.class);
-        startService(intentDatabaseService);
         bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
@@ -123,9 +127,16 @@ public class RicercaCliente extends AppCompatActivity {
 
     public void cercaCliente(View v){
         if(!etName.getText().toString().isEmpty()){
-            clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
-                    android.R.layout.simple_list_item_1,
-                    databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
+            if(expertType.equals(DIETOLOGO)){
+                clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
+                        android.R.layout.simple_list_item_1,
+                        databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
+            } else {
+                clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
+                        android.R.layout.simple_list_item_1,
+                        databaseService.recuperaClientiSenzaCoach(etName.getText().toString()));
+            }
+
             lvRicercaClienti.setAdapter(clientAdapter);
         }
     }

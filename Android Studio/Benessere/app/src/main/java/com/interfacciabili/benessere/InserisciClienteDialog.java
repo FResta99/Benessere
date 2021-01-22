@@ -25,7 +25,7 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     private static final String TAG_LOG = "InserisciClienteDialog";
 
 
-    private String usernameCliente, usernameExpert;
+    private String usernameCliente, usernameExpert, tipoExpert;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -43,6 +43,7 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        setRetainInstance(true);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_solo_bottoni, null);
@@ -60,7 +61,12 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseService.aggiungiClienteADietologo(usernameCliente, usernameExpert);
+                            if(tipoExpert.equals("DIETOLOGO")){
+                                databaseService.aggiungiClienteADietologo(usernameCliente, usernameExpert);
+                            } else {
+                                databaseService.aggiungiClienteACoach(usernameCliente, usernameExpert);
+                            }
+
                             getActivity().finish();
                             dismiss();
                         }
@@ -94,6 +100,10 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
 
     public void setUsernameExpert(String username){
         usernameExpert = username;
+    }
+
+    public void setTipoEsperto(String tipo){
+        tipoExpert = tipo;
     }
 }
 
