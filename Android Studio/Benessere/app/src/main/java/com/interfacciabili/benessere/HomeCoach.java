@@ -211,6 +211,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         if (layoutID == R.layout.dettagli_cliente) {
             Bundle bundleFragment = detailFragment.getArguments();
             bundleFragment.putParcelable(CLIENTE, clienteCliccato);
+            bundleFragment.putString(EXPERT_TYPE, COACH);
         }
 
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();

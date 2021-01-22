@@ -170,6 +170,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     public void updateEliminaClienteDialogCallback() {
         clienteCliccato = null;
         getIntent().removeExtra(CLIENTE);
+        getIntent().removeExtra(EXPERT_TYPE);
 
         updateMasterFragment();
         updateClientDetailFragment(R.layout.dettagli_cliente_blank);
@@ -215,6 +216,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         if (layoutID == R.layout.dettagli_cliente) {
             Bundle bundleFragment = detailFragment.getArguments();
             bundleFragment.putParcelable(CLIENTE, clienteCliccato);
+            bundleFragment.putString(EXPERT_TYPE, DIETOLOGO);
         }
 
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();

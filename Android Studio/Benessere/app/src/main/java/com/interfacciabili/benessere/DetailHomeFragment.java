@@ -20,11 +20,15 @@ import com.interfacciabili.benessere.model.Cliente;
 
 public class DetailHomeFragment extends Fragment {
     private static final String LAYOUT_ID = "LAYOUT_ID";
+    public static final String EXPERT_TYPE = "EXPERT_TYPE";
+    public static final String DIETOLOGO = "DIETOLOGO";
+    public static final String COACH = "COACH";
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "DetailHomeFragment";
 
     private int layoutID;
     private Cliente cliente;
+    private String expertType;
 
     public static DetailHomeFragment newInstance(int layoutID) {
         DetailHomeFragment fragment = new DetailHomeFragment();
@@ -50,6 +54,7 @@ public class DetailHomeFragment extends Fragment {
 
             if (getArguments().containsKey(CLIENTE)) {
                 cliente = getArguments().getParcelable(CLIENTE);
+                expertType = getArguments().getString(EXPERT_TYPE);
             } else {
                 Log.d(TAG_LOG, "The bundle doesn't contain a client.");
             }
@@ -73,6 +78,7 @@ public class DetailHomeFragment extends Fragment {
             btnGestisci.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //TODO Generalizzare
                     Intent intentTo = new Intent(getContext(), InserimentoDieta.class);
                     intentTo.putExtra(CLIENTE, cliente);
                     startActivity(intentTo);
@@ -84,6 +90,7 @@ public class DetailHomeFragment extends Fragment {
                 public void onClick(View v) {
                     EliminaClienteDialog ecd = new EliminaClienteDialog();
                     ecd.setCliente(cliente);
+                    ecd.setTipoEsperto(expertType);
                     ecd.show(getFragmentManager(), "Elimina cliente");
                 }
             });
@@ -93,4 +100,5 @@ public class DetailHomeFragment extends Fragment {
 
         return rootView;
     }
+
 }

@@ -59,8 +59,10 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 if(expertType.equals(DIETOLOGO)){
                     goToHomeDietologolActivity();
+                    finish(); //aggiunto io, fabio
                 } else {
                     goToHomeCoachActivity();
+                    finish(); //aggiunto io, fabio
                 }
 
             }
