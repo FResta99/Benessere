@@ -55,7 +55,9 @@ public class HomeCliente extends AppCompatActivity {
     }
 
     public void goToAllenamentoCliente(View view) {
-        //TODO Intent
+        Intent goToAllenamento = new Intent(HomeCliente.this, AllenamentoCliente.class);
+        goToAllenamento.putExtra(CLIENTE, cliente);
+        startActivity(goToAllenamento);
     }
 
 

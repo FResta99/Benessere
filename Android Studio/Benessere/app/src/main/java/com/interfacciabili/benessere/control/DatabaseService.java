@@ -878,4 +878,56 @@ public class DatabaseService extends Service {
         cv.put("EXERCISE_DAY", giorno);
         return mDb.update(dietDB.EXERCISE_TABLE, cv, dietDB.COLUMN_EXERCISE_ID + "= \"" + esercizio.getId() + "\"", null)>0;
     }
+
+    public String recuperaCoachDiCliente(String usernameCliente){
+        String coachRestituito;
+
+        // query per ottenere tutti i clienti
+
+        String queryClienti = "SELECT COACH_USERNAME FROM " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            coachRestituito = risultato.getString(0);
+        } else {
+            coachRestituito = "";
+        }
+
+        risultato.close();
+        db.close();
+        return coachRestituito;
+    }
+
+    public List<Esercizio> recuperaAllenamentoGiorno(String username, String giorno){
+        List<Esercizio> returnList = new ArrayList<>();
+
+        String queryDieta = "SELECT * FROM " + dietDB.EXERCISE_TABLE + " WHERE EXERCISE_CLIENT" + " = \"" + username + "\" AND " + dietDB.COLUMN_EXERCISE_DAY  + "=\'" + giorno + "\'";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idEsercizio = risultato.getInt(0);
+                String nomeEsercizio = risultato.getString(2);
+                int ripetizioniEsercizio = risultato.getInt(3);
+
+                Esercizio esercizioRestituito = new Esercizio(idEsercizio, nomeEsercizio, ripetizioniEsercizio, "", "");
+                returnList.add(esercizioRestituito);
+            } while (risultato.moveToNext());
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return returnList;
+    }
 }
