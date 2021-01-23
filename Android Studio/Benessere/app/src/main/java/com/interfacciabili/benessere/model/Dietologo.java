@@ -37,6 +37,30 @@ public class Dietologo implements Parcelable {
 
     }
 
+    protected Dietologo(Parcel in) {
+        username = in.readString();
+        password = in.readString();
+        email = in.readString();
+        nome = in.readString();
+        cognome = in.readString();
+        eta = in.readInt();
+        fotoProfilo = in.readString();
+        sesso = in.readString();
+        studio = in.readString();
+    }
+
+    public static final Creator<Dietologo> CREATOR = new Creator<Dietologo>() {
+        @Override
+        public Dietologo createFromParcel(Parcel in) {
+            return new Dietologo(in);
+        }
+
+        @Override
+        public Dietologo[] newArray(int size) {
+            return new Dietologo[size];
+        }
+    };
+
     public String getUsername() {
         return username;
     }
@@ -131,6 +155,14 @@ public class Dietologo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(email);
+        dest.writeString(nome);
+        dest.writeString(cognome);
+        dest.writeInt(eta);
+        dest.writeString(fotoProfilo);
+        dest.writeString(sesso);
+        dest.writeString(studio);
     }
 }

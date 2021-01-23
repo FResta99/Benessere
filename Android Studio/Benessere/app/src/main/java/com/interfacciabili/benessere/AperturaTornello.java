@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +25,12 @@ public class AperturaTornello extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        if (homeToolbar != null) {
+            setSupportActionBar(homeToolbar);
+            //getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         buttonTurnstile = (Button) findViewById(R.id.buttonLed);
         buttonTurnstile.setOnClickListener(this);

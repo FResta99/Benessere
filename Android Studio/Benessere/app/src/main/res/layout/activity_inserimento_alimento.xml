@@ -8,6 +8,8 @@
     tools:context=".InserimentoAlimento"
     android:padding="20dp">
 
+
+
     <TextView
         android:id="@+id/tvNomeAlimento"
         android:layout_width="wrap_content"
@@ -87,6 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modifica"
+        android:textColor="@color/white"
         tools:visibility="visible"
         android:onClick="modificaAlimento"
         android:visibility="gone"
@@ -98,6 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Elimina"
+        android:textColor="@color/white"
         android:onClick="eliminaAlimento"
         tools:visibility="visible"
         android:layout_marginTop="20dp"

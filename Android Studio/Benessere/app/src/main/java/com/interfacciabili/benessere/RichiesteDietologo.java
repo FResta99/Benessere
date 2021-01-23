@@ -1,6 +1,7 @@
 package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,9 +27,10 @@ import java.util.List;
 
 public class RichiesteDietologo extends AppCompatActivity {
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Dietologo dietologo;
     ListView lvRichieste;
     private static final String RICHIESTA = "RICHIESTA";
+    public static final String DIETOLOGO = "DIETOLOGO";
 
     taskMostraRichieste mTask;
 
@@ -54,7 +58,17 @@ public class RichiesteDietologo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_richieste_dietologo);
 
+        Intent intentFrom = getIntent();
+        if (intentFrom != null) {
+            if (intentFrom.hasExtra(DIETOLOGO)) {
+                dietologo = intentFrom.getParcelableExtra(DIETOLOGO);
+            }
+        }
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lvRichieste = findViewById(R.id.lvRichieste);
         lvRichieste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,6 +82,22 @@ public class RichiesteDietologo extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        /*if (item.getItemId() == android.R.id.home) {
+            Intent goToMainActivity = new Intent(HomeCliente.this, MainActivity.class);
+            startActivity(goToMainActivity);
+        }*/
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

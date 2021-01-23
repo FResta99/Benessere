@@ -1,12 +1,15 @@
 package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -49,6 +52,12 @@ public class DettagliRichiesta extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dettagli_richiesta);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sPorzione = findViewById(R.id.porzioneSpinner);
         sPorzione.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -109,5 +118,21 @@ public class DettagliRichiesta extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        /*if (item.getItemId() == android.R.id.home) {
+            Intent goToMainActivity = new Intent(HomeCliente.this, MainActivity.class);
+            startActivity(goToMainActivity);
+        }*/
+
+        return super.onOptionsItemSelected(item);
     }
 }

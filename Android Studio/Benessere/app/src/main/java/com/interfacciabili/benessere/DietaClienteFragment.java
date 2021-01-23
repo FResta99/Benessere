@@ -30,7 +30,7 @@ public class DietaClienteFragment extends Fragment {
     private static final String GIORNO = "GIORNO";
 
     private Cliente cliente;
-    private String giorno;
+    private String giorno, dietologo;
 
     ListView lvDietaColazione, lvDietaPranzo, lvDietaCena;
     TextView tvDietaColazione, tvDietaPranzo, tvDietaCena, tvAlimentiDieta;
@@ -42,6 +42,7 @@ public class DietaClienteFragment extends Fragment {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
+            dietologo = databaseService.recuperaDietologoDiCliente(cliente.getUsername());
 
             mostraDietaCliente();
         }
@@ -91,7 +92,7 @@ public class DietaClienteFragment extends Fragment {
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
                     mdd.setUtente(cliente.getUsername());
-                    mdd.setDietologo("Dietologo1");
+                    mdd.setDietologo(dietologo);
                     mdd.show(getFragmentManager(), "Modifica");
                 }
             });

@@ -5,13 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DettagliRichiesta"
+    tools:context=".DettagliRichiesta">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:logo="@mipmap/ic_launcher"
+            app:title="Dettagli richiesta" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/appBarLayout"
     android:padding="20dp">
 
     <TextView
+        android:id="@+id/tvAlimentoRichiesta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alimento da modificare:"/>
+        android:text="Alimento da modificare:" />
 
     <TextView
         android:layout_marginTop="20dp"
@@ -20,7 +48,7 @@
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/tvAlimentoRichiesta"/>
 
     <TextView
         android:layout_below="@+id/tvAlimentoModifica"
@@ -64,10 +92,14 @@
         android:id="@+id/btnApprova"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/porzioneSpinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:text="Approva richiesta"
         android:onClick="approvaRichiesta"
         />
+
+</RelativeLayout>
 
 
 

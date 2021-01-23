@@ -16,8 +16,8 @@ import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.personalView.ScrollViewTab;
 
 public class DietaClienteActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ScrollViewTab.ScrollViewTabCallback {
-    //TODO: Eliminare quando si implementa il passaggio dell'oggetto dall'altra activity.
-    public Cliente cliente = new Cliente("Silvio", "password");
+
+    public Cliente cliente;
 
     private static final String CLIENTE = "CLIENTE";
     private static final String TAB_SELECTED = "TAB_SELECTED";
@@ -61,6 +61,7 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
             Toolbar toolbarHome = (Toolbar) findViewById(R.id.toolbar_main);
             setSupportActionBar(toolbarHome);
             toolbarHome.setSubtitle(cliente.getUsername());
+
 
             // Setting menutab
             tabLayoutDaysLabel = getResources().getStringArray(R.array.week);
@@ -106,16 +107,22 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_cliente, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.actionbar_button_1) {
-        } else if (item.getItemId() == R.id.actionbar_button_2) {
-        } else if (item.getItemId() == R.id.actionbar_button_3) {
+        if (item.getItemId() == R.id.shoppingListButton) {
+            Intent goToShoppingList = new Intent(DietaClienteActivity.this, ShoppingList.class);
+            goToShoppingList.putExtra(CLIENTE, cliente);
+            startActivity(goToShoppingList);
         }
+        if (item.getItemId() == android.R.id.home) {
+            Intent goToMainActivity = new Intent(DietaClienteActivity.this, MainActivity.class);
+            startActivity(goToMainActivity);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

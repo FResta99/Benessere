@@ -30,9 +30,9 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
     private ShoppingListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Prodotto> mList;
-    private FloatingActionButton fabAggiungiProdotto;
+    public static final String CLIENTE = "CLIENTE";
     private int posizioneCliccata = -1;
-    private Cliente cliente = new Cliente("Silvio", ""); // TODO Passare cliente tramite intent
+    private Cliente cliente;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -76,7 +76,14 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
-        fabAggiungiProdotto = findViewById(R.id.fabAggiungiProdotto);
+        // DATA FROM ANOTHER ACTIVITY
+        Intent intentFrom = getIntent();
+        if (intentFrom != null) {
+            if (intentFrom.hasExtra(CLIENTE)) {
+                cliente = intentFrom.getParcelableExtra(CLIENTE);
+            }
+        }
+
 
         rvShoppingList = findViewById(R.id.rvShoppingList);
         rvShoppingList.setHasFixedSize(true); //rv non cambia di dimensione

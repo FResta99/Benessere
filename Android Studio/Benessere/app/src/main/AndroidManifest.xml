@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Benessere">
-        <activity android:name=".ContapassiActivity"></activity>
+        <activity android:name=".HomeCliente"></activity>
+        <activity android:name=".ContapassiActivity" />
         <activity android:name=".EquipmentsActivity" />
         <activity android:name=".GameMainActivity" />
         <activity android:name=".SplashActivity">
@@ -35,8 +36,15 @@
         <activity android:name=".InserimentoAlimento" />
         <activity android:name=".HomeDietologo" />
         <activity android:name=".HomeCoach" />
-        <activity android:name=".DettagliRichiesta" />
-        <activity android:name=".RichiesteDietologo" />
+
+        <activity android:name=".DettagliRichiesta"
+            android:theme="@style/Theme.Benessere"
+            android:parentActivityName=".RichiesteDietologo"/>
+
+        <activity android:name=".RichiesteDietologo"
+            android:theme="@style/Theme.Benessere"
+            android:parentActivityName=".HomeDietologo" />
+
         <activity android:name=".DietaClienteActivity" />
         <activity android:name=".InserimentoDieta" />
         <activity
@@ -45,7 +53,7 @@
         <activity
             android:name=".RicercaCliente"
             android:parentActivityName=".HomeDietologo" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".AperturaTornello" />
         <activity android:name=".Login_Coach" />
         <activity android:name=".Login_Benessere" />

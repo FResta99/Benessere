@@ -242,7 +242,7 @@ public class DatabaseService extends Service {
 
         // Accediamo al primo elemento, se esiste
         if(risultato.moveToFirst()){
-            dietologoRestituito = risultato.getString(1);
+            dietologoRestituito = risultato.getString(0);
         } else {
             dietologoRestituito = "";
         }

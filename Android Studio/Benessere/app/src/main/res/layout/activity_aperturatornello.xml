@@ -7,6 +7,25 @@
     android:background="@color/white"
     tools:context=".AperturaTornello">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="5dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:logo="@mipmap/ic_launcher_round"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Accedi alla palestra" />
+
     <TextView
         android:id="@+id/labelLed"
         android:text="@string/label_turnstile"
@@ -21,6 +40,7 @@
     <Button
         android:id="@+id/buttonLed"
         android:text="@string/button_turnstile"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
