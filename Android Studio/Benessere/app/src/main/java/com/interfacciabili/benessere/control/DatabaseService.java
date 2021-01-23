@@ -930,4 +930,51 @@ public class DatabaseService extends Service {
         db.close();
         return returnList;
     }
+
+    public boolean aggiungiClienteFoto(String cliente, String uri){
+
+        // ottengo un db in scrittura utilizzando il metodo della classe dbhelper
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        // creo un contenitore per i valori da inserire e li inserisco
+        ContentValues cv = new ContentValues();
+
+        cv.put(dietDB.COLUMN_USERNAME, cliente);
+        cv.put("PICTURE_URI", uri);
+
+        // inserisco i dati e controllo l'operazione, poi chiudo il db
+        long insert = db.insert("CLIENT_PICTURE_TABLE", null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public String recuperaClienteFoto(String username){
+        String uri = "";
+
+        String queryDieta = "SELECT * FROM CLIENT_PICTURE_TABLE" + " WHERE CLIENT_USERNAME" + " = \'" + username + "\'";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+                uri = risultato.getString(1);
+        } else {
+            // 0 risultati, ritorna una lista vuota
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return uri;
+    }
+
+
+
+
 }
