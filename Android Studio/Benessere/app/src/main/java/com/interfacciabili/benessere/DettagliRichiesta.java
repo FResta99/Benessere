@@ -101,6 +101,14 @@ public class DettagliRichiesta extends AppCompatActivity {
 
     public void approvaRichiesta(View view) {
         String alimentoModifier = etAlimentoModifier.getText().toString();
+            if(alimentoModifier.isEmpty()){
+                etAlimentoModifier.setError("Inserire un alimento");
+                return;
+            }
+            if(etQuantitaAlimento.getText().toString().isEmpty()){
+                etQuantitaAlimento.setError("Inserire una porzione");
+                return;
+            }
         int porzioneModifier = Integer.parseInt(etQuantitaAlimento.getText().toString());
         databaseService.approvaDieta(richiesta, alimentoModifier, porzioneModifier, tipoPorzione);
         finish();
@@ -120,19 +128,5 @@ public class DettagliRichiesta extends AppCompatActivity {
         unbindService(serviceConnection);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        /*if (item.getItemId() == android.R.id.home) {
-            Intent goToMainActivity = new Intent(HomeCliente.this, MainActivity.class);
-            startActivity(goToMainActivity);
-        }*/
-
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -76,13 +76,14 @@
         android:layout_height="wrap_content"
         android:hint="Inserisci una porzione"
         android:layout_below="@+id/tvAlimentoPorzione"
+        android:inputType="number"
         />
     <Spinner
         android:id="@+id/porzioneSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etAlimentoModifier"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="32dp"
         android:layout_toRightOf="@+id/etQuantitaAlimento"
         android:entries="@array/porzioni" />

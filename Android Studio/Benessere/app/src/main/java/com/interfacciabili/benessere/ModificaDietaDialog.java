@@ -115,8 +115,9 @@ public class ModificaDietaDialog extends DialogFragment {
                             etPorzioneModifica.setError("Inserisci porzione");
                         }
                     }
-                    if(wantToCloseDialog)
+                    if(wantToCloseDialog) {
                         dialog.dismiss();
+                    }
                 }
             });
         }

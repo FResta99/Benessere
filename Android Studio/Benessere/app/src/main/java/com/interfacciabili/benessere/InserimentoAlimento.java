@@ -1,12 +1,15 @@
 package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -51,12 +54,17 @@ public class InserimentoAlimento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inserimento_alimento);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnAggiungiAlimento = findViewById(R.id.btnAggiungiAlimento);
         btnModificaAlimento = findViewById(R.id.btnModificaAlimento);
         btnEliminaAlimento = findViewById(R.id.btnEliminaAlimento);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
 
         if(bundle!=null)
         {
@@ -114,6 +122,16 @@ public class InserimentoAlimento extends AppCompatActivity {
     }
 
     public void aggiungiAlimento(View view) {
+        if(etNomeAliemento.getText().toString().isEmpty()){
+            etNomeAliemento.setError("Inserire un alimento");
+            return;
+        }
+
+        if(etPorzioneAlimento.getText().toString().isEmpty()){
+            etPorzioneAlimento.setError("Inserire una porzione");
+            return;
+        }
+
         nomeAlimento = etNomeAliemento.getText().toString();
         porzioneAlimento = etPorzioneAlimento.getText().toString();
         Alimento alimentoDaInserire = new Alimento(nomeAlimento, porzioneAlimento, porzioneAlimentoSpinner, tipoPasto, String.valueOf(giornoPasto));
@@ -172,4 +190,5 @@ public class InserimentoAlimento extends AppCompatActivity {
         databaseService.eliminaAlimento(alimento);
         finish();
     }
+
 }
