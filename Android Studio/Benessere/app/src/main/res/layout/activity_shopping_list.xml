@@ -7,20 +7,33 @@
     tools:context=".ShoppingList"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvShoppingList"
-        android:text="Lista della spesa"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:logo="@mipmap/ic_launcher"
+            app:title="Lista della spesa" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/tvShoppingList"
+        android:layout_below="@+id/appBarLayout"
         android:id="@+id/rvShoppingList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

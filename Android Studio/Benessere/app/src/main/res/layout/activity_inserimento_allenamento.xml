@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InserimentoAllenamento">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:logo="@mipmap/ic_launcher"
+            app:title="Inserisci un esercizio" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/tvNomeEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome esercizio"/>
+
+        <EditText
+            android:id="@+id/etNomeEsercizio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNomeEsercizio"/>
+
+        <TextView
+            android:id="@+id/tvRipetizioniEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ripetizioni esercizio"
+            android:layout_below="@+id/etNomeEsercizio"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/etRipetizioniEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Inserisci ripetizioni"
+            android:inputType="number"
+            android:layout_below="@+id/tvRipetizioniEsercizio"/>
+
+
+        <TextView
+            android:id="@+id/tvGiornoSettimana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giorno della settimana"
+            android:layout_below="@+id/etRipetizioniEsercizio"/>
+
+        <Spinner
+            android:id="@+id/spinnerGiorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGiornoSettimana"
+            android:entries="@array/settimana"/>
+
+
+        <Button
+            android:id="@+id/btnAggiungiEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inserisci"
+            android:onClick="aggiungiEsercizio"
+            android:layout_below="@+id/spinnerGiorno"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/btnModificaEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modifica"
+            android:textColor="@color/white"
+            tools:visibility="visible"
+            android:onClick="modificaEsercizio"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_create_24"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/spinnerGiorno"
+            />
+
+        <Button
+            android:id="@+id/btnEliminaEsercizio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elimina"
+            android:textColor="@color/white"
+            android:onClick="eliminaEsercizio"
+            tools:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FF0000"
+            app:icon="@drawable/ic_baseline_delete_24"
+            android:layout_below="@+id/spinnerGiorno"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -106,7 +106,7 @@ public class Esercizio implements Parcelable {
 
     @Override
     public String toString() {
-        return nome + ripetizioni + ", " + spiegazione;
+        return nome + " " + ripetizioni + ", " + giorno;
     }
 
 

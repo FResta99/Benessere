@@ -114,16 +114,14 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     public void goToGestisciActivity(View v) {
         Intent intentTo;
-        /*
+
         if(expertType.equals(DIETOLOGO)){
             intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
         } else {
-            //TODO SCHEDA ALLENAMENTO intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
-        }*/
-        intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
+            intentTo = new Intent(DettagliCliente.this, InserimentoScheda.class);
+        }
         intentTo.putExtra(CLIENTE, cliente);
         startActivity(intentTo);
-
     }
 
     public void goToEliminaCliente(View v) {

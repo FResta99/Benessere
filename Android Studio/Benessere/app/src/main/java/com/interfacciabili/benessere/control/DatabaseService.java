@@ -586,7 +586,7 @@ public class DatabaseService extends Service {
         return mDb.update(dietDB.REQUEST_DIET_TABLE, cv, dietDB.COLUMN_REQUEST_DIET_ID + "= " + idRichiesta, null)>0;
     }
 */
-    //TODO Modificare anche porzione e tipo di porzione
+
     public boolean approvaDieta(RichiestaDieta richiesta, String alimentoRichiesto, int porzione, String tipoPorzione){
         SQLiteDatabase mDb= dietDB.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -693,15 +693,14 @@ public class DatabaseService extends Service {
 
     public boolean aggiungiEsercizioASchedaAllenamento(Cliente cliente, Esercizio esercizio){
 
-
         SQLiteDatabase db = dietDB.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
 
-        cv.put(dietDB.COLUMN_EXERCISE_USERNAME, cliente.getUsername());
+        cv.put("EXERCISE_CLIENT", cliente.getUsername());
         cv.put(dietDB.COLUMN_EXERCISE_NAME, esercizio.getNome());
         cv.put(dietDB.COLUMN_EXERCISE_REPS, esercizio.getRipetizioni());
-
+        cv.put(dietDB.COLUMN_EXERCISE_DAY, esercizio.getGiorno());
 
         long insert = db.insert(dietDB.EXERCISE_TABLE, null, cv);
         if(insert == -1){
@@ -843,7 +842,7 @@ public class DatabaseService extends Service {
     public List<Esercizio> recuperaAlleamento (String username){
         List<Esercizio> returnList = new ArrayList<>();
 
-        String queryDieta = "SELECT * FROM " + dietDB.EXERCISE_TABLE + " WHERE " + dietDB.COLUMN_EXERCISE_USERNAME + " = \"" + username + "\"";
+        String queryDieta = "SELECT * FROM EXERCISE_TABLE WHERE EXERCISE_CLIENT = "+  "\'" + username + "\'";
 
         SQLiteDatabase db = dietDB.getReadableDatabase();
 
@@ -869,5 +868,14 @@ public class DatabaseService extends Service {
         risultato.close();
         db.close();
         return returnList;
+    }
+
+    public boolean modificaEsercizioScheda(Esercizio esercizio, String nome, int ripetizioni, String giorno){
+        SQLiteDatabase mDb= dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("EXERCISE_NAME", nome);
+        cv.put("EXERCISE_REPS", ripetizioni);
+        cv.put("EXERCISE_DAY", giorno);
+        return mDb.update(dietDB.EXERCISE_TABLE, cv, dietDB.COLUMN_EXERCISE_ID + "= \"" + esercizio.getId() + "\"", null)>0;
     }
 }

@@ -78,10 +78,15 @@ public class DetailHomeFragment extends Fragment {
             btnGestisci.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO Generalizzare
-                    Intent intentTo = new Intent(getContext(), InserimentoDieta.class);
-                    intentTo.putExtra(CLIENTE, cliente);
-                    startActivity(intentTo);
+                    if(expertType.equals(DIETOLOGO)){
+                        Intent intentTo = new Intent(getContext(), InserimentoDieta.class);
+                        intentTo.putExtra(CLIENTE, cliente);
+                        startActivity(intentTo);
+                    } else {
+                        Intent intentTo = new Intent(getContext(), InserimentoScheda.class);
+                        intentTo.putExtra(CLIENTE, cliente);
+                        startActivity(intentTo);
+                    }
                 }
             });
 

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InserimentoDieta"
-    android:background="@color/white">
+    tools:context=".InserimentoScheda">
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,7 +26,7 @@
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:logo="@mipmap/ic_launcher"
-            app:title="Inserimento dieta" />
+            app:title="Inserimento scheda allenamento" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -37,15 +37,15 @@
         >
         <TextView
             android:padding="20dp"
-            android:id="@+id/tvDidascaliaDietologo"
+            android:id="@+id/tvDidascaliaCoach"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inserisci gli alimenti della dieta" />
+            android:text="Inserisci gli esercizi per l'allenamento" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tvDidascaliaDietologo">
+            android:layout_below="@+id/tvDidascaliaCoach">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -54,18 +54,14 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="25dp"
                 android:src="@drawable/ic_plus_24"
-                android:onClick="inserisciAlimento"/>
+                android:onClick="inserisciAllenamento"/>
 
             <ListView
-                android:id="@+id/lvDietaDietologo"
+                android:id="@+id/lvEserciziCoach"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
         </FrameLayout>
     </RelativeLayout>
-
-
-
-
 
 </RelativeLayout>
