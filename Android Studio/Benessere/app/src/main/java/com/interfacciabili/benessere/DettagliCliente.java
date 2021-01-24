@@ -131,7 +131,10 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     @Override
     public void onBackPressed() {
-        //TODO: Controllare se si tratta di dietologo o coach
-        goToHomeDietologolActivity();
+        if (expertType.equals(DIETOLOGO)) {
+            goToHomeDietologolActivity();
+        } else {
+            goToHomeCoachActivity();
+        }
     }
 }
