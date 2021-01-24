@@ -99,7 +99,6 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
             outState.putParcelable(CLIENTE, cliente);
         }
 
-
         if (tabLayoutWeek != null) {
             outState.putInt(TAB_SELECTED, tabSelected);
         }

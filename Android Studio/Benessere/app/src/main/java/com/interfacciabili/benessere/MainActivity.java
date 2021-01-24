@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnBenessere.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfiloUtenteActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeCliente.class);
                 startActivity(intent);
             }
         });
