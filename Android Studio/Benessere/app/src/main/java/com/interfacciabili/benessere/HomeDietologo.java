@@ -1,25 +1,19 @@
 package com.interfacciabili.benessere;
 
-import android.app.SearchManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,7 +103,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             landscapeView = false;
 
             if (clienteCliccato != null) {
-                goToClientDetailActivity();
+                goToDettagliClienteActivity();
             }
 
             lvClienti = findViewById(R.id.lvClienti);
@@ -117,7 +111,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     clienteCliccato = (Cliente) parent.getItemAtPosition(position);
-                    goToClientDetailActivity();
+                    goToDettagliClienteActivity();
                 }
             });
         }
@@ -225,12 +219,13 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         lvClienti.setAdapter(clientAdapter);
     }
 
-    private void goToClientDetailActivity() {
+    private void goToDettagliClienteActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
         intentTo.putExtra(EXPERT, dietologo.getUsername());
         intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
+        finish();
     }
 
     //FLOATING ACTION BUTTON LISTENER

@@ -39,11 +39,6 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
         textViewStepCounter.setText(String.valueOf(steps));
         tvAttivaContapassi = findViewById(R.id.tvAttivaContapassi);
 
-        if(savedInstanceState != null){
-            steps = savedInstanceState.getLong(PASSI);
-            textViewStepCounter.setText(String.valueOf(steps));
-        }
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED) {
 
         } else {

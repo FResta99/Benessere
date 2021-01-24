@@ -59,17 +59,13 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 if(expertType.equals(DIETOLOGO)){
                     goToHomeDietologolActivity();
-                    finish(); //aggiunto io, fabio
                 } else {
                     goToHomeCoachActivity();
-                    finish(); //aggiunto io, fabio
                 }
-
             }
 
             homeToolbar.setSubtitle(usernameExpert);
             tvUsername.setText(cliente.getUsername());
-
         } else {
             Log.d(TAG_LOG, "There is not a client.");
             finish();
@@ -104,12 +100,14 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
         intentOut.putExtra(CLIENTE, cliente);
         startActivity(intentOut);
+        finish();
     }
 
     private void goToHomeCoachActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeCoach.class);
         intentOut.putExtra(CLIENTE, cliente);
         startActivity(intentOut);
+        finish();
     }
 
     public void goToGestisciActivity(View v) {
@@ -129,5 +127,11 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         ecd.setCliente(cliente);
         ecd.setTipoEsperto(expertType);
         ecd.show(getSupportFragmentManager(), "Elimina cliente");
+    }
+
+    @Override
+    public void onBackPressed() {
+        //TODO: Controllare se si tratta di dietologo o coach
+        goToHomeDietologolActivity();
     }
 }
