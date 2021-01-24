@@ -15,11 +15,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.personalView.ScrollViewTab;
 
-public class DietaClienteActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ScrollViewTab.ScrollViewTabCallback {
+public class ClientFragmentContainer extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ScrollViewTab.ScrollViewTabCallback {
 
     public Cliente cliente;
+    private String tipoCliente;
 
     private static final String CLIENTE = "CLIENTE";
+    private static final String TIPO_CLIENTE = "TIPO_CLIENTE";
     private static final String TAB_SELECTED = "TAB_SELECTED";
 
     private FragmentManager fragmentManager = null;
@@ -42,6 +44,7 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
         if (intentFrom != null) {
             if (intentFrom.hasExtra(CLIENTE)) {
                 cliente = intentFrom.getParcelableExtra(CLIENTE);
+                tipoCliente = intentFrom.getStringExtra(TIPO_CLIENTE);
             }
         }
 
@@ -99,6 +102,7 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
             outState.putParcelable(CLIENTE, cliente);
         }
 
+
         if (tabLayoutWeek != null) {
             outState.putInt(TAB_SELECTED, tabSelected);
         }
@@ -106,21 +110,27 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_cliente, menu);
+        if(tipoCliente.equals("DIETA")){
+            getMenuInflater().inflate(R.menu.menu_cliente, menu);
+        } else {
+            //TODO Menu con contapassi
+        }
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.shoppingListButton) {
-            Intent goToShoppingList = new Intent(DietaClienteActivity.this, ShoppingList.class);
+        if (tipoCliente.equals("DIETA") && item.getItemId() == R.id.shoppingListButton) {
+            Intent goToShoppingList = new Intent(ClientFragmentContainer.this, ShoppingList.class);
             goToShoppingList.putExtra(CLIENTE, cliente);
             startActivity(goToShoppingList);
         }
         if (item.getItemId() == android.R.id.home) {
-            Intent goToMainActivity = new Intent(DietaClienteActivity.this, MainActivity.class);
+            Intent goToMainActivity = new Intent(ClientFragmentContainer.this, MainActivity.class);
             startActivity(goToMainActivity);
         }
+        //TODO Aggiungere contapassi
 
 
         return super.onOptionsItemSelected(item);
@@ -155,8 +165,11 @@ public class DietaClienteActivity extends AppCompatActivity implements TabLayout
                 break;
         }
 
-        if (daySelected != null) {
+        if (daySelected != null && tipoCliente.equals("DIETA")) {
             dayFragment = DietaClienteFragment.newInstance(cliente, daySelected);
+            fragmentManager.beginTransaction().replace(R.id.fragment_week, dayFragment).commit();
+        } else if (daySelected != null && tipoCliente.equals("ALLENAMENTO")){
+            dayFragment = AllenamentoClienteFragment.newInstance(cliente, daySelected);
             fragmentManager.beginTransaction().replace(R.id.fragment_week, dayFragment).commit();
         }
     }

@@ -32,7 +32,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Benessere">
         <activity android:name=".ProfiloUtenteActivity"></activity>
-        <activity android:name=".AllenamentoCliente" />
         <activity android:name=".InserimentoAllenamento" />
         <activity android:name=".InserimentoScheda" />
         <activity android:name=".HomeCliente" />
@@ -58,7 +57,7 @@
             android:name=".RichiesteDietologo"
             android:parentActivityName=".HomeDietologo"
             android:theme="@style/Theme.Benessere" />
-        <activity android:name=".DietaClienteActivity" />
+        <activity android:name=".ClientFragmentContainer" />
         <activity android:name=".InserimentoDieta" />
         <activity
             android:name=".DettagliCliente"

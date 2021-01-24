@@ -228,6 +228,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         intentTo.putExtra(EXPERT_TYPE, COACH);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
+        finish();
     }
 
     //FLOATING ACTION BUTTON LISTENER

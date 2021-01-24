@@ -1,12 +1,10 @@
 package com.interfacciabili.benessere;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,14 +47,16 @@ public class HomeCliente extends AppCompatActivity {
     }
 
     public void goToDietaCliente(View view) {
-        Intent goToDieta = new Intent(HomeCliente.this, DietaClienteActivity.class);
+        Intent goToDieta = new Intent(HomeCliente.this, ClientFragmentContainer.class);
         goToDieta.putExtra(CLIENTE, cliente);
+        goToDieta.putExtra("TIPO_CLIENTE", "DIETA");
         startActivity(goToDieta);
     }
 
     public void goToAllenamentoCliente(View view) {
-        Intent goToAllenamento = new Intent(HomeCliente.this, AllenamentoCliente.class);
+        Intent goToAllenamento = new Intent(HomeCliente.this, ClientFragmentContainer.class);
         goToAllenamento.putExtra(CLIENTE, cliente);
+        goToAllenamento.putExtra("TIPO_CLIENTE", "ALLENAMENTO");
         startActivity(goToAllenamento);
     }
 
