@@ -16,12 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
 import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 public class DettagliCliente extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback {
     private static final String EXPERT = "EXPERT";
-    public static final String EXPERT_TYPE = "EXPERT_TYPE";
-    public static final String DIETOLOGO = "DIETOLOGO";
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "DettagliCliente";
 
@@ -29,7 +29,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     public Cliente cliente;
     public String expertType;
-    public Dietologo dietologo;
+    public Esperto esperto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +46,31 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
         Intent intentFrom = getIntent();
         Bundle bundle = intentFrom.getExtras();
-        if ((bundle != null) && (bundle.containsKey(DIETOLOGO)) && (bundle.containsKey(CLIENTE))) {
-            dietologo = bundle.getParcelable(DIETOLOGO);
-            expertType = bundle.getString(EXPERT_TYPE);
+        if ((bundle != null) && (bundle.containsKey(EXPERT)) && (bundle.containsKey(CLIENTE))) {
+            esperto = bundle.getParcelable(EXPERT);
             cliente = (Cliente) bundle.get(CLIENTE);
         } else {
             Log.d(TAG_LOG, "The bundle doesn't contain a client and an expert.");
         }
 
-        if (cliente != null && dietologo != null) {
+        if (cliente != null && esperto != null) {
             /* Verifico l'orientamento del dispositivo e se esso è in orizzontale, lancio l'activity dell'home passando il cliente
              * che dovrà essere visualizzato nel fragment.
              */
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                if(expertType.equals(DIETOLOGO)){
+                if(esperto instanceof Dietologo){
                     goToHomeDietologolActivity();
                 } else {
                     goToHomeCoachActivity();
                 }
             }
 
-            homeToolbar.setSubtitle(dietologo.getUsername());
+            if(esperto instanceof Dietologo){
+                homeToolbar.setSubtitle((((Dietologo) esperto).getUsername()));
+            } else {
+                homeToolbar.setSubtitle((((Coach) esperto).getUsername()));
+            }
+
             tvUsername.setText(cliente.getUsername());
         } else {
             Log.d(TAG_LOG, "There is not a client.");
@@ -100,7 +104,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     private void goToHomeDietologolActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
-        intentOut.putExtra(DIETOLOGO, dietologo);
+        intentOut.putExtra(EXPERT, esperto);
         intentOut.putExtra(CLIENTE, cliente);
         startActivity(intentOut);
         finish();
@@ -108,6 +112,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     private void goToHomeCoachActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeCoach.class);
+        intentOut.putExtra(EXPERT, esperto);
         intentOut.putExtra(CLIENTE, cliente);
         startActivity(intentOut);
         finish();
@@ -116,7 +121,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     public void goToGestisciActivity(View v) {
         Intent intentTo;
 
-        if(expertType.equals(DIETOLOGO)){
+        if(esperto instanceof Dietologo){
             intentTo = new Intent(DettagliCliente.this, InserimentoDieta.class);
         } else {
             intentTo = new Intent(DettagliCliente.this, InserimentoScheda.class);
@@ -128,13 +133,13 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     public void goToEliminaCliente(View v) {
         EliminaClienteDialog ecd = new EliminaClienteDialog();
         ecd.setCliente(cliente);
-        ecd.setTipoEsperto(expertType);
+        ecd.setEsperto(esperto);
         ecd.show(getSupportFragmentManager(), "Elimina cliente");
     }
 
     @Override
     public void onBackPressed() {
-        if (expertType.equals(DIETOLOGO)) {
+        if (esperto instanceof Dietologo) {
             goToHomeDietologolActivity();
         } else {
             goToHomeCoachActivity();

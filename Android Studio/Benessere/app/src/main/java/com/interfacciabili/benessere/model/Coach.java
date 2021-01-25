@@ -6,7 +6,7 @@ package com.interfacciabili.benessere.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Coach implements Parcelable {
+public class Coach extends Esperto implements Parcelable {
     private String username;
     private String password;
     private String email;

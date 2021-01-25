@@ -21,18 +21,19 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 public class RicercaCliente extends AppCompatActivity {
     private static final String EXPERT = "EXPERT";
-    public static final String EXPERT_TYPE = "EXPERT_TYPE";
-    public static final String DIETOLOGO = "DIETOLOGO";
-    public static final String COACH = "COACH";
     private static final String TAG_LOG = "RicercaCliente";
 
-    TextView etName;
-    Button btnAggiungi;
-    ListView lvRicercaClienti;
-    ArrayAdapter clientAdapter;
+    private TextView etName;
+    private Button btnAggiungi;
+    private ListView lvRicercaClienti;
+    private ArrayAdapter clientAdapter;
+    private Esperto esperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -48,7 +49,7 @@ public class RicercaCliente extends AppCompatActivity {
         }
     };
 
-    private String usernameExpert, expertType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +64,14 @@ public class RicercaCliente extends AppCompatActivity {
 
         Intent intentFrom = getIntent();
         if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
-            usernameExpert = intentFrom.getStringExtra(EXPERT);
-            expertType = intentFrom.getStringExtra(EXPERT_TYPE);
+            esperto = intentFrom.getParcelableExtra(EXPERT);
 
+            if(esperto instanceof Dietologo){
+                homeToolbar.setSubtitle(((Dietologo)esperto).getUsername());
+            } else {
+                homeToolbar.setSubtitle(((Coach)esperto).getUsername());
+            }
 
-            homeToolbar.setSubtitle(usernameExpert);
 
             btnAggiungi = findViewById(R.id.btnCerca);
             etName = findViewById(R.id.etName);
@@ -78,8 +82,7 @@ public class RicercaCliente extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
                     InserisciClienteDialog icd = new InserisciClienteDialog();
-                    icd.setUsernameExpert(usernameExpert);
-                    icd.setTipoEsperto(expertType);
+                    icd.setEsperto(esperto);
                     icd.setUsernameCliente(clienteCliccato.getUsername());
                     icd.show(getSupportFragmentManager(), "Inserisci cliente");
                 }
@@ -127,7 +130,7 @@ public class RicercaCliente extends AppCompatActivity {
 
     public void cercaCliente(View v){
         if(!etName.getText().toString().isEmpty()){
-            if(expertType.equals(DIETOLOGO)){
+            if(esperto instanceof Dietologo){
                 clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
                         android.R.layout.simple_list_item_1,
                         databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));

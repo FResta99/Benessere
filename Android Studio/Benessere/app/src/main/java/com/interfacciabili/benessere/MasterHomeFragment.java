@@ -20,10 +20,13 @@ import android.widget.ListView;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 public class MasterHomeFragment extends Fragment {
     private static final String EXPERT = "EXPERT";
-    public static final String EXPERT_TYPE = "EXPERT_TYPE";
+
     public static final String DIETOLOGO = "DIETOLOGO";
     public static final String COACH = "COACH";
     private static final String TAG_LOG = "MasterHomeFragment";
@@ -33,7 +36,7 @@ public class MasterHomeFragment extends Fragment {
     }
     public MasterHomeFragmentCallback listener;
 
-    private String usernameExpert, expertType;              // Può essere dietologo o coach.
+    private Esperto esperto;              // Può essere dietologo o coach.
 
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
@@ -67,8 +70,7 @@ public class MasterHomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((getArguments() != null) && (getArguments().containsKey(EXPERT))) {
-            usernameExpert = getArguments().getString(EXPERT);
-            expertType = getArguments().getString(EXPERT_TYPE);
+            esperto = getArguments().getParcelable(EXPERT);
         } else {
             Log.d(TAG_LOG, "The bundle doesn't contain an expert.");
         }
@@ -120,11 +122,11 @@ public class MasterHomeFragment extends Fragment {
     }
 
     private void showCustomerOnListView() {
-        if (usernameExpert != null) {
-            if(expertType.equals(DIETOLOGO)){
-                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo((usernameExpert)));
+        if (esperto != null) {
+            if(esperto instanceof Dietologo){
+                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiDietologo((((Dietologo) esperto).getUsername())));
             } else {
-                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiCoach((usernameExpert)));
+                clientAdapter = new ArrayAdapter<Cliente>(getContext(), android.R.layout.simple_list_item_1, databaseService.recuperaClientiDiCoach((((Coach) esperto).getUsername())));
             }
             lvClienti.setAdapter(clientAdapter);
         } else {

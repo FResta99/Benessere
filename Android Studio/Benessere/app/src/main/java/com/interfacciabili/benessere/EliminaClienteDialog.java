@@ -20,13 +20,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
-    private static final String CLIENTE = "CLIENTE";
-    public static final String DIETOLOGO = "DIETOLOGO";
     private static final String TAG_LOG = "EliminaClienteDialog";
+    private static final String CLIENTE = "CLIENTE";
 
     public interface EliminaClienteDialogCallback {
         public void updateEliminaClienteDialogCallback();
@@ -34,7 +35,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public EliminaClienteDialogCallback listener;
 
     private Cliente cliente;
-    private String tipoEsperto;
+    private Esperto esperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -85,7 +86,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(tipoEsperto.equals(DIETOLOGO)){
+                            if(esperto instanceof Dietologo){
                                 databaseService.eliminaClienteDaDietologo(cliente.getUsername());
                             } else {
                                 databaseService.eliminaClienteDaCoach(cliente.getUsername());
@@ -138,5 +139,5 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    public void setTipoEsperto (String tipo) { this.tipoEsperto = tipo; }
+    public void setEsperto (Esperto tipo) { this.esperto = tipo; }
 }

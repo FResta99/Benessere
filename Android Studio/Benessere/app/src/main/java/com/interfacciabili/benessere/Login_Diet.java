@@ -75,7 +75,7 @@ public class Login_Diet extends AppCompatActivity {
 
                             if (dietologoCercato.getPassword().equals(etPasswordTesto)) {
                                 Intent intent = new Intent(Login_Diet.this, com.interfacciabili.benessere.HomeDietologo.class);
-                                intent.putExtra("DIETOLOGO", dietologoCercato);
+                                intent.putExtra("EXPERT", dietologoCercato);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(),"Password errata" , Toast.LENGTH_LONG).show();

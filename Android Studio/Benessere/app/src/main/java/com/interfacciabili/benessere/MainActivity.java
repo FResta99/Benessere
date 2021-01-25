@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnCoach.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeCoach.class); //com.interfacciabili.benessere.Login_Coach.class
+                Intent intent = new Intent(MainActivity.this, Animationss.class); //com.interfacciabili.benessere.Login_Coach.class
                 startActivity(intent);
             }
         });

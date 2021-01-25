@@ -27,8 +27,7 @@ import com.interfacciabili.benessere.model.Dietologo;
 
 public class HomeDietologo extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
     private static final String EXPERT = "EXPERT";
-    public static final String EXPERT_TYPE = "EXPERT_TYPE";
-    public static final String DIETOLOGO = "DIETOLOGO";
+    //public static final String DIETOLOGO = "DIETOLOGO";
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "Home";
 
@@ -71,8 +70,8 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         Intent intentFromLogin = getIntent();
         Bundle dietologoBundle = intentFromLogin.getExtras();
 
-        if(dietologoBundle!=null && dietologoBundle.containsKey(DIETOLOGO)){
-            dietologo = dietologoBundle.getParcelable(DIETOLOGO);
+        if(dietologoBundle!=null && dietologoBundle.containsKey(EXPERT)){
+            dietologo = dietologoBundle.getParcelable(EXPERT);
             Toast.makeText(this, ""+ dietologo, Toast.LENGTH_SHORT).show();
         }
 
@@ -174,7 +173,6 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     public void updateEliminaClienteDialogCallback() {
         clienteCliccato = null;
         getIntent().removeExtra(CLIENTE);
-        getIntent().removeExtra(EXPERT_TYPE);
 
         updateMasterFragment();
         updateClientDetailFragment(R.layout.dettagli_cliente_blank);
@@ -196,7 +194,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     public boolean onOptionsItemSelected (MenuItem item) {
         if (item.getItemId() == R.id.richiesteDietaButton) {
             Intent goToRichiesteDietologo = new Intent(HomeDietologo.this, RichiesteDietologo.class);
-            goToRichiesteDietologo.putExtra(DIETOLOGO, dietologo);
+            goToRichiesteDietologo.putExtra(EXPERT, dietologo);
             startActivity(goToRichiesteDietologo);
         }
 
@@ -207,8 +205,8 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         masterFragment = MasterHomeFragment.newInstance();
 
         Bundle bundleFragment = masterFragment.getArguments();
-        bundleFragment.putString(EXPERT, dietologo.getUsername());
-        bundleFragment.putString(EXPERT_TYPE, DIETOLOGO);
+        bundleFragment.putParcelable(EXPERT, dietologo);
+
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -217,8 +215,9 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         detailFragment = DetailHomeFragment.newInstance(layoutID);
         if (layoutID == R.layout.dettagli_cliente) {
             Bundle bundleFragment = detailFragment.getArguments();
+            bundleFragment.putParcelable(EXPERT, dietologo);
             bundleFragment.putParcelable(CLIENTE, clienteCliccato);
-            bundleFragment.putString(EXPERT_TYPE, DIETOLOGO);
+
         }
 
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();
@@ -231,8 +230,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
     private void goToDettagliClienteActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
-        intentTo.putExtra(DIETOLOGO, dietologo);
-        intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
+        intentTo.putExtra(EXPERT, dietologo);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
         finish();
@@ -241,8 +239,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     //FLOATING ACTION BUTTON LISTENER
     public void aggiungiCliente(View view) {
         Intent intentTo = new Intent(HomeDietologo.this, RicercaCliente.class);
-        intentTo.putExtra(EXPERT, dietologo.getUsername());
-        intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
+        intentTo.putExtra(EXPERT, dietologo);
         startActivity(intentTo);
     }
 }

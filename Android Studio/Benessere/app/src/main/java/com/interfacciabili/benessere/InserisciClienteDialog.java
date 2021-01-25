@@ -18,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Coach;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
@@ -25,7 +28,8 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
     private static final String TAG_LOG = "InserisciClienteDialog";
 
 
-    private String usernameCliente, usernameExpert, tipoExpert;
+    private String usernameCliente;
+    private Esperto esperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -48,7 +52,7 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_solo_bottoni, null);
 
-        if (usernameExpert != null) {
+        if (esperto != null) {
             builder.setView(view)
                     .setTitle("Inserisci cliente")
                     .setMessage("Vuoi aggiungere " + usernameCliente + "?")
@@ -61,10 +65,10 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
                     .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(tipoExpert.equals("DIETOLOGO")){
-                                databaseService.aggiungiClienteADietologo(usernameCliente, usernameExpert);
+                            if(esperto instanceof Dietologo){
+                                databaseService.aggiungiClienteADietologo(usernameCliente, ((Dietologo) esperto).getUsername());
                             } else {
-                                databaseService.aggiungiClienteACoach(usernameCliente, usernameExpert);
+                                databaseService.aggiungiClienteACoach(usernameCliente, ((Coach) esperto).getUsername());
                             }
 
                             getActivity().finish();
@@ -98,12 +102,8 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
         usernameCliente = username;
     }
 
-    public void setUsernameExpert(String username){
-        usernameExpert = username;
-    }
-
-    public void setTipoEsperto(String tipo){
-        tipoExpert = tipo;
+    public void setEsperto(Esperto esperto){
+        this.esperto = esperto;
     }
 }
 

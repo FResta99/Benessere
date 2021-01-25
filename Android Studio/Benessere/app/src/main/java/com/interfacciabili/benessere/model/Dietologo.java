@@ -5,7 +5,7 @@ package com.interfacciabili.benessere.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Dietologo implements Parcelable {
+public class Dietologo extends Esperto implements Parcelable{
     private String username;
     private String password;
     private String email;
