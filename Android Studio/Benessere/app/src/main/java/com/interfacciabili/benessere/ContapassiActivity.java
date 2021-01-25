@@ -18,7 +18,8 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
 
 public class ContapassiActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
@@ -50,14 +51,25 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     tvAttivaContapassi.setText("Disattiva");
-                    steps = 0;
 
-                    sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-                    sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-                    sensorManager.registerListener(ContapassiActivity.this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+                    if (savedInstanceState != null) {
+                        if (savedInstanceState.containsKey(PASSI)) {
+                            steps = savedInstanceState.getLong(PASSI);
+                            textViewStepCounter.setText(String.valueOf(steps));
+
+                            savedInstanceState.remove(PASSI);
+                        }
+                    } else {
+                        steps = 0;
+                    }
+
+                    controllaSensore();
                 } else {
                     tvAttivaContapassi.setText("Attiva");
-                    sensorManager.unregisterListener(ContapassiActivity.this);
+                    if(sensorManager!=null){
+                        sensorManager.unregisterListener(ContapassiActivity.this);
+                    }
+
                 }
             }
         });
@@ -108,4 +120,26 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
         super.onSaveInstanceState(outState);
         outState.putLong(PASSI, steps);
     }
+
+    public void controllaSensore(){
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if(sensorManager!=null){
+            List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_STEP_DETECTOR);
+
+                if (sensorList.size() > 0) {
+                    sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+                    sensorManager.registerListener(ContapassiActivity.this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+                } else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Sensore assente")
+                            .setMessage("Per usare questa funzionalita' devi avere un sensore contapassi e il tuo dispositivo ne e' sprovvisto")
+                            .setPositiveButton("Ok", null)
+                            .show();
+                }
+
+        }
+    }
+
+
 }
