@@ -72,8 +72,9 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             imageView.setVisibility(GONE);
             new AlertDialog.Builder(this)
-                    .setTitle("Attenzione!")
-                    .setMessage("Waglio senza camera stai?")
+                    .setTitle("Sensore assente")
+                    .setMessage("Per inserire una foto serve una fotocamera e il tuo telefono ne e' sprovvisto")
+                    .setPositiveButton("Ok", null)
                     .show();
         }
 

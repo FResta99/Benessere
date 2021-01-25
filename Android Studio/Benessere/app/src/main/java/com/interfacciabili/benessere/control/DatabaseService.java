@@ -943,7 +943,7 @@ public class DatabaseService extends Service {
         cv.put("PICTURE_URI", uri);
 
         // inserisco i dati e controllo l'operazione, poi chiudo il db
-        long insert = db.insert("CLIENT_PICTURE_TABLE", null, cv);
+        long insert = db.replace("CLIENT_PICTURE_TABLE", null, cv);
         if(insert == -1){
             db.close();
             return false;
