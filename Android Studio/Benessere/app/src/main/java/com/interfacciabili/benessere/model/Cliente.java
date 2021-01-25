@@ -17,17 +17,18 @@ public class Cliente implements Parcelable {
     private int peso;
     private int altezza;
 
-    public Cliente(String username, String password, String email, String nome, String cognome, int eta, String fotoProfilo, String sesso, int peso, int altezza) {
+    public Cliente(String username, String password, String email, String nome, String cognome,
+                   String sesso,  int eta, int peso, int altezza, String fotoProfilo)  {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
         this.eta = eta;
-        this.fotoProfilo = fotoProfilo;
         this.sesso = sesso;
         this.peso = peso;
         this.altezza = altezza;
+        this.fotoProfilo = fotoProfilo;
     }
 
     public Cliente(String username, String password){

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Dietologo;
 
 public class DettagliCliente extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback {
     private static final String EXPERT = "EXPERT";
@@ -27,7 +28,8 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     public TextView tvUsername;
 
     public Cliente cliente;
-    public String usernameExpert, expertType;
+    public String expertType;
+    public Dietologo dietologo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +46,15 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
         Intent intentFrom = getIntent();
         Bundle bundle = intentFrom.getExtras();
-        if ((bundle != null) && (bundle.containsKey(EXPERT)) && (bundle.containsKey(CLIENTE))) {
-            usernameExpert = (String) bundle.getString(EXPERT);
+        if ((bundle != null) && (bundle.containsKey(DIETOLOGO)) && (bundle.containsKey(CLIENTE))) {
+            dietologo = bundle.getParcelable(DIETOLOGO);
             expertType = bundle.getString(EXPERT_TYPE);
             cliente = (Cliente) bundle.get(CLIENTE);
         } else {
             Log.d(TAG_LOG, "The bundle doesn't contain a client and an expert.");
         }
 
-        if (cliente != null && usernameExpert != null) {
+        if (cliente != null && dietologo != null) {
             /* Verifico l'orientamento del dispositivo e se esso è in orizzontale, lancio l'activity dell'home passando il cliente
              * che dovrà essere visualizzato nel fragment.
              */
@@ -64,7 +66,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
                 }
             }
 
-            homeToolbar.setSubtitle(usernameExpert);
+            homeToolbar.setSubtitle(dietologo.getUsername());
             tvUsername.setText(cliente.getUsername());
         } else {
             Log.d(TAG_LOG, "There is not a client.");
@@ -98,6 +100,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     private void goToHomeDietologolActivity() {
         Intent intentOut = new Intent(DettagliCliente.this, HomeDietologo.class);
+        intentOut.putExtra(DIETOLOGO, dietologo);
         intentOut.putExtra(CLIENTE, cliente);
         startActivity(intentOut);
         finish();

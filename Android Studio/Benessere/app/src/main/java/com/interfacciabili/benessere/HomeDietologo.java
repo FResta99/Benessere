@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -49,7 +50,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Dietologo dietologo;
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
@@ -66,7 +67,15 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // BUNDLE OF THIS ACTIVITY
+        //TODO INTENT DA LOGIN
+        Intent intentFromLogin = getIntent();
+        Bundle dietologoBundle = intentFromLogin.getExtras();
+
+        if(dietologoBundle!=null && dietologoBundle.containsKey(DIETOLOGO)){
+            dietologo = dietologoBundle.getParcelable(DIETOLOGO);
+            Toast.makeText(this, ""+ dietologo, Toast.LENGTH_SHORT).show();
+        }
+
         if (savedInstanceState != null && savedInstanceState.containsKey(CLIENTE)) {
             clienteCliccato = savedInstanceState.getParcelable(CLIENTE);
         }
@@ -150,6 +159,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         } else if ((clienteCliccato == null) && (outState.containsKey(CLIENTE))){
             outState.remove(CLIENTE);
         }
+
     }
 
     @Override
@@ -221,7 +231,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
     private void goToDettagliClienteActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
-        intentTo.putExtra(EXPERT, dietologo.getUsername());
+        intentTo.putExtra(DIETOLOGO, dietologo);
         intentTo.putExtra(EXPERT_TYPE, DIETOLOGO);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);

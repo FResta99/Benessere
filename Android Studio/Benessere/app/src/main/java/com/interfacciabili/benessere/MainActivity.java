@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnDiet.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeDietologo.class); //com.interfacciabili.benessere.Login_Diet.class
+                Intent intent = new Intent(MainActivity.this, Login_Diet.class); //com.interfacciabili.benessere.Login_Diet.class
                 startActivity(intent);
             }
         });

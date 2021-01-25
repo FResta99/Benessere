@@ -93,7 +93,7 @@ public class DietaClienteFragment extends Fragment {
                     Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
-                    mdd.setUtente(cliente.getUsername());
+                    mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
                     mdd.setDietologo(dietologo);
                     mdd.show(getFragmentManager(), "Modifica");
                 }
@@ -106,7 +106,7 @@ public class DietaClienteFragment extends Fragment {
                     Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
-                    mdd.setUtente(cliente.getUsername());
+                    mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
                     mdd.setDietologo("Dietologo1");
                     mdd.show(getFragmentManager(), "Modifica");
                 }
@@ -119,7 +119,7 @@ public class DietaClienteFragment extends Fragment {
                     Alimento alimentoCliccato = (Alimento) parent.getItemAtPosition(position);
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
-                    mdd.setUtente(cliente.getUsername());
+                    mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
                     mdd.setDietologo("Dietologo1");
                     mdd.show(getFragmentManager(), "Modifica");
                 }

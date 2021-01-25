@@ -11,10 +11,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String COLUMN_USERNAME = "CLIENT_USERNAME";
     public static final String COLUMN_PASSWORD = "CLIENT_PASSWORD";
+    public static final String COLUMN_CLIENT_MAIL = "CLIENT_MAIL";
+    public static final String COLUMN_CLIENT_NAME = "CLIENT_NAME";
+    public static final String COLUMN_CLIENT_SURNAME = "CLIENT_SURNAME";
+    public static final String COLUMN_CLIENT_AGE = "CLIENT_AGE";
+    public static final String COLUMN_CLIENT_PROPIC = "PICTURE_URI";
+    public static final String COLUMN_CLIENT_GENDER = "CLIENT_SEX";
+    public static final String COLUMN_CLIENT_WEIGHT = "CLIENT_WEIGHT";
+    public static final String COLUMN_CLIENT_HEIGHT = "CLIENT_HEIGHT";
 
     public static final String DIETOLOGIST_TABLE = "DIETOLOGIST_TABLE";
     public static final String COLUMN_DIETOLOGIST_USERNAME = "DIETOLOGIST_USERNAME";
     public static final String COLUMN_DIETOLOGIST_PASSWORD = "DIETOLOGIST_PASSWORD";
+    public static final String COLUMN_DIETOLOGIST_MAIL = "DIETOLOGIST_MAIL";
+    public static final String COLUMN_DIETOLOGIST_NAME = "DIETOLOGIST_NAME";
+    public static final String COLUMN_DIETOLOGIST_SURNAME = "DIETOLOGIST_SURNAME";
+    public static final String COLUMN_DIETOLOGIST_AGE = "DIETOLOGIST_AGE";
+    public static final String COLUMN_DIETOLOGIST_GENDER = "DIETOLOGIST_SEX";
+    public static final String COLUMN_DIETOLOGIST_STUDIO = "DIETOLOGIST_STUDIO";
 
     /*
     public static final String DIET_TABLE = "DIET_TABLE";
@@ -72,6 +86,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_REQUEST_DIET_PORTION = "REQUEST_PORTION";
     public static final String COLUMN_REQUEST_DIET_PORTION_TYPE = "REQUEST_PORTION_TYPE";
     public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
+    public static final String COLUMN_REQUEST_DIET_CLIENT_NAME = "REQUEST_CLIENT_NAME";
+    public static final String COLUMN_REQUEST_DIET_CLIENT_SURNAME = "REQUEST_CLIENT_SURNAME";
 
     public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
     public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";

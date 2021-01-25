@@ -28,7 +28,7 @@ import static java.lang.Boolean.FALSE;
 
 public class ModificaDietaDialog extends DialogFragment {
     Alimento alimento;
-    String utente;
+    String utente, utenteNome, utenteCognome;
     String dietologo;
     String porzioneModificaSpinner;
     EditText etAlimentoModifica, etPorzioneModifica;
@@ -103,7 +103,7 @@ public class ModificaDietaDialog extends DialogFragment {
                     {
                         String alimentoModifier = etAlimentoModifica.getText().toString();
                         String porzioneModifier = etPorzioneModifica.getText().toString();
-                        RichiestaDieta rd = new RichiestaDieta(utente, dietologo, alimento.getId(), alimento.getNome(), alimentoModifier, porzioneModifier, porzioneModificaSpinner, FALSE);
+                        RichiestaDieta rd = new RichiestaDieta(utente, utenteNome, utenteCognome, dietologo, alimento.getId(), alimento.getNome(), alimentoModifier, porzioneModifier, porzioneModificaSpinner, FALSE);
                         databaseService.aggiungiRichestaDieta(rd);
                         wantToCloseDialog = true;
 
@@ -127,8 +127,10 @@ public class ModificaDietaDialog extends DialogFragment {
         alimento = valore;
     }
 
-    public void setUtente(String valore){
-        utente = valore;
+    public void setUtente(String username, String nome, String cognome){
+        utente = username;
+        utenteNome = nome;
+        utenteCognome = cognome;
     }
 
     public void setDietologo(String valore){

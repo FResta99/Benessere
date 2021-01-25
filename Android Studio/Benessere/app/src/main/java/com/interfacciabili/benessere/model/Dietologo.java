@@ -11,26 +11,24 @@ public class Dietologo implements Parcelable {
     private String email;
     private String nome;
     private String cognome;
-    private int eta;
-    private String fotoProfilo;
     private String sesso;
+    private int eta;
     private String studio;
 
-    public Dietologo(String username, String password, String email, String nome, String cognome, int eta, String fotoProfilo, String sesso, String studio) {
+    public Dietologo(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
+    public Dietologo(String username, String password, String email, String nome, String cognome, String sesso, int eta, String studio) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
         this.eta = eta;
-        this.fotoProfilo = fotoProfilo;
         this.sesso = sesso;
         this.studio = studio;
-    }
-
-    public Dietologo(String username, String password){
-        this.username = username;
-        this.password = password;
     }
 
     public Dietologo(){
@@ -43,9 +41,8 @@ public class Dietologo implements Parcelable {
         email = in.readString();
         nome = in.readString();
         cognome = in.readString();
-        eta = in.readInt();
-        fotoProfilo = in.readString();
         sesso = in.readString();
+        eta = in.readInt();
         studio = in.readString();
     }
 
@@ -109,14 +106,6 @@ public class Dietologo implements Parcelable {
         this.eta = eta;
     }
 
-    public String getFotoProfilo() {
-        return fotoProfilo;
-    }
-
-    public void setFotoProfilo(String fotoProfilo) {
-        this.fotoProfilo = fotoProfilo;
-    }
-
     public String getSesso() {
         return sesso;
     }
@@ -142,7 +131,6 @@ public class Dietologo implements Parcelable {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", eta=" + eta +
-                ", fotoProfilo='" + fotoProfilo + '\'' +
                 ", sesso='" + sesso + '\'' +
                 ", studio='" + studio + '\'' +
                 '}';
@@ -160,9 +148,8 @@ public class Dietologo implements Parcelable {
         dest.writeString(email);
         dest.writeString(nome);
         dest.writeString(cognome);
-        dest.writeInt(eta);
-        dest.writeString(fotoProfilo);
         dest.writeString(sesso);
+        dest.writeInt(eta);
         dest.writeString(studio);
     }
 }

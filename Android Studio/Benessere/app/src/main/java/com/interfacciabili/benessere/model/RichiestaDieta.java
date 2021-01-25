@@ -6,6 +6,8 @@ import android.os.Parcelable;
 public class RichiestaDieta implements Parcelable {
     private int id;
     private String usernameCliente;
+    private String nomeCliente;
+    private String cognomeCliente;
     private String usernameDietologo;
     private int idAlimentoDaModificare;
     private String alimentoDaModificare;
@@ -14,28 +16,34 @@ public class RichiestaDieta implements Parcelable {
     private String alimentoRichiestoTipoPorzione;
     private boolean isApprovata;
 
-    public RichiestaDieta(int id, String usernameCliente, String usernameDietologo, int idAlimentoDaModificare, String alimentoDaModificare, String alimentoRichiesto,
-                          String alimentoRichiestoPorzione, String alimentoRichiestoTipoPorzione, boolean isApprovata) {
+    public RichiestaDieta(int id, String usernameCliente, String nomeCliente, String cognomeCliente, String usernameDietologo, int idAlimentoDaModificare,
+                          String alimentoDaModificare, String alimentoRichiesto, String alimentoRichiestoPorzione, String alimentoRichiestoTipoPorzione,
+                          boolean isApprovata) {
         this.id = id;
         this.usernameCliente = usernameCliente;
+        this.nomeCliente = nomeCliente;
+        this.cognomeCliente = cognomeCliente;
         this.usernameDietologo = usernameDietologo;
         this.idAlimentoDaModificare = idAlimentoDaModificare;
         this.alimentoDaModificare = alimentoDaModificare;
         this.alimentoRichiesto = alimentoRichiesto;
-        this.alimentoRichiestoPorzione =  alimentoRichiestoPorzione;
+        this.alimentoRichiestoPorzione = alimentoRichiestoPorzione;
         this.alimentoRichiestoTipoPorzione = alimentoRichiestoTipoPorzione;
         this.isApprovata = isApprovata;
     }
 
-    public RichiestaDieta(String usernameCliente, String usernameDietologo, int idAlimentoDaModificare, String alimentoDaModificare, String alimentoRichiesto,
-                          String alimentoRichiestoPorzione, String alimentoRichiestoTipoPorzione, boolean isApprovata) {
+    public RichiestaDieta(String usernameCliente, String nomeCliente, String cognomeCliente, String usernameDietologo, int idAlimentoDaModificare,
+                          String alimentoDaModificare, String alimentoRichiesto, String alimentoRichiestoPorzione, String alimentoRichiestoTipoPorzione,
+                          boolean isApprovata) {
         this.id = -1;
         this.usernameCliente = usernameCliente;
+        this.nomeCliente = nomeCliente;
+        this.cognomeCliente = cognomeCliente;
         this.usernameDietologo = usernameDietologo;
         this.idAlimentoDaModificare = idAlimentoDaModificare;
         this.alimentoDaModificare = alimentoDaModificare;
         this.alimentoRichiesto = alimentoRichiesto;
-        this.alimentoRichiestoPorzione =  alimentoRichiestoPorzione;
+        this.alimentoRichiestoPorzione = alimentoRichiestoPorzione;
         this.alimentoRichiestoTipoPorzione = alimentoRichiestoTipoPorzione;
         this.isApprovata = isApprovata;
     }
@@ -43,6 +51,8 @@ public class RichiestaDieta implements Parcelable {
     protected RichiestaDieta(Parcel in) {
         id = in.readInt();
         usernameCliente = in.readString();
+        nomeCliente = in.readString();
+        cognomeCliente = in.readString();
         usernameDietologo = in.readString();
         idAlimentoDaModificare = in.readInt();
         alimentoDaModificare = in.readString();
@@ -56,6 +66,8 @@ public class RichiestaDieta implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(usernameCliente);
+        dest.writeString(nomeCliente);
+        dest.writeString(cognomeCliente);
         dest.writeString(usernameDietologo);
         dest.writeInt(idAlimentoDaModificare);
         dest.writeString(alimentoDaModificare);
@@ -82,11 +94,6 @@ public class RichiestaDieta implements Parcelable {
         }
     };
 
-    @Override
-    public String toString() {
-        return "Nuova richiesta da parte di " + usernameCliente;
-    }
-
     public int getId() {
         return id;
     }
@@ -101,6 +108,22 @@ public class RichiestaDieta implements Parcelable {
 
     public void setUsernameCliente(String usernameCliente) {
         this.usernameCliente = usernameCliente;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getCognomeCliente() {
+        return cognomeCliente;
+    }
+
+    public void setCognomeCliente(String cognomeCliente) {
+        this.cognomeCliente = cognomeCliente;
     }
 
     public String getUsernameDietologo() {
@@ -157,6 +180,11 @@ public class RichiestaDieta implements Parcelable {
 
     public void setApprovata(boolean approvata) {
         isApprovata = approvata;
+    }
+
+    @Override
+    public String toString() {
+        return "Nuova richiesta da " + nomeCliente + " " + cognomeCliente;
     }
 }
 
