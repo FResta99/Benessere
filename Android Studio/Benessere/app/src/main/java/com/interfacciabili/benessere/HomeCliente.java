@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.interfacciabili.benessere.model.Cliente;
 
@@ -15,11 +16,15 @@ public class HomeCliente extends AppCompatActivity {
     //TODO Passare con l'intent
     private Cliente cliente = new Cliente("Silvio", "");
     public static final String CLIENTE = "CLIENTE";
+    private TextView tvBenvenutoCliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cliente);
+
+        tvBenvenutoCliente = findViewById(R.id.tvBenvenutoCliente);
+        tvBenvenutoCliente.setText(cliente.toString());
 
         Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         if (homeToolbar != null) {
@@ -61,4 +66,9 @@ public class HomeCliente extends AppCompatActivity {
     }
 
 
+    public void goToPersonalizzaProfilo(View view) {
+        Intent goToPersonalizza = new Intent(HomeCliente.this, ProfiloUtenteActivity.class);
+        goToPersonalizza.putExtra(CLIENTE, cliente);
+        startActivity(goToPersonalizza);
+    }
 }

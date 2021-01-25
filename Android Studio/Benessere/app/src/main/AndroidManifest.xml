@@ -34,6 +34,7 @@
         <activity android:name=".ProfiloUtenteActivity"></activity>
         <activity android:name=".InserimentoAllenamento" />
         <activity android:name=".InserimentoScheda" />
+        <activity android:name=".Animationss"/>
         <activity android:name=".HomeCliente" />
         <activity android:name=".ContapassiActivity" />
         <activity android:name=".EquipmentsActivity" />
