@@ -20,7 +20,7 @@ public class EquipmentsActivity extends AppCompatActivity implements MasterEquip
     private static final String CLIENTE = "CLIENTE";
 
     //TODO: Rimuovere il costruttore perché il cliente verrà passato tramite Intent da un'altra activity.
-    private Cliente cliente = new Cliente("Giovanni", "giovanniPaoloSecondo");
+    private Cliente cliente;
     private Attrezzo attrezzoCliccato;
 
     private boolean landscapeView;

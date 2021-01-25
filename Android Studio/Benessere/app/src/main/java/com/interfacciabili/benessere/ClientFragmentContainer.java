@@ -64,6 +64,9 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             Toolbar toolbarHome = (Toolbar) findViewById(R.id.toolbar_main);
             setSupportActionBar(toolbarHome);
             toolbarHome.setSubtitle(cliente.getUsername());
+            if(tipoCliente.equals("ALLENAMENTO")){
+                toolbarHome.setTitle("Il tuo allenamento");
+            }
 
 
             // Setting menutab
@@ -113,7 +116,7 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
         if(tipoCliente.equals("DIETA")){
             getMenuInflater().inflate(R.menu.menu_cliente, menu);
         } else {
-            //TODO Menu con contapassi
+            getMenuInflater().inflate(R.menu.menu_allenamento_cliente, menu);
         }
 
         return true;
@@ -130,8 +133,15 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             Intent goToMainActivity = new Intent(ClientFragmentContainer.this, MainActivity.class);
             startActivity(goToMainActivity);
         }
-        //TODO Aggiungere contapassi
-
+        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.contapassiButton){
+            Intent goToContapassi = new Intent(ClientFragmentContainer.this, ContapassiActivity.class);
+            startActivity(goToContapassi);
+        }
+        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.attrezziButton){
+            Intent goToAttrezzi = new Intent(ClientFragmentContainer.this, EquipmentsActivity.class);
+            goToAttrezzi.putExtra(CLIENTE, cliente);
+            startActivity(goToAttrezzi);
+        }
 
         return super.onOptionsItemSelected(item);
     }

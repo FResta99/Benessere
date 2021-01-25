@@ -146,7 +146,7 @@ public class Cliente implements Parcelable {
 
     @Override
     public String toString() {
-        return username;
+        return nome + " " + cognome + " ("+username+")";
     }
 
     @Override

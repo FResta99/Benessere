@@ -84,17 +84,7 @@ public class RichiestaDieta implements Parcelable {
 
     @Override
     public String toString() {
-        return "RichiestaDieta{" +
-                "id=" + id +
-                ", usernameCliente='" + usernameCliente + '\'' +
-                ", usernameDietologo='" + usernameDietologo + '\'' +
-                ", idAlimentoDaModificare=" + idAlimentoDaModificare +
-                ", alimentoDaModificare='" + alimentoDaModificare + '\'' +
-                ", alimentoRichiesto='" + alimentoRichiesto + '\'' +
-                ", alimentoRichiestoPorzione='" + alimentoRichiestoPorzione + '\'' +
-                ", alimentoRichiestoTipoPorzione='" + alimentoRichiestoTipoPorzione + '\'' +
-                ", isApprovata=" + isApprovata +
-                '}';
+        return "Nuova richiesta da parte di " + usernameCliente;
     }
 
     public int getId() {

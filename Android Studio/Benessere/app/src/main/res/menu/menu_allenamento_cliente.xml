@@ -7,4 +7,8 @@
         android:icon="@drawable/ic_baseline_directions_walk_24"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/attrezziButton"
+        android:title="Attrezzi"
+        app:showAsAction="ifRoom"/>
+
 </menu>
