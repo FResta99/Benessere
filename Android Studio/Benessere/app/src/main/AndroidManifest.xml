@@ -56,7 +56,6 @@
             android:theme="@style/Theme.Benessere" />
         <activity
             android:name=".RichiesteDietologo"
-            android:parentActivityName=".HomeDietologo"
             android:theme="@style/Theme.Benessere" />
         <activity android:name=".ClientFragmentContainer" />
         <activity android:name=".InserimentoDieta" />

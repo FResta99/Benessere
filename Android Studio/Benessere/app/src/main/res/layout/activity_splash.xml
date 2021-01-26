@@ -16,7 +16,7 @@
             android:id="@+id/imageViewSplash"
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:src="@drawable/ic_iconfinder_exercise_dumbbells_gym_fitness_diet_6643367"
+            android:src="@mipmap/ic_launcher"
             android:layout_centerHorizontal="true"
             />
 

@@ -27,9 +27,7 @@ import com.interfacciabili.benessere.model.Dietologo;
 
 public class HomeDietologo extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
     private static final String EXPERT = "EXPERT";
-    //public static final String DIETOLOGO = "DIETOLOGO";
     private static final String CLIENTE = "CLIENTE";
-    private static final String TAG_LOG = "Home";
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -54,7 +52,6 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
     private boolean landscapeView;
 
-    private TextView tvBenvenuto;
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
 
@@ -66,7 +63,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO INTENT DA LOGIN
+        //INTENT DA LOGIN
         Intent intentFromLogin = getIntent();
         Bundle dietologoBundle = intentFromLogin.getExtras();
 
@@ -100,6 +97,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             Intent intentFrom = getIntent();
             if (intentFrom != null && intentFrom.hasExtra(CLIENTE)) {
                 clienteCliccato = intentFrom.getParcelableExtra(CLIENTE);
+                dietologo = intentFrom.getParcelableExtra(EXPERT);
                 updateClientDetailFragment(R.layout.dettagli_cliente);
             } else {
                 updateClientDetailFragment(R.layout.dettagli_cliente_blank);
@@ -196,6 +194,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             Intent goToRichiesteDietologo = new Intent(HomeDietologo.this, RichiesteDietologo.class);
             goToRichiesteDietologo.putExtra(EXPERT, dietologo);
             startActivity(goToRichiesteDietologo);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

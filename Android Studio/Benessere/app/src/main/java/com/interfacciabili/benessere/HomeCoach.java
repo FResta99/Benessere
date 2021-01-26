@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -28,10 +29,7 @@ import com.interfacciabili.benessere.model.Coach;
 
 public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog.EliminaClienteDialogCallback, MasterHomeFragment.MasterHomeFragmentCallback {
     private static final String EXPERT = "EXPERT";
-    public static final String EXPERT_TYPE = "EXPERT_TYPE";
-    public static final String COACH = "COACH";
     private static final String CLIENTE = "CLIENTE";
-    private static final String TAG_LOG = "Home";
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -51,12 +49,11 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         }
     };
 
-    public Coach coach = new Coach("Coach1", "password");
+    public Coach coach;
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
 
-    private TextView tvBenvenuto;
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
 
@@ -67,6 +64,15 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //INTENT DA LOGIN
+        Intent intentFromLogin = getIntent();
+        Bundle coachBundle = intentFromLogin.getExtras();
+
+        if(coachBundle!=null && coachBundle.containsKey(EXPERT)){
+            coach = coachBundle.getParcelable(EXPERT);
+            Toast.makeText(this, ""+ coach, Toast.LENGTH_SHORT).show();
+        }
 
         // BUNDLE OF THIS ACTIVITY
         if (savedInstanceState != null && savedInstanceState.containsKey(CLIENTE)) {
@@ -186,11 +192,11 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         if (item.getItemId() == R.id.actionbar_button_1) {
-            Log.d(TAG_LOG, "Button one pressed");
+
         } else if (item.getItemId() == R.id.actionbar_button_2) {
-            Log.d(TAG_LOG, "Button two pressed");
+
         } else if (item.getItemId() == R.id.actionbar_button_3) {
-            Log.d(TAG_LOG, "Button three pressed");
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -200,8 +206,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         masterFragment = MasterHomeFragment.newInstance();
 
         Bundle bundleFragment = masterFragment.getArguments();
-        bundleFragment.putString(EXPERT, coach.getUsername());
-        bundleFragment.putString(EXPERT_TYPE, COACH);
+        bundleFragment.putParcelable(EXPERT, coach);
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -210,8 +215,9 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         detailFragment = DetailHomeFragment.newInstance(layoutID);
         if (layoutID == R.layout.dettagli_cliente) {
             Bundle bundleFragment = detailFragment.getArguments();
+            bundleFragment.putParcelable(EXPERT, coach);
             bundleFragment.putParcelable(CLIENTE, clienteCliccato);
-            bundleFragment.putString(EXPERT_TYPE, COACH);
+
         }
 
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();
@@ -224,8 +230,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
 
     private void goToClientDetailActivity() {
         Intent intentTo = new Intent(HomeCoach.this, DettagliCliente.class);
-        intentTo.putExtra(EXPERT, coach.getUsername());
-        intentTo.putExtra(EXPERT_TYPE, COACH);
+        intentTo.putExtra(EXPERT, coach);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
         finish();
@@ -234,8 +239,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
     //FLOATING ACTION BUTTON LISTENER
     public void aggiungiCliente(View view) {
         Intent intentTo = new Intent(HomeCoach.this, RicercaCliente.class);
-        intentTo.putExtra(EXPERT, coach.getUsername());
-        intentTo.putExtra(EXPERT_TYPE, COACH);
+        intentTo.putExtra(EXPERT, coach);
         startActivity(intentTo);
     }
 }

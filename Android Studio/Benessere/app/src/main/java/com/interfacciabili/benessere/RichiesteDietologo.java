@@ -29,8 +29,8 @@ public class RichiesteDietologo extends AppCompatActivity {
 
     public Dietologo dietologo;
     ListView lvRichieste;
+    private static final String EXPERT = "EXPERT";
     private static final String RICHIESTA = "RICHIESTA";
-    public static final String DIETOLOGO = "DIETOLOGO";
 
     taskMostraRichieste mTask;
 
@@ -60,8 +60,8 @@ public class RichiesteDietologo extends AppCompatActivity {
 
         Intent intentFrom = getIntent();
         if (intentFrom != null) {
-            if (intentFrom.hasExtra(DIETOLOGO)) {
-                dietologo = intentFrom.getParcelableExtra(DIETOLOGO);
+            if (intentFrom.hasExtra(EXPERT)) {
+                dietologo = intentFrom.getParcelableExtra(EXPERT);
             }
         }
 
@@ -92,10 +92,12 @@ public class RichiesteDietologo extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        /*if (item.getItemId() == android.R.id.home) {
-            Intent goToMainActivity = new Intent(HomeCliente.this, MainActivity.class);
-            startActivity(goToMainActivity);
-        }*/
+        if (item.getItemId() == android.R.id.home) {
+            Intent goToHomeDietologo = new Intent(RichiesteDietologo.this, HomeDietologo.class);
+            goToHomeDietologo.putExtra(EXPERT, dietologo);
+            startActivity(goToHomeDietologo);
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }
