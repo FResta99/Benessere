@@ -1,6 +1,8 @@
 package com.interfacciabili.benessere;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +86,9 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
             }
         }
 
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rvShoppingList = findViewById(R.id.rvShoppingList);
         rvShoppingList.setHasFixedSize(true); //rv non cambia di dimensione
@@ -126,5 +131,14 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
                 return false;
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

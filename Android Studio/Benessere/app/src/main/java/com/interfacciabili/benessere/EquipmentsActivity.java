@@ -1,5 +1,6 @@
 package com.interfacciabili.benessere;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -62,9 +63,9 @@ public class EquipmentsActivity extends AppCompatActivity implements MasterEquip
         if (cliente != null) {
             setContentView(R.layout.activity_equipments);
 
-            Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-            setSupportActionBar(homeToolbar);
-            homeToolbar.setSubtitle(cliente.getUsername());
+            Toolbar toolbar = findViewById(R.id.toolbar_main);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             fragmentManager = getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() != 0) {
@@ -106,17 +107,13 @@ public class EquipmentsActivity extends AppCompatActivity implements MasterEquip
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.actionbar_button_1) {
-        } else if (item.getItemId() == R.id.actionbar_button_2) {
-        } else if (item.getItemId() == R.id.actionbar_button_3) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -166,4 +163,5 @@ public class EquipmentsActivity extends AppCompatActivity implements MasterEquip
             super.onBackPressed();
         }
     }
+
 }

@@ -9,6 +9,11 @@
 
     <item android:id="@+id/attrezziButton"
         android:title="Attrezzi"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/tornelloButton"
+        android:title="Apri il tornello"
+        app:showAsAction="never"/>
+
 
 </menu>

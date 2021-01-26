@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,10 +34,11 @@ public class AperturaTornello extends AppCompatActivity implements View.OnClickL
 
         setContentView(R.layout.activity_aperturatornello);
         Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+
         if (homeToolbar != null) {
             setSupportActionBar(homeToolbar);
             //getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
-            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         controllainternet();
@@ -86,5 +88,15 @@ public class AperturaTornello extends AppCompatActivity implements View.OnClickL
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

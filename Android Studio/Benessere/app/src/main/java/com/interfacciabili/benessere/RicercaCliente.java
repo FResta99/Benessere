@@ -58,9 +58,7 @@ public class RicercaCliente extends AppCompatActivity {
 
         Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
-
-        ActionBar mainActionbar = getSupportActionBar();
-        mainActionbar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intentFrom = getIntent();
         if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
@@ -109,22 +107,14 @@ public class RicercaCliente extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.actionbar_button_1) {
-            Log.d(TAG_LOG, "Button one pressed");
-        } else if (item.getItemId() == R.id.actionbar_button_2) {
-            Log.d(TAG_LOG, "Button two pressed");
-        } else if (item.getItemId() == R.id.actionbar_button_3) {
-            Log.d(TAG_LOG, "Button three pressed");
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

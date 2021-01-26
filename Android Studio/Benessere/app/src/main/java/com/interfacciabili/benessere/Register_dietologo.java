@@ -123,8 +123,8 @@ public class Register_dietologo extends AppCompatActivity {
                                  swSessoTesto, Integer.parseInt(etEtaTesto), etStudioTesto);
                         if (databaseService.aggiungiDietologo(dietologo) == true){
                             Intent intent = new Intent(Register_dietologo.this, com.interfacciabili.benessere.HomeDietologo.class);
-                            //TODO passare il dietologo all'intent
-                            //startActivity(intent);
+                            intent.putExtra("EXPERT", dietologo);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(),"Errore: registrazione non riuscita." , Toast.LENGTH_LONG).show();
                         }

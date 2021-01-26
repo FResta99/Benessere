@@ -36,11 +36,9 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dettagli_cliente);
 
-        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        Toolbar homeToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
-
-        ActionBar mainActionbar = getSupportActionBar();
-        mainActionbar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvUsername = findViewById(R.id.tvDettaglioUsernameCliente);
 
@@ -84,19 +82,12 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.actionbar_button_1) {
-            Log.d(TAG_LOG, "Button one pressed");
-        } else if (item.getItemId() == R.id.actionbar_button_2) {
-            Log.d(TAG_LOG, "Button two pressed");
-        } else if (item.getItemId() == R.id.actionbar_button_3) {
-            Log.d(TAG_LOG, "Button three pressed");
+        if(item.getItemId() == android.R.id.home){
+            goToHomeDietologolActivity();
+            //finish();
+            //TODO Testare un metodo migliore
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

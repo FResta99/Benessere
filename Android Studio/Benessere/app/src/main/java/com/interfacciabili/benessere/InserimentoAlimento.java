@@ -1,5 +1,6 @@
 package com.interfacciabili.benessere;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -56,7 +57,6 @@ public class InserimentoAlimento extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnAggiungiAlimento = findViewById(R.id.btnAggiungiAlimento);
@@ -189,6 +189,15 @@ public class InserimentoAlimento extends AppCompatActivity {
     public void eliminaAlimento(View view) {
         databaseService.eliminaAlimento(alimento);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

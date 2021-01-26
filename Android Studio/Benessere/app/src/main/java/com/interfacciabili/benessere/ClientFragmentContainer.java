@@ -1,5 +1,6 @@
 package com.interfacciabili.benessere;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,7 @@ import com.interfacciabili.benessere.personalView.ScrollViewTab;
 
 public class ClientFragmentContainer extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ScrollViewTab.ScrollViewTabCallback {
 
-    public Cliente cliente;
+    public Cliente cliente = new Cliente("aaa", "aaa");
     private String tipoCliente;
 
     private static final String CLIENTE = "CLIENTE";
@@ -63,6 +64,8 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             // Setting main toolbar
             Toolbar toolbarHome = (Toolbar) findViewById(R.id.toolbar_main);
             setSupportActionBar(toolbarHome);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
             toolbarHome.setSubtitle(cliente.getUsername());
             if(tipoCliente.equals("ALLENAMENTO")){
                 toolbarHome.setTitle("Il tuo allenamento");
@@ -129,10 +132,6 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             goToShoppingList.putExtra(CLIENTE, cliente);
             startActivity(goToShoppingList);
         }
-        if (item.getItemId() == android.R.id.home) {
-            Intent goToMainActivity = new Intent(ClientFragmentContainer.this, MainActivity.class);
-            startActivity(goToMainActivity);
-        }
         if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.contapassiButton){
             Intent goToContapassi = new Intent(ClientFragmentContainer.this, ContapassiActivity.class);
             startActivity(goToContapassi);
@@ -141,6 +140,13 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             Intent goToAttrezzi = new Intent(ClientFragmentContainer.this, EquipmentsActivity.class);
             goToAttrezzi.putExtra(CLIENTE, cliente);
             startActivity(goToAttrezzi);
+        }
+        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.tornelloButton){
+
+        }
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -242,4 +248,5 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
     public void swipeLeftScrollView() {
         swipeLeft();
     }
+
 }
