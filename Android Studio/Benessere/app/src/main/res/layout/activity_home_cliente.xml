@@ -60,7 +60,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="37dp"
         android:layout_toRightOf="@+id/ivCliente"
-        android:text="Personalizza profilo" />
+        android:text="Personalizza profilo"
+        android:onClick="goToPersonalizzaProfilo"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cdDieta"

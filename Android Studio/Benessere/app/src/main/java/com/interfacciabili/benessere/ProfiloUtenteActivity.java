@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Cliente;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
     String currentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
     ImageView imageView;
+    private Cliente cliente;
+    private static final String CLIENTE = "CLIENTE";
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -51,8 +54,8 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
-            String risultato = databaseService.recuperaClienteFoto("Silvio");
-            if(!risultato.isEmpty()){
+            String risultato = databaseService.recuperaClienteFoto(cliente.getUsername());
+            if(risultato!=null){
                 imageView.setImageURI(Uri.parse(risultato));
             }
         }
@@ -71,6 +74,13 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //INTENT DA HOME
+        Intent intentFrom = getIntent();
+        Bundle clienteBundle = intentFrom.getExtras();
+        if(clienteBundle!=null){
+            cliente = clienteBundle.getParcelable(CLIENTE);
+        }
 
         imageView=(ImageView)findViewById(R.id.imProfilo);
 
@@ -193,8 +203,8 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
             File f = new File(currentPhotoPath);
             Uri contentUri = Uri.fromFile(f);
 
-            //TODO Passare bundle
-            databaseService.aggiungiClienteFoto("Silvio", contentUri.toString());
+
+            databaseService.aggiungiClienteFoto(cliente.getUsername(), contentUri.toString());
 
             setPic();
 

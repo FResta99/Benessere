@@ -109,6 +109,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COACH_TABLE = "COACH_TABLE";
     public static final String COLUMN_COACH_USERNAME = "COACH_USERNAME";
     public static final String COLUMN_COACH_PASSWORD = "COACH_PASSWORD";
+    public static final String COLUMN_COACH_MAIL = "COACH_MAIL";
+    public static final String COLUMN_COACH_NAME = "COACH_NAME";
+    public static final String COLUMN_COACH_SURNAME = "COACH_SURNAME";
+    public static final String COLUMN_COACH_AGE = "COACH_AGE";
+    public static final String COLUMN_COACH_GENDER = "COACH_SEX";
+    public static final String COLUMN_COACH_GYM = "COACH_GYM";
 
 
     public static final String EXERCISE_TABLE = "EXERCISE_TABLE";

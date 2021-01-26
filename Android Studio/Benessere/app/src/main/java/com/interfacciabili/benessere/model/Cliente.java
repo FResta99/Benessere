@@ -12,10 +12,10 @@ public class Cliente implements Parcelable {
     private String nome;
     private String cognome;
     private int eta;
-    private String fotoProfilo;
     private String sesso;
     private int peso;
     private int altezza;
+    private String fotoProfilo;
 
     public Cliente(String username, String password, String email, String nome, String cognome,
                    String sesso,  int eta, int peso, int altezza, String fotoProfilo)  {

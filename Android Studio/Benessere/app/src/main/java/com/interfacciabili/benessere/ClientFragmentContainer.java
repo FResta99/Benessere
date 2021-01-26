@@ -142,7 +142,8 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             startActivity(goToAttrezzi);
         }
         if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.tornelloButton){
-
+            Intent goToTornello = new Intent(ClientFragmentContainer.this, AperturaTornello.class);
+            startActivity(goToTornello);
         }
         if(item.getItemId() == android.R.id.home){
             finish();

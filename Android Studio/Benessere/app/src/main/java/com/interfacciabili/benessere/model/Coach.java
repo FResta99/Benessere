@@ -13,18 +13,16 @@ public class Coach extends Esperto implements Parcelable {
     private String nome;
     private String cognome;
     private int eta;
-    private String fotoProfilo;
     private String sesso;
     private String palestra;
 
-    public Coach(String username, String password, String email, String nome, String cognome, int eta, String fotoProfilo, String sesso, String palestra) {
+    public Coach(String username, String password, String email, String nome, String cognome, int eta, String sesso, String palestra) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
         this.eta = eta;
-        this.fotoProfilo = fotoProfilo;
         this.sesso = sesso;
         this.palestra = palestra;
     }
@@ -45,7 +43,6 @@ public class Coach extends Esperto implements Parcelable {
         nome = in.readString();
         cognome = in.readString();
         eta = in.readInt();
-        fotoProfilo = in.readString();
         sesso = in.readString();
         palestra = in.readString();
     }
@@ -58,7 +55,6 @@ public class Coach extends Esperto implements Parcelable {
         dest.writeString(nome);
         dest.writeString(cognome);
         dest.writeInt(eta);
-        dest.writeString(fotoProfilo);
         dest.writeString(sesso);
         dest.writeString(palestra);
     }
@@ -128,13 +124,6 @@ public class Coach extends Esperto implements Parcelable {
         this.eta = eta;
     }
 
-    public String getFotoProfilo() {
-        return fotoProfilo;
-    }
-
-    public void setFotoProfilo(String fotoProfilo) {
-        this.fotoProfilo = fotoProfilo;
-    }
 
     public String getSesso() {
         return sesso;
@@ -161,7 +150,6 @@ public class Coach extends Esperto implements Parcelable {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", eta=" + eta +
-                ", fotoProfilo='" + fotoProfilo + '\'' +
                 ", sesso='" + sesso + '\'' +
                 ", palestra='" + palestra + '\'' +
                 '}';

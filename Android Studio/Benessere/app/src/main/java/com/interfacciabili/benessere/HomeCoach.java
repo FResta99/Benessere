@@ -183,25 +183,6 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         updateClientDetailFragment(R.layout.dettagli_cliente);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.actionbar_button_1) {
-
-        } else if (item.getItemId() == R.id.actionbar_button_2) {
-
-        } else if (item.getItemId() == R.id.actionbar_button_3) {
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void updateMasterFragment() {
         masterFragment = MasterHomeFragment.newInstance();
 

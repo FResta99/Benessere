@@ -84,9 +84,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            goToHomeDietologolActivity();
-            //finish();
-            //TODO Testare un metodo migliore
+            onBackPressed();
             return true;
         }
 

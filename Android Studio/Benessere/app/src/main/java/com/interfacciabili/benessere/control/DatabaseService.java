@@ -12,6 +12,7 @@ import android.util.Log;
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Attrezzo;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
 import com.interfacciabili.benessere.model.Dietologo;
 import com.interfacciabili.benessere.model.Esercizio;
 import com.interfacciabili.benessere.model.Prodotto;
@@ -860,11 +861,6 @@ public class DatabaseService extends Service {
     // METODI REGISTRAZIONE
 
 
-
-
-
-
-
     public boolean isDietologistUsernameInDatabase (String usernameCercato){
         boolean isPresente = false;
 
@@ -984,6 +980,146 @@ public class DatabaseService extends Service {
         return dietologoCercato;
     }
 
+    //Funzione che restituisce un coach nel database in base all'usernme cercato
+    public Coach ricercaCoach (String usernameCercato){
+        Coach coachCercato = new Coach();
+
+        String queryClienti = "SELECT * FROM " + dietDB.COACH_TABLE + " WHERE " + dietDB.COLUMN_COACH_USERNAME + " = \"" + usernameCercato + "\"; ";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            String username = risultato.getString(0);
+            String password = risultato.getString(1);
+            String mail = risultato.getString(2);
+            String nome = risultato.getString(3);
+            String cognome = risultato.getString(4);
+            String sesso = risultato.getString(5);
+            int eta = risultato.getInt(6);
+            String palestra = risultato.getString(7);
+
+            coachCercato.setUsername(username);
+            coachCercato.setPassword(password);
+            coachCercato.setEmail(mail);
+            coachCercato.setNome(nome);
+            coachCercato.setCognome(cognome);
+            coachCercato.setEta(eta);
+            coachCercato.setSesso(sesso);
+            coachCercato.setPalestra(palestra);
+        } else {
+
+            // 0 risultati, non ha trovato nulla
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return coachCercato;
+    }
+
+    public boolean aggiungiCoach(Coach coach){
+
+        // ottengo un db in scrittura utilizzando il metodo della classe dbhelper
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+
+        // creo un contenitore per i valori da inserire e li inserisco
+        ContentValues cv = new ContentValues();
+
+        cv.put(dietDB.COLUMN_COACH_USERNAME, coach.getUsername());
+        cv.put(dietDB.COLUMN_COACH_PASSWORD, coach.getPassword());
+        cv.put(dietDB.COLUMN_COACH_MAIL, coach.getEmail());
+        cv.put(dietDB.COLUMN_COACH_NAME, coach.getNome());
+        cv.put(dietDB.COLUMN_COACH_SURNAME, coach.getCognome());
+        cv.put(dietDB.COLUMN_COACH_GENDER, coach.getSesso());
+        cv.put(dietDB.COLUMN_COACH_AGE, coach.getEta());
+        cv.put(dietDB.COLUMN_COACH_GYM, coach.getPalestra());
+
+        // inserisco i dati e controllo l'operazione, poi chiudo il db
+        long insert = db.insert(dietDB.COACH_TABLE, null, cv);
+        Log.d("RESULTDB", Long.toString(insert) );
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean isCoachUsernameInDatabase (String usernameCercato){
+        boolean isPresente = false;
+
+        String queryClienti = "SELECT * FROM " + dietDB.COACH_TABLE + " WHERE " + dietDB.COLUMN_COACH_USERNAME + " = \"" + usernameCercato + "\"; ";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            isPresente = true;
+        } else {
+
+            // 0 risultati, non ha trovato nulla
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return isPresente;
+    }
+
+    //Funzione che restituisce un coach nel database in base all'usernme cercato
+    public Cliente ricercaCliente (String usernameCercato){
+        Cliente clienteCercato = new Cliente();
+
+        String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME +  " = \"" + usernameCercato + "\"; ";
+
+        // prendiamo il db in lettura
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        // Result set
+        Cursor risultato = db.rawQuery(queryClienti, null);
+
+        // Accediamo al primo elemento, se esiste
+        if(risultato.moveToFirst()){
+            String username = risultato.getString(0);
+            String password = risultato.getString(1);
+            String mail = risultato.getString(2);
+            String nome = risultato.getString(3);
+            String cognome = risultato.getString(4);
+            String sesso = risultato.getString(5);
+            int eta = risultato.getInt(6);
+            int peso = risultato.getInt(7);
+            int altezza = risultato.getInt(8);
+            String fotoProfilo = risultato.getString(9);
+
+            clienteCercato.setUsername(username);
+            clienteCercato.setPassword(password);
+            clienteCercato.setEmail(mail);
+            clienteCercato.setNome(nome);
+            clienteCercato.setCognome(cognome);
+            clienteCercato.setEta(eta);
+            clienteCercato.setSesso(sesso);
+            clienteCercato.setFotoProfilo(fotoProfilo);
+            clienteCercato.setPeso(peso);
+            clienteCercato.setAltezza(altezza);
+
+        } else {
+
+            // 0 risultati, non ha trovato nulla
+        }
+        // a fine query, chiudiamo il cursore e il db
+        risultato.close();
+        db.close();
+        return clienteCercato;
+    }
 
 
 }

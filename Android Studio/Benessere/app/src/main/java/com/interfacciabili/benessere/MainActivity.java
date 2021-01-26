@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnCoach.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Animationss.class); //com.interfacciabili.benessere.Login_Coach.class
+                Intent intent = new Intent(MainActivity.this, Login_Coach.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnDiet.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Login_Diet.class); //com.interfacciabili.benessere.Login_Diet.class
+                Intent intent = new Intent(MainActivity.this, Login_Diet.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnBenessere.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, HomeCliente.class);
+                Intent intent = new Intent(MainActivity.this, Login_Benessere.class);
                 startActivity(intent);
             }
         });

@@ -48,7 +48,7 @@
             android:id="@+id/btnGestisciDieta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestisci dieta"
+            android:text="Gestisci cliente"
             android:layout_centerInParent="true"
             app:icon="@drawable/ic_baseline_create_24"
             android:onClick="goToGestisciActivity"/>

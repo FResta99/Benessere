@@ -40,9 +40,6 @@
             </intent-filter>
         </activity>
 
-
-
-
         <activity android:name=".Animationss"/>
 
         <!-- Activity cliente -->
@@ -79,8 +76,11 @@
         <!-- Activity coach -->
 
             <activity android:name=".HomeCoach" />
-            <activity android:name=".InserimentoAllenamento" />
-            <activity android:name=".InserimentoScheda" />
+            <activity android:name=".InserimentoScheda"
+                android:parentActivityName=".HomeCoach"/>
+            <activity android:name=".InserimentoAllenamento"
+                android:parentActivityName=".InserimentoScheda"/>
+
 
         <activity android:name=".MainActivity" />
 
