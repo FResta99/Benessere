@@ -123,12 +123,12 @@ public class InserimentoAlimento extends AppCompatActivity {
 
     public void aggiungiAlimento(View view) {
         if(etNomeAliemento.getText().toString().isEmpty()){
-            etNomeAliemento.setError("Inserire un alimento");
+            etNomeAliemento.setError(getString(R.string.inserireAlimento));
             return;
         }
 
         if(etPorzioneAlimento.getText().toString().isEmpty()){
-            etPorzioneAlimento.setError("Inserire una porzione");
+            etPorzioneAlimento.setError(getString(R.string.inserirePorzione));
             return;
         }
 

@@ -3,6 +3,8 @@ package com.interfacciabili.benessere;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -10,7 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +25,8 @@ import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Coach;
 
 public class Register_benessere extends AppCompatActivity {
+    String sesso = null;
+
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -38,106 +45,114 @@ public class Register_benessere extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_benessere);
-        Switch sw = (Switch) findViewById(R.id.switch1);
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    sw.setText("Maschio");
-                } else {
-                    // The toggle is disabled
-                    sw.setText("Femmina");
-                }
-            }
-        });
 
-        Button benessere_Register_Button = (Button) findViewById(R.id.Register_Button);
-        benessere_Register_Button.setOnClickListener(new Button.OnClickListener() {
+        EditText etUsername = (EditText) findViewById(R.id.etUsername);
+        EditText etPassword = (EditText) findViewById(R.id.etPassword);
+        EditText etMail = (EditText) findViewById(R.id.etEmail);
+        EditText etNome = (EditText) findViewById(R.id.etNome);
+        EditText etCognome = (EditText) findViewById(R.id.etCognome);
+        EditText etEta = (EditText) findViewById(R.id.etEta);
+        EditText etPeso = (EditText) findViewById(R.id.etPeso);
+        EditText etAltezza = (EditText) findViewById(R.id.etAltezza);
+
+        TextView tvGenere = (TextView) findViewById(R.id.tvGenere);
+
+        RadioButton rbMaschio = (RadioButton) findViewById(R.id.rbMaschio);
+        RadioButton rbFemmina = (RadioButton) findViewById(R.id.rbFemmina);
+        RadioButton rbAltro = (RadioButton) findViewById(R.id.rbAltro);
+
+        Button bennessereRegisterButton = (Button) findViewById(R.id.btnRegBenessere);
+        bennessereRegisterButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean errato = false;
 
-                Boolean errato = false;
-
-                EditText etUsername = (EditText) findViewById(R.id.editTextTextPersonName6);
-                String etUsernameTesto = (String) etUsername.getText().toString();
-                if (TextUtils.isEmpty(etUsernameTesto)){
-                    etUsername.setError("Inserire Username");
+                if (etUsername.getText().toString().isEmpty()){
+                    etUsername.setError(getString(R.string.erroreUsername));
                     errato = true;
                 }
 
-                EditText etPassword = (EditText) findViewById(R.id.editTextTextPassword2);
-                String etPasswordTesto = (String) etPassword.getText().toString();
-                if (TextUtils.isEmpty(etPasswordTesto)){
-                    etPassword.setError("Inserire Password");
+                if (etPassword.getText().toString().isEmpty()){
+                    etPassword.setError(getString(R.string.errorePassword));
                     errato = true;
                 }
 
-                EditText etMail = (EditText) findViewById(R.id.editTextTextPersonName9);
-                String etMailTesto = (String) etMail.getText().toString();
-                if (TextUtils.isEmpty(etMailTesto)){
-                    etMail.setError("Inserire Mail");
+                if (etMail.getText().toString().isEmpty()){
+                    etMail.setError(getString(R.string.erroreEmail));
                     errato = true;
                 }
 
-                EditText etNome = (EditText) findViewById(R.id.editTextTextPersonName10);
-                String etNomeTesto = (String) etNome.getText().toString();
-                if (TextUtils.isEmpty(etNomeTesto)){
-                    etNome.setError("Inserire Nome");
+                if (etNome.getText().toString().isEmpty()){
+                    etNome.setError(getString(R.string.erroreNome));
                     errato = true;
                 }
 
-                EditText etCognome = (EditText) findViewById(R.id.editTextTextPersonName11);
-                String etCognomeTesto = (String) etCognome.getText().toString();
-                if (TextUtils.isEmpty(etCognomeTesto)){
-                    etCognome.setError("Inserire Cognome");
+                if (etCognome.getText().toString().isEmpty()){
+                    etCognome.setError(getString(R.string.erroreCognome));
                     errato = true;
                 }
 
-                EditText etEta = (EditText) findViewById(R.id.editTextNumber);
-                String etEtaTesto = (String) etEta.getText().toString();
-                int etEtaNum;
-                if (TextUtils.isEmpty(etEtaTesto)){
-                    etEta.setError("Inserire Età");
+                if (etEta.getText().toString().isEmpty()){
+                    etEta.setError(getString(R.string.erroreEta));
                     errato = true;
                 }
 
-                EditText etPeso = (EditText) findViewById(R.id.editTextTextPersonName13);
-                String etPesoTesto = (String) etPeso.getText().toString();
-                int etPesoNum;
-                if (TextUtils.isEmpty(etPesoTesto)){
-                    etPeso.setError("Inserire Peso");
+                if (rbMaschio.isChecked()) {
+                    sesso = "Maschio";
+                } else if (rbFemmina.isChecked()){
+                    sesso = "Femmina";
+                } else if (rbAltro.isChecked()){
+                    sesso = "Altro";
+                }
+
+                if (sesso == null) {
+                    tvGenere.setTextColor(getColor(R.color.simplyRed));
+                    tvGenere.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
+
+                    rbMaschio.setTextColor(getColor(R.color.simplyRed));
+                    rbMaschio.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
+                    rbFemmina.setTextColor(getColor(R.color.simplyRed));
+                    rbFemmina.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
+                    rbAltro.setTextColor(getColor(R.color.simplyRed));
+                    rbAltro.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
+                }
+
+                if (etPeso.getText().toString().isEmpty()){
+                    etPeso.setError(getString(R.string.errorePeso));
                     errato = true;
                 }
 
-                EditText etAltezza = (EditText) findViewById(R.id.editTextTextPersonName14);
-                String etAltezzaTesto = (String) etAltezza.getText().toString();
-                int etAltezzaNum;
-                if (TextUtils.isEmpty(etAltezzaTesto)){
-                    etAltezza.setError("Inserire Altezza");
+                if (etAltezza.getText().toString().isEmpty()){
+                    etAltezza.setError(getString(R.string.erroreAltezza));
                     errato = true;
                 }
 
-                Switch sw = (Switch) findViewById(R.id.switch1);
-                String swSessoTesto = sw.getText().toString();
+                if (!errato) {
+                    boolean isClientUsernameInDatabase = databaseService.isClientUsernameInDatabase(etUsername.getText().toString());
 
-                if (errato == false){
-                    boolean isClientUsernameInDatabase = databaseService.isClientUsernameInDatabase(etUsernameTesto);
-                    if (isClientUsernameInDatabase == true){
-                        etUsername.setError("Username già presente");
-                    }else {
-                        Cliente cliente = new Cliente(etUsernameTesto, etPasswordTesto, etMailTesto, etNomeTesto, etCognomeTesto,
-                                swSessoTesto, Integer.parseInt(etEtaTesto), Integer.parseInt(etPesoTesto), Integer.parseInt(etAltezzaTesto), null);
-                        if (databaseService.aggiungiCliente(cliente) == true){
+                    if (isClientUsernameInDatabase){
+                        etUsername.setError(getString(R.string.erroreUsernameEsistente));
+                    } else {
+                        Cliente cliente = new Cliente(
+                                etUsername.getText().toString(),
+                                etPassword.getText().toString(),
+                                etMail.getText().toString(),
+                                etNome.getText().toString(),
+                                etCognome.getText().toString(),
+                                sesso,
+                                Integer.parseInt(etEta.getText().toString()),
+                                Integer.parseInt(etPeso.getText().toString()),
+                                Integer.parseInt(etAltezza.getText().toString()),
+                                null
+                        );
+
+                        if (databaseService.aggiungiCliente(cliente)){
                             Intent intent = new Intent(Register_benessere.this, com.interfacciabili.benessere.HomeCliente.class);
                             intent.putExtra("CLIENTE", cliente);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getApplicationContext(),"Errore: registrazione non riuscita." , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.toastErroreRegistrazione), Toast.LENGTH_LONG).show();
                         }
-
-
-
-
                     }
                 }
             }

@@ -75,15 +75,15 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
 
         if (cliente != null) {
             builder.setView(view)
-                    .setTitle("Elimina cliente")
-                    .setMessage("Vuoi davvero eliminare " + cliente.getUsername() + "?")
-                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.eliminareCliente))
+                    .setMessage(getString(R.string.richiestaEliminazione)  + cliente.getUsername() + "?")
+                    .setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();
                         }
                     })
-                    .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.elimina, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(esperto instanceof Dietologo){

@@ -9,13 +9,13 @@
         android:id="@+id/etAlimentoModifica"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Scrivi qui l'alimento desiderato"/>
+        android:hint="@string/etScriviAlimentoDesiderato"/>
 
     <TextView
         android:id="@+id/tvPorzioneModifica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Porzione alimento"
+        android:text="@string/inserirePorzione"
         android:layout_below="@+id/etAlimentoModifica"
         android:inputType="number"/>
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Porzione"
+        android:hint="@string/etPorzione"
         android:layout_below="@+id/tvPorzioneModifica"/>
 
     <Spinner

@@ -39,7 +39,7 @@
             android:id="@+id/tvNomeEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome esercizio"/>
+            android:text="@string/tvNomeEsercizio"/>
 
         <EditText
             android:id="@+id/etNomeEsercizio"
@@ -51,7 +51,7 @@
             android:id="@+id/tvRipetizioniEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ripetizioni esercizio"
+            android:text="@string/tvRipetizioniEsercizio"
             android:layout_below="@+id/etNomeEsercizio"
             android:inputType="number"/>
 
@@ -59,7 +59,7 @@
             android:id="@+id/etRipetizioniEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Inserisci ripetizioni"
+            android:hint="@string/inserireRipetizione"
             android:inputType="number"
             android:layout_below="@+id/tvRipetizioniEsercizio"/>
 
@@ -68,7 +68,7 @@
             android:id="@+id/tvGiornoSettimana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giorno della settimana"
+            android:text="@string/tvGiornoSettimana"
             android:layout_below="@+id/etRipetizioniEsercizio"/>
 
         <Spinner
@@ -83,7 +83,7 @@
             android:id="@+id/btnAggiungiEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inserisci"
+            android:text="@string/inserisci"
             android:onClick="aggiungiEsercizio"
             android:layout_below="@+id/spinnerGiorno"
             android:layout_marginTop="20dp"
@@ -94,7 +94,7 @@
             android:id="@+id/btnModificaEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Modifica"
+            android:text="@string/modifica"
             android:textColor="@color/white"
             tools:visibility="visible"
             android:onClick="modificaEsercizio"
@@ -110,12 +110,12 @@
             android:id="@+id/btnEliminaEsercizio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elimina"
+            android:text="@string/elimina"
             android:textColor="@color/white"
             android:onClick="eliminaEsercizio"
             tools:visibility="visible"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="@color/simplyRed"
             app:icon="@drawable/ic_baseline_delete_24"
             android:layout_below="@+id/spinnerGiorno"
             android:visibility="gone"

@@ -24,7 +24,7 @@
             android:id="@+id/tvColazione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Colazione"
+            android:text="@string/tvColazione"
             android:layout_below="@+id/tvAlimentiDieta"/>
         <ListView
             android:minHeight="?android:attr/listPreferredItemHeight"
@@ -37,7 +37,7 @@
             android:id="@+id/tvPranzo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pranzo"
+            android:text="@string/tvPranzo"
             android:layout_below="@+id/lvDietaColazione" />
         <ListView
             android:minHeight="?android:attr/listPreferredItemHeight"
@@ -50,7 +50,7 @@
             android:id="@+id/tvCena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cena"
+            android:text="@string/tvCena"
             android:layout_below="@+id/lvDietaPranzo"/>
         <ListView
             android:minHeight="?android:attr/listPreferredItemHeight"

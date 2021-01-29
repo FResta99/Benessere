@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".DettagliRichiesta">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:logo="@mipmap/ic_launcher"
+            app:title="Dettagli richiesta" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvAlimentoRichiesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alimento da modificare:" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvAlimentoModifica"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAlimentoRichiesta"/>
+
+        <TextView
+            android:layout_below="@+id/tvAlimentoModifica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alimento richiesto:"/>
+
+        <EditText
+            android:id="@+id/etAlimentoModifier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAlimentoModifica"
+            android:layout_marginTop="20dp"
+            />
+        <TextView
+            android:id="@+id/tvAlimentoPorzione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etAlimentoModifier"
+            android:text="Porzione:"/>
+
+        <EditText
+            android:id="@+id/etQuantitaAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Inserisci una porzione"
+            android:layout_below="@+id/tvAlimentoPorzione"
+            android:inputType="number"
+            />
+        <Spinner
+            android:id="@+id/porzioneSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAlimentoModifier"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_toRightOf="@+id/etQuantitaAlimento"
+            android:entries="@array/porzioni" />
+
+
+        <Button
+            android:id="@+id/btnApprova"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/porzioneSpinner"
+            android:layout_marginTop="25dp"
+            android:text="Approva richiesta"
+            android:onClick="approvaRichiesta"
+            />
+
+        <Button
+            android:id="@+id/btnDisapprova"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/porzioneSpinner"
+            android:layout_marginLeft="269dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/btnApprova"
+            android:backgroundTint="#D0D55D5D"
+            android:onClick="disapprovaRichiesta"
+            android:text="Disapprova richiesta" />
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

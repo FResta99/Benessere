@@ -95,7 +95,7 @@ public class DietaClienteFragment extends Fragment {
                     mdd.setAlimento(alimentoCliccato);
                     mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
                     mdd.setDietologo(dietologo);
-                    mdd.show(getFragmentManager(), "Modifica");
+                    mdd.show(getFragmentManager(), getString(R.string.modifica));
                 }
             });
 
@@ -107,8 +107,8 @@ public class DietaClienteFragment extends Fragment {
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
                     mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
-                    mdd.setDietologo("Dietologo1");
-                    mdd.show(getFragmentManager(), "Modifica");
+                    mdd.setDietologo(dietologo);
+                    mdd.show(getFragmentManager(), getString(R.string.modifica));
                 }
             });
 
@@ -120,8 +120,8 @@ public class DietaClienteFragment extends Fragment {
                     ModificaDietaDialog mdd = new ModificaDietaDialog();
                     mdd.setAlimento(alimentoCliccato);
                     mdd.setUtente(cliente.getUsername(), cliente.getNome(), cliente.getCognome());
-                    mdd.setDietologo("Dietologo1");
-                    mdd.show(getFragmentManager(), "Modifica");
+                    mdd.setDietologo(dietologo);
+                    mdd.show(getFragmentManager(), getString(R.string.modifica));
                 }
             });
         }

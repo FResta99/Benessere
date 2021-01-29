@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#23AEBA"
-    tools:context=".MainActivity">
+    android:scrollbars="vertical"
+    android:background="@color/primaryColor"
+    tools:context=".Register_Main" >
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegDietologo"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="452dp"
-        android:background="@drawable/shape2"
-        android:text="Registrazione Dietologo"
-        android:textColor="@color/white"
+    <TextView
+        android:id="@+id/tvRegistrazione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.3"
+        android:layout_marginBottom="75dp"
+        android:shadowColor="@color/white"
+        android:text="@string/tvRegistrazione"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegBenessere"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegCoach"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/shape2"
-        android:text="Registrazione Coach"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRegBenessere"
         android:layout_width="270dp"
         android:layout_height="58dp"
-        android:layout_marginTop="144dp"
         android:background="@drawable/shape2"
         android:text="Registrazione Benessere"
         android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvRegistrazione"
+        app:layout_constraintBottom_toTopOf="@id/btnRegDietologo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="25dp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="241dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="71dp"
-        android:shadowColor="#FFFFFF"
-        android:text="REGISTRATI"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegDietologo"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:background="@drawable/shape2"
+        android:text="Registrazione Dietologo"
         android:textColor="@color/white"
-        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/btnRegBenessere"
+        app:layout_constraintBottom_toTopOf="@id/btnRegCoach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="25dp" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegCoach"
+        android:layout_width="270dp"
+        android:layout_height="58dp"
+        android:background="@drawable/shape2"
+        android:text="Registrazione Coach"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/btnRegDietologo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="25dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

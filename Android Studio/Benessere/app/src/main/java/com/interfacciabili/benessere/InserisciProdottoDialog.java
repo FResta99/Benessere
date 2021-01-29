@@ -52,22 +52,22 @@ public class InserisciProdottoDialog extends AppCompatDialogFragment {
         etInserisciProdotto = view.findViewById(R.id.etAggiungiProdotto);
 
             builder.setView(view)
-                    .setTitle("Inserisci prodotto")
-                    .setMessage("Scrivi il prodotto da inserire")
-                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.inserireProdotto))
+                    .setMessage(R.string.richiestaProdottoInserire)
+                    .setNegativeButton(getString(R.string.annulla), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();
                         }
                     })
-                    .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.inserisci), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(etInserisciProdotto.getText().toString().length()>0){
                                 String prodottoInserito = etInserisciProdotto.getText().toString();
                                 databaseService.inserisciProdotto(new Prodotto(prodottoInserito, 0, usernameCliente));
                             } else {
-                                etInserisciProdotto.setError("Inserisci prodotto");
+                                etInserisciProdotto.setError(getString(R.string.inserireProdotto));
                             }
 
                             dismiss();

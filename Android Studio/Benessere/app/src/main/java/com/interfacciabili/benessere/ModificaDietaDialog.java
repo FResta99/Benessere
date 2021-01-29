@@ -80,10 +80,10 @@ public class ModificaDietaDialog extends DialogFragment {
         });
 
         builder.setView(view)
-                .setTitle("Modifica alimento")
-                .setMessage("Con cosa vuoi modificare " + alimento + "?")
-                .setNegativeButton("Annulla", null)
-                .setPositiveButton("Inserisci", null);
+                .setTitle(R.string.modificareAlimento)
+                .setMessage(getString(R.string.modificareAlimentoRichiesta) + alimento + "?")
+                .setNegativeButton(getString(R.string.annulla), null)
+                .setPositiveButton(getString(R.string.inserisci), null);
         return builder.create();
     }
 
@@ -109,10 +109,10 @@ public class ModificaDietaDialog extends DialogFragment {
 
                     }else {
                         if(etAlimentoModifica.getText().toString().length()==0){
-                            etAlimentoModifica.setError("Inserisci alimento");
+                            etAlimentoModifica.setError(getString(R.string.inserireAlimento));
                         }
                         if(etPorzioneModifica.getText().toString().length()==0){
-                            etPorzioneModifica.setError("Inserisci porzione");
+                            etPorzioneModifica.setError(getString(R.string.inserirePorzione));
                         }
                     }
                     if(wantToCloseDialog) {

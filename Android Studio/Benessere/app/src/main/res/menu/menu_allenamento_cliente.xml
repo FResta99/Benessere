@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/contapassiButton"
-        android:title="Contapassi"
+        android:title="@string/contapassi"
         android:icon="@drawable/ic_baseline_directions_walk_24"
         app:showAsAction="always"/>
 
     <item android:id="@+id/attrezziButton"
-        android:title="Attrezzi"
+        android:title="@string/attrezzi"
         app:showAsAction="never"/>
 
     <item android:id="@+id/tornelloButton"
-        android:title="Apri il tornello"
+        android:title="@string/apriTornello"
         app:showAsAction="never"/>
 
 

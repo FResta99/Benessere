@@ -82,7 +82,7 @@ public class RicercaCliente extends AppCompatActivity {
                     InserisciClienteDialog icd = new InserisciClienteDialog();
                     icd.setEsperto(esperto);
                     icd.setUsernameCliente(clienteCliccato.getUsername());
-                    icd.show(getSupportFragmentManager(), "Inserisci cliente");
+                    icd.show(getSupportFragmentManager(), getString(R.string.inserireCliente));
                 }
             });
         } else {

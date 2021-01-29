@@ -56,13 +56,13 @@ public class InserisciClienteDialog extends AppCompatDialogFragment {
             builder.setView(view)
                     .setTitle("Inserisci cliente")
                     .setMessage("Vuoi aggiungere " + usernameCliente + "?")
-                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.annulla), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();
                         }
                     })
-                    .setPositiveButton("Inserisci", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.inserisci), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(esperto instanceof Dietologo){

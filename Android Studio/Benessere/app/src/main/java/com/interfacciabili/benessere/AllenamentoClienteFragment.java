@@ -22,6 +22,7 @@ import com.interfacciabili.benessere.model.Esercizio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
@@ -34,6 +35,7 @@ public class AllenamentoClienteFragment extends Fragment {
 
     ListView lvEserciziCliente;
     ArrayAdapter trainingAdapter;
+    TextView tvAllenamentoCliente;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -79,6 +81,7 @@ public class AllenamentoClienteFragment extends Fragment {
 
         if (cliente != null) {
             lvEserciziCliente = rootView.findViewById(R.id.lvEserciziCliente);
+            tvAllenamentoCliente = rootView.findViewById(R.id.tvAllenamentoCliente);
         }
 
         return rootView;
@@ -95,7 +98,8 @@ public class AllenamentoClienteFragment extends Fragment {
 
     private void mostraAllenamentoCliente() {
         List<Esercizio> allenamentoRecuperato = databaseService.recuperaAllenamentoGiorno(cliente.getUsername(), giorno);
-
+        String esercizi = getResources().getQuantityString(R.plurals.esercizi_utente, allenamentoRecuperato.size(), allenamentoRecuperato.size());
+        tvAllenamentoCliente.setText(esercizi);
             trainingAdapter = new ArrayAdapter<Esercizio>(getContext(), android.R.layout.simple_list_item_1, allenamentoRecuperato);
             lvEserciziCliente.setAdapter(trainingAdapter);
 

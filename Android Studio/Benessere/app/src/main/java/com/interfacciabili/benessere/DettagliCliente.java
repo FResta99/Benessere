@@ -2,12 +2,14 @@ package com.interfacciabili.benessere;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,11 +27,11 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
     private static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "DettagliCliente";
 
-    public TextView tvUsername;
+    private TextView tvUsername;
+    private ImageView ivFotoCliente;
 
-    public Cliente cliente;
-    public String expertType;
-    public Esperto esperto;
+    private Cliente cliente;
+    private Esperto esperto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvUsername = findViewById(R.id.tvDettaglioUsernameCliente);
+        ivFotoCliente = findViewById(R.id.ivFotoCliente);
 
         Intent intentFrom = getIntent();
         Bundle bundle = intentFrom.getExtras();
@@ -68,8 +71,11 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
             } else {
                 homeToolbar.setSubtitle((((Coach) esperto).getUsername()));
             }
+            if(cliente.getFotoProfilo()!=null){
+                ivFotoCliente.setImageURI(Uri.parse(cliente.getFotoProfilo()));
+            }
 
-            tvUsername.setText(cliente.getUsername());
+            tvUsername.setText(cliente.toString());
         } else {
             Log.d(TAG_LOG, "There is not a client.");
             finish();
@@ -123,7 +129,7 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
         EliminaClienteDialog ecd = new EliminaClienteDialog();
         ecd.setCliente(cliente);
         ecd.setEsperto(esperto);
-        ecd.show(getSupportFragmentManager(), "Elimina cliente");
+        ecd.show(getSupportFragmentManager(), getString(R.string.eliminareCliente));
     }
 
     @Override

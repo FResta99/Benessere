@@ -17,7 +17,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -30,7 +33,8 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
     private Switch switchStepCounter;
     private TextView textViewStepCounter, tvAttivaContapassi;
     private int ACTIVITY_PERMISSION_CODE = 1;
-    private String PASSI = "passi";
+    private String PASSI = "PASSI";
+    private ImageView ivScarpa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,10 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
         textViewStepCounter.setText(String.valueOf(steps));
         tvAttivaContapassi = findViewById(R.id.tvAttivaContapassi);
 
+        ivScarpa = findViewById(R.id.ivScarpa);
+        Animation animation_run  = AnimationUtils.loadAnimation(this,R.anim.movestartend);
+        ivScarpa.startAnimation(animation_run);
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED) {
 
         } else {
@@ -56,7 +64,7 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    tvAttivaContapassi.setText("Disattiva");
+                    tvAttivaContapassi.setText(R.string.disattiva);
 
                     if (savedInstanceState != null) {
                         if (savedInstanceState.containsKey(PASSI)) {
@@ -71,7 +79,7 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
 
                     controllaSensore();
                 } else {
-                    tvAttivaContapassi.setText("Attiva");
+                    tvAttivaContapassi.setText(R.string.attiva);
                     if(sensorManager!=null){
                         sensorManager.unregisterListener(ContapassiActivity.this);
                     }

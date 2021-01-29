@@ -47,20 +47,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/ivCliente"
-        android:text="AAA" />
+        android:text="AAA"
+        android:textSize="20dp"/>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBenvenutoCliente"
+        android:layout_below="@+id/appBarLayout"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="94dp"
         android:layout_toRightOf="@+id/ivCliente"
-        android:text="Personalizza profilo"
+        android:text="@string/btnPersonalizzaProfilo"
         android:onClick="goToPersonalizzaProfilo"/>
 
     <com.google.android.material.card.MaterialCardView
@@ -89,14 +90,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="La mia dieta"
+                    android:text="@string/tvMiaDieta"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Scopri cosa mangerai oggi!"
+                    android:text="@string/tvScopriCosaMangerai"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
@@ -113,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="goToDietaCliente"
-                    android:text="Vai alla dieta" />
+                    android:text="@string/btnVaiDieta" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -145,14 +146,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Il mio allenamento"
+                    android:text="@string/tvMioAllenamento"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Scopri gli esercizi di oggi!"
+                    android:text="@string/tvScopriEsercizi"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>

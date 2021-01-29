@@ -39,7 +39,7 @@
             android:id="@+id/tvNomeAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome alimento"/>
+            android:text="@string/tvNomeAlimento"/>
 
         <EditText
             android:id="@+id/etNomeAlimento"
@@ -51,7 +51,7 @@
             android:id="@+id/tvPorzioneAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Porzione alimento"
+            android:text="@string/tvPorzioneAlimento"
             android:layout_below="@+id/etNomeAlimento"
             android:inputType="number"/>
 
@@ -59,7 +59,7 @@
             android:id="@+id/etPorzioneAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Inserisci una porzione"
+            android:hint="@string/inserirePorzione"
             android:inputType="number"
             android:layout_below="@+id/tvPorzioneAlimento"/>
 
@@ -77,7 +77,7 @@
             android:id="@+id/tvTipoPasto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tipo pasto"
+            android:text="@string/tvTipoPasto"
             android:layout_below="@+id/etPorzioneAlimento"/>
 
         <Spinner
@@ -91,7 +91,7 @@
             android:id="@+id/tvGiornoSettimana"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giorno della settimana"
+            android:text="@string/tvGiornoSettimana"
             android:layout_below="@+id/spinnerPasto"/>
 
         <Spinner
@@ -106,7 +106,7 @@
             android:id="@+id/btnAggiungiAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inserisci"
+            android:text="@string/inserisci"
             android:onClick="aggiungiAlimento"
             android:layout_below="@+id/spinnerGiorno"
             android:layout_marginTop="20dp"
@@ -117,7 +117,7 @@
             android:id="@+id/btnModificaAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Modifica"
+            android:text="@string/modifica"
             android:textColor="@color/white"
             tools:visibility="visible"
             android:onClick="modificaAlimento"
@@ -133,12 +133,12 @@
             android:id="@+id/btnEliminaAlimento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elimina"
+            android:text="@string/elimina"
             android:textColor="@color/white"
             android:onClick="eliminaAlimento"
             tools:visibility="visible"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="@color/simplyRed"
             app:icon="@drawable/ic_baseline_delete_24"
             android:layout_below="@+id/spinnerGiorno"
             android:visibility="gone"

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/richiesteDietaButton"
-        android:title="Richieste dieta"
-        app:showAsAction="never"/>
+        android:title="@string/richiestaDieta"
+        android:icon="@drawable/ic_baseline_message_24"
+        app:showAsAction="always"/>
 
 </menu>

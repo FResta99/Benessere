@@ -46,30 +46,30 @@ public class Login_Diet extends AppCompatActivity {
 
                 Boolean errato = false;
 
-                EditText etUsername = (EditText) findViewById(R.id.editTextTextPersonName);
+                EditText etUsername = (EditText) findViewById(R.id.etUsername);
                 String etUsernameTesto = (String) etUsername.getText().toString();
                 if (TextUtils.isEmpty(etUsernameTesto)) {
-                    etUsername.setError("Inserire Username");
+                    etUsername.setError(getString(R.string.erroreUsername));
                     errato = true;
                 }
 
-                EditText etPassword = (EditText) findViewById(R.id.editTextTextPersonName2);
+                EditText etPassword = (EditText) findViewById(R.id.etPassword);
                 String etPasswordTesto = (String) etPassword.getText().toString();
 
                 if (TextUtils.isEmpty(etPasswordTesto)) {
-                    etPassword.setError("Inserire Password");
+                    etPassword.setError(getString(R.string.errorePassword));
                     errato = true;
                 }
 
                 if (errato == false){
                     boolean isDietologistUsernameInDatabase = databaseService.isDietologistUsernameInDatabase(etUsernameTesto);
                     if (isDietologistUsernameInDatabase == false){
-                        Toast.makeText(Login_Diet.this, "Dietologo non registrato", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login_Diet.this, getString(R.string.dietologoNonRegistrato), Toast.LENGTH_SHORT).show();
                     } else {
                         Dietologo dietologoCercato = new Dietologo();
                         dietologoCercato = databaseService.ricercaDietologo(etUsernameTesto);
                         if (dietologoCercato == null){
-                            Toast.makeText(getApplicationContext(),"Dietologo non registrato" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),getString(R.string.dietologoNonRegistrato) , Toast.LENGTH_LONG).show();
 
                         } else {
 
@@ -78,7 +78,7 @@ public class Login_Diet extends AppCompatActivity {
                                 intent.putExtra("EXPERT", dietologoCercato);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(),"Password errata" , Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),getString(R.string.errorePassword2) , Toast.LENGTH_LONG).show();
                             }
                         }
 

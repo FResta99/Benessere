@@ -107,7 +107,7 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
     public void aggiungiProdotto(View view) {
         InserisciProdottoDialog ipd = new InserisciProdottoDialog();
         ipd.setCliente(cliente.getUsername());
-        ipd.show(getSupportFragmentManager(), "Aggiungi prodotto");
+        ipd.show(getSupportFragmentManager(), getString(R.string.inserireProdotto));
     }
 
     @Override

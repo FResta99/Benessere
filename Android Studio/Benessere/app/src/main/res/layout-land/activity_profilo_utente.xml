@@ -43,33 +43,36 @@
         android:id="@+id/imProfilo"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
         android:onClick="getImage"
         android:layout_below="@+id/tvSuggerimentoProfilo"
         app:srcCompat="@drawable/ic_baseline_person_outline_128"
         android:background="@color/black"
-         />
+        />
 
     <TextView
         android:id="@+id/tvPeso"
         android:text="Peso"
         android:textSize="20sp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imProfilo"/>
+        android:layout_toRightOf="@+id/imProfilo"
+        android:layout_below="@+id/tvSuggerimentoProfilo"/>
 
     <TextView
         android:id="@+id/tvAltezza"
-        android:layout_marginStart="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPeso"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="45dp"
+        android:layout_toRightOf="@+id/imProfilo"
         android:text="Altezza"
+
         android:textSize="20sp" />
 
     <EditText
@@ -77,10 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="45dp"
         android:layout_marginEnd="25dp"
-        android:layout_below="@+id/imProfilo"
+        android:layout_below="@+id/tvSuggerimentoProfilo"
         android:layout_toRightOf="@+id/tvPeso"/>
 
     <EditText
@@ -88,8 +91,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:layout_below="@+id/etPesoUtente"
         android:layout_toRightOf="@+id/tvAltezza"/>
@@ -100,7 +103,7 @@
         android:text="Aggiorna profilo"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/tvAltezza"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:onClick="aggiornaProfiloUtente"/>
 
 

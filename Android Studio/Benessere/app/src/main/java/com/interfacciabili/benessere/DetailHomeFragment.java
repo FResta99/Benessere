@@ -2,6 +2,7 @@ package com.interfacciabili.benessere;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.interfacciabili.benessere.model.Cliente;
@@ -70,7 +72,12 @@ public class DetailHomeFragment extends Fragment {
             action.setVisibility(View.GONE);
 
             TextView tvUsername = rootView.findViewById(R.id.tvDettaglioUsernameCliente);
-            tvUsername.setText(cliente.getUsername());
+            tvUsername.setText(cliente.toString());
+
+            ImageView ivFotoCliente = rootView.findViewById(R.id.ivFotoCliente);
+            if(cliente.getFotoProfilo()!=null){
+                ivFotoCliente.setImageURI(Uri.parse(cliente.getFotoProfilo()));
+            }
 
             Button btnGestisci = rootView.findViewById(R.id.btnGestisciDieta);
             Button btnElimina = rootView.findViewById(R.id.btnElimina);
@@ -96,7 +103,7 @@ public class DetailHomeFragment extends Fragment {
                     EliminaClienteDialog ecd = new EliminaClienteDialog();
                     ecd.setCliente(cliente);
                     ecd.setEsperto(esperto);
-                    ecd.show(getFragmentManager(), "Elimina cliente");
+                    ecd.show(getFragmentManager(), getString(R.string.eliminareCliente));
                 }
             });
         } else {

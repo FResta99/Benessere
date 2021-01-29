@@ -97,12 +97,12 @@ public class InserimentoAllenamento extends AppCompatActivity {
 
     public void aggiungiEsercizio(View view) {
         if(etNomeEsercizio.getText().toString().isEmpty()){
-            etNomeEsercizio.setError("Inserire un esercizio");
+            etNomeEsercizio.setError(getString(R.string.inserireEsercizio));
             return;
         }
 
         if(etRipetizioniEsercizio.getText().toString().isEmpty()){
-            etRipetizioniEsercizio.setError("Inserire una ripetizione");
+            etRipetizioniEsercizio.setError(getString(R.string.inserireRipetizione));
             return;
         }
 

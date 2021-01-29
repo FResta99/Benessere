@@ -53,15 +53,15 @@ public class EliminaProdottoDialog extends AppCompatDialogFragment {
             nomeProdotto = prodottoBundle.getString("NOME");
         }
         builder.setView(view)
-                .setTitle("Elimina prodotto")
-                .setMessage("Vuoi davvero eliminare " + nomeProdotto + "?")
-                .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.eliminareProdotto)
+                .setMessage(getString(R.string.richiestaEliminazione) + nomeProdotto + "?")
+                .setNegativeButton(getString(R.string.annulla), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                     }
                 })
-                .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.elimina), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         databaseService.eliminaProdotto(idProdotto);

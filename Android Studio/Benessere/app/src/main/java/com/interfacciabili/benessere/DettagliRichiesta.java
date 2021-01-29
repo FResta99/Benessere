@@ -102,11 +102,11 @@ public class DettagliRichiesta extends AppCompatActivity {
     public void approvaRichiesta(View view) {
         String alimentoModifier = etAlimentoModifier.getText().toString();
             if(alimentoModifier.isEmpty()){
-                etAlimentoModifier.setError("Inserire un alimento");
+                etAlimentoModifier.setError(getString(R.string.inserireAlimento));
                 return;
             }
             if(etQuantitaAlimento.getText().toString().isEmpty()){
-                etQuantitaAlimento.setError("Inserire una porzione");
+                etQuantitaAlimento.setError(getString(R.string.inserirePorzione));
                 return;
             }
         int porzioneModifier = Integer.parseInt(etQuantitaAlimento.getText().toString());
@@ -129,4 +129,8 @@ public class DettagliRichiesta extends AppCompatActivity {
     }
 
 
+    public void disapprovaRichiesta(View view) {
+        databaseService.disapprovaDieta(richiesta);
+        finish();
+    }
 }

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Benessere</string>
 
-    <string name="label_turnstile">Apri il tornello</string>
-    <string name="button_turnstile">Apri</string>
+    <string name="label_turnstile">Turnstile</string>
+    <string name="button_turnstile">OPEN</string>
 
     <string-array name="porzioni">
         <item>gr.</item>
@@ -64,14 +64,13 @@
     <string name="richiestaPermessoRifiuta">Preferisco di no</string>
     <string name="sensoreAssente">Sensore assente</string>
     <string name="avvisoMancanzaContapassi">Per usare questa funzionalita\' devi avere un sensore contapassi e il tuo dispositivo ne e\' sprovvisto</string>
-    <string name="Ok">OK</string>
     <string name="eliminareCliente">Elimina cliente</string>
     <string name="inserireAlimento">Inserire un alimento</string>
     <string name="inserirePorzione">Inserire una porzione</string>
     <string name="modifica">Modifica</string>
     <string name="annulla">Annulla</string>
     <string name="elimina">Elimina</string>
-    <string name="richiestaEliminazione">Vuoi davvero eliminare&#160;</string>
+    <string name="richiestaEliminazione">\"Vuoi davvero eliminare \"</string>
     <string name="eliminareProdotto">Elimina prodotto</string>
     <string name="inserireEsercizio">Inserire un esercizio</string>
     <string name="inserireRipetizione">Inserire una ripetizione</string>
@@ -82,9 +81,9 @@
     <string name="dietologoNonRegistrato">Dietologo non registrato</string>
     <string name="errorePassword2">Password errata</string>
     <string name="modificareAlimento">Modifica alimento</string>
-    <string name="modificareAlimentoRichiesta">Con cosa vuoi modificare&#160;</string>
+    <string name="modificareAlimentoRichiesta">\"Con cosa vuoi modificare \"</string>
     <string name="modificareProdotto">Modifica prodotto</string>
-    <string name="modificareProdottoRichiesta">Con cosa vuoi modificare&#160;</string>
+    <string name="modificareProdottoRichiesta">\"Con cosa vuoi modificare \"</string>
     <string name="avvisoMancanzaFotocamera">Per inserire una foto serve una fotocamera e il tuo telefono ne e\' sprovvisto</string>
     <string name="richiestaPermessoMessaggioFotocamera">Ci serve l\'accesso alla memoria del telefono per salvare l\'immagine, altrimenti non puoi impostare la tua foto profilo</string>
     <string name="inserireCliente">Inserisci cliente</string>
@@ -124,7 +123,6 @@
     <string name="listaSpesa">Lista della spesa</string>
     <string name="richiestaDieta">Richieste dieta</string>
     <string name="btnApprovaRichiesta">Approva richiesta</string>
-    <string name="connettiInternet">Connettiti a internet</string>
     <string name="avvisoInternet">Per usare questa funzionalita\' devi avere una connessione a Internet attiva</string>
 
     <string-array name="week">

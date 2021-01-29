@@ -76,9 +76,9 @@ public class AperturaTornello extends AppCompatActivity implements View.OnClickL
 
     public void mostraDialogConnessione(){
         new AlertDialog.Builder(this)
-                .setTitle("Connettiti a internet")
-                .setMessage("Per usare questa funzionalita' devi avere una connessione a Internet attiva")
-                .setPositiveButton("Ok", null)
+                .setTitle(R.string.connettiInternet)
+                .setMessage(R.string.avvisoInternet)
+                .setPositiveButton("OK", null)
                 .show();
     }
 

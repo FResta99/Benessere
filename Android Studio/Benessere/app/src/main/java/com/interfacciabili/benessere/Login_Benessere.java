@@ -46,14 +46,14 @@ public class Login_Benessere extends AppCompatActivity {
 
                 Boolean errato = false;
 
-                EditText etUsername = (EditText) findViewById(R.id.editTextTextPersonName);
+                EditText etUsername = (EditText) findViewById(R.id.etUsername);
                 String etUsernameTesto = (String) etUsername.getText().toString();
                 if (TextUtils.isEmpty(etUsernameTesto)) {
                     etUsername.setError("Inserire Username");
                     errato = true;
                 }
 
-                EditText etPassword = (EditText) findViewById(R.id.editTextTextPersonName2);
+                EditText etPassword = (EditText) findViewById(R.id.etPassword);
                 String etPasswordTesto = (String) etPassword.getText().toString();
 
                 if (TextUtils.isEmpty(etPasswordTesto)) {

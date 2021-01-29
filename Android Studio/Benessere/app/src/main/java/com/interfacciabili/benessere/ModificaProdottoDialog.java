@@ -56,22 +56,22 @@ public class ModificaProdottoDialog extends AppCompatDialogFragment {
         }
 
         builder.setView(view)
-                .setTitle("Modifica prodotto")
-                .setMessage("Con cosa vuoi modificare " + prodottoVecchioNome + "?")
-                .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.modificareProdotto)
+                .setMessage(getString(R.string.modificareProdottoRichiesta) + prodottoVecchioNome + "?")
+                .setNegativeButton(getString(R.string.annulla), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                     }
                 })
-                .setPositiveButton("Modifica", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.modifica), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(etModificaProdotto.getText().toString().length()>0){
                             String prodottoModificato = etModificaProdotto.getText().toString();
                             databaseService.aggiornaProdotto(prodottoVecchioId, prodottoModificato);
                         } else {
-                            etModificaProdotto.setError("Inserisci prodotto");
+                            etModificaProdotto.setError(getString(R.string.inserireProdotto));
                         }
                         dismiss();
                     }

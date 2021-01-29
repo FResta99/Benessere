@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,11 +41,12 @@ import static android.view.View.GONE;
 public class ProfiloUtenteActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 5;
+    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    String currentPhotoPath;
-    static final int REQUEST_TAKE_PHOTO = 1;
-    ImageView imageView;
+    private String currentPhotoPath;
+    private ImageView imageView;
+    private EditText etPeso, etAltezza;
     private Cliente cliente;
     private static final String CLIENTE = "CLIENTE";
 
@@ -58,6 +60,9 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
             if(risultato!=null){
                 imageView.setImageURI(Uri.parse(risultato));
             }
+            Cliente clienteDB = databaseService.ricercaCliente(cliente.getUsername());
+            etPeso.setText(String.valueOf(clienteDB.getPeso()));
+            etAltezza.setText(String.valueOf(clienteDB.getAltezza()));
         }
 
         @Override
@@ -83,15 +88,17 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         }
 
         imageView=(ImageView)findViewById(R.id.imProfilo);
+        etPeso = findViewById(R.id.etPesoUtente);
+        etAltezza = findViewById(R.id.etAltezzaUtente);
 
         PackageManager pm = this.getPackageManager();
 
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             imageView.setVisibility(GONE);
             new AlertDialog.Builder(this)
-                    .setTitle("Sensore assente")
-                    .setMessage("Per inserire una foto serve una fotocamera e il tuo telefono ne e' sprovvisto")
-                    .setPositiveButton("Ok", null)
+                    .setTitle(getString(R.string.sensoreAssente))
+                    .setMessage(R.string.avvisoMancanzaFotocamera)
+                    .setPositiveButton("OK", null)
                     .show();
         }
 
@@ -102,8 +109,6 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
 
 
     public void getImage(View view){
-        //since we need Storage Permission from Manifest File
-        //we ned to request runtime permision
         controllaPermessoStorage();
     }
 
@@ -116,10 +121,9 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 new AlertDialog.Builder(ProfiloUtenteActivity.this)
-                        .setTitle("Permesso richiesto")
-                        .setMessage("Ci serve l'accesso alla memoria del telefono per salvare l'immagine," +
-                                " altrimenti non puoi impostare la tua foto profilo")
-                        .setPositiveButton("Permetti", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.richiestaPermesso))
+                        .setMessage(R.string.richiestaPermessoMessaggioFotocamera)
+                        .setPositiveButton(R.string.richiestaPermessoConsenti, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
@@ -127,7 +131,7 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                         REQUEST_WRITE_EXTERNAL_STORAGE);
                             }
-                        }).setNegativeButton("Preferisco di no", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.richiestaPermessoRifiuta, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -254,5 +258,22 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void aggiornaProfiloUtente(View view) {
+        int mPeso = Integer.parseInt(etPeso.getText().toString());
+        int mAltezza = Integer.parseInt(etAltezza.getText().toString());
+
+        if(mPeso<=0){
+            etPeso.setError("inserisci un peso corretto");
+            return;
+        }
+
+        if(mAltezza<=0){
+            etAltezza.setError("inserisci un altezza corretta");
+        }
+
+        databaseService.modificaPesoAltezzaCliente(cliente, mPeso, mAltezza);
+        Toast.makeText(ProfiloUtenteActivity.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
     }
 }

@@ -41,7 +41,7 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Benessere")
                 .setContentText("Ricordati di mangiare!")
-                .setSmallIcon(R.drawable.ic_launcher_background);
+                .setSmallIcon(R.mipmap.ic_launcher);
     }
 
 }

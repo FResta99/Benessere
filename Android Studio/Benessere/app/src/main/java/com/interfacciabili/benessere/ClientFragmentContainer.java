@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.interfacciabili.benessere.model.Cliente;
@@ -36,9 +39,12 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
     private float swipePositionDownX, swipePositionUpX;
     private int swipeMinDistance = 200;
 
+    private ImageView ivToolbarAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // DATA FROM ANOTHER ACTIVITY
         Intent intentFrom = getIntent();
@@ -66,9 +72,19 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             setSupportActionBar(toolbarHome);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+            ivToolbarAnim = findViewById(R.id.ivToolbarAnim);
+
+
             toolbarHome.setSubtitle(cliente.getUsername());
             if(tipoCliente.equals("ALLENAMENTO")){
-                toolbarHome.setTitle("Il tuo allenamento");
+                toolbarHome.setTitle(R.string.ilTuoAllenamento);
+
+                ivToolbarAnim.setImageDrawable(getDrawable(R.drawable.ic_dumbbell));
+                Animation animation_move  = AnimationUtils.loadAnimation(this,R.anim.moveupdown);
+                ivToolbarAnim.startAnimation(animation_move);
+            } else {
+                Animation animation_fork  = AnimationUtils.loadAnimation(this,R.anim.moveupdown);
+                ivToolbarAnim.startAnimation(animation_fork);
             }
 
 

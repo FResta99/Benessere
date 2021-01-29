@@ -31,16 +31,18 @@
         android:padding="25dp" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/ivFotoCliente"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/tvDettaglioUsernameCliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="66dp"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/ivFotoCliente"
             android:text="Username: "
             android:textSize="20dp" />
 
@@ -48,7 +50,8 @@
             android:id="@+id/btnGestisciDieta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestisci cliente"
+            android:text="@string/btnGestireCliente"
+            android:backgroundTint="@color/primaryColor"
             android:layout_centerInParent="true"
             app:icon="@drawable/ic_baseline_create_24"
             android:onClick="goToGestisciActivity"/>
@@ -57,7 +60,7 @@
             android:id="@+id/btnElimina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elimina cliente"
+            android:text="@string/eliminareCliente"
             android:layout_below="@+id/btnGestisciDieta"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"

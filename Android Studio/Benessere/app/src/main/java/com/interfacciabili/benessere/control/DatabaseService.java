@@ -459,11 +459,9 @@ public class DatabaseService extends Service {
     }
 
 
-    public boolean rigettaModifica(RichiestaDieta richiesta){
+    public boolean disapprovaDieta(RichiestaDieta richiesta){
         SQLiteDatabase mDb= dietDB.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(dietDB.COLUMN_REQUEST_DIET_APPROVED, "TRUE"); // metti a true ma non modificare la dieta
-        return mDb.update(dietDB.REQUEST_DIET_TABLE, cv, dietDB.COLUMN_REQUEST_DIET_ID + "= " + richiesta.getId(), null)>0;
+        return mDb.delete(dietDB.REQUEST_DIET_TABLE, dietDB.COLUMN_REQUEST_DIET_ID + "= " + richiesta.getId(), null)>0;
     }
 
 
@@ -1119,6 +1117,14 @@ public class DatabaseService extends Service {
         risultato.close();
         db.close();
         return clienteCercato;
+    }
+
+    public boolean modificaPesoAltezzaCliente(Cliente cliente, int peso, int altezza){
+        SQLiteDatabase mDb= dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(dietDB.COLUMN_CLIENT_WEIGHT, peso);
+        cv.put(dietDB.COLUMN_CLIENT_HEIGHT, altezza);
+        return mDb.update(dietDB.CLIENT_TABLE, cv, dietDB.COLUMN_CLIENT_USERNAME + "= \"" + cliente.getUsername() + "\"", null)>0;
     }
 
 

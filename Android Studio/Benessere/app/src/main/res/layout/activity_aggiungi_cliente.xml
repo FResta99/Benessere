@@ -34,7 +34,7 @@
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Ricerca username"
+            android:hint="@string/etRicercaUsername"
             android:inputType="textPersonName" />
 
         <Button
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:onClick="cercaCliente"
-            android:text="Cerca"
-            android:layout_toRightOf="@+id/etName" />
+            android:text="@string/btnCerca"
+            android:layout_toEndOf="@+id/etName" />
 
         <ListView
             android:id="@+id/lvRicercaClienti"
