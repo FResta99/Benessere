@@ -37,7 +37,6 @@ public class AperturaTornello extends AppCompatActivity implements View.OnClickL
 
         if (homeToolbar != null) {
             setSupportActionBar(homeToolbar);
-            //getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_launcher);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

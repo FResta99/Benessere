@@ -4,18 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -93,15 +96,15 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACTIVITY_RECOGNITION)){
 
             new AlertDialog.Builder(this)
-                    .setTitle("Permesso necessario")
-                    .setMessage("Per utilizzare il contapassi devi darci il permesso di accedere alla tua attività fisica.")
-                    .setPositiveButton("Va bene!", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.richiestaPermesso))
+                    .setMessage(R.string.permessoAttivitaContapassi)
+                    .setPositiveButton(getString(R.string.richiestaPermessoConsenti), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(ContapassiActivity.this, new String[] {Manifest.permission.ACTIVITY_RECOGNITION}, ACTIVITY_PERMISSION_CODE);
                         }
                     })
-                    .setNegativeButton("Preferisco di no", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getString(R.string.richiestaPermessoRifiuta), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -146,9 +149,9 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
                     sensorManager.registerListener(ContapassiActivity.this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
                 } else {
                     new AlertDialog.Builder(this)
-                            .setTitle("Sensore assente")
-                            .setMessage("Per usare questa funzionalita' devi avere un sensore contapassi e il tuo dispositivo ne e' sprovvisto")
-                            .setPositiveButton("Ok", null)
+                            .setTitle(getString(R.string.sensoreAssente))
+                            .setMessage(getString(R.string.richiestaSensoreContapassi))
+                            .setPositiveButton("OK", null)
                             .show();
                 }
 
@@ -156,10 +159,20 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_contapassi, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
             return true;
+        }
+        if(item.getItemId() == R.id.previsioniButton){
+            Intent goToMeteo = new Intent(ContapassiActivity.this, RestMeteo.class);
+            startActivity(goToMeteo);
         }
         return super.onOptionsItemSelected(item);
     }

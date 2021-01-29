@@ -70,7 +70,7 @@
     <string name="modifica">Modifica</string>
     <string name="annulla">Annulla</string>
     <string name="elimina">Elimina</string>
-    <string name="richiestaEliminazione">\"Vuoi davvero eliminare \"</string>
+    <string name="richiestaEliminazione">Vuoi davvero eliminare&#160;</string>
     <string name="eliminareProdotto">Elimina prodotto</string>
     <string name="inserireEsercizio">Inserire un esercizio</string>
     <string name="inserireRipetizione">Inserire una ripetizione</string>
@@ -81,9 +81,9 @@
     <string name="dietologoNonRegistrato">Dietologo non registrato</string>
     <string name="errorePassword2">Password errata</string>
     <string name="modificareAlimento">Modifica alimento</string>
-    <string name="modificareAlimentoRichiesta">\"Con cosa vuoi modificare \"</string>
+    <string name="modificareAlimentoRichiesta">Con cosa vuoi modificare&#160;</string>
     <string name="modificareProdotto">Modifica prodotto</string>
-    <string name="modificareProdottoRichiesta">\"Con cosa vuoi modificare \"</string>
+    <string name="modificareProdottoRichiesta">"Con cosa vuoi modificare "</string>
     <string name="avvisoMancanzaFotocamera">Per inserire una foto serve una fotocamera e il tuo telefono ne e\' sprovvisto</string>
     <string name="richiestaPermessoMessaggioFotocamera">Ci serve l\'accesso alla memoria del telefono per salvare l\'immagine, altrimenti non puoi impostare la tua foto profilo</string>
     <string name="inserireCliente">Inserisci cliente</string>
@@ -124,6 +124,7 @@
     <string name="richiestaDieta">Richieste dieta</string>
     <string name="btnApprovaRichiesta">Approva richiesta</string>
     <string name="avvisoInternet">Per usare questa funzionalita\' devi avere una connessione a Internet attiva</string>
+    <string name="meteo_posso_correre_oggi">Meteo, posso correre oggi?</string>
 
     <string-array name="week">
         <item>@string/week_mon</item>

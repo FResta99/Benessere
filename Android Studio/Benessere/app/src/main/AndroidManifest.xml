@@ -9,7 +9,9 @@
     </queries>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -31,59 +33,60 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Benessere">
-
+        <activity android:name=".RestMeteo" android:parentActivityName=".ContapassiActivity"></activity>
         <activity android:name=".GameMainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Animationss"/>
-
-        <!-- Activity cliente -->
-
-            <activity android:name=".HomeCliente" />
-            <activity android:name=".ClientFragmentContainer"
-                android:parentActivityName=".HomeCliente"/>
-            <activity android:name=".ContapassiActivity"
-                android:parentActivityName=".ClientFragmentContainer"/>
-            <activity android:name=".EquipmentsActivity"
-                android:parentActivityName=".ClientFragmentContainer"/>
-            <activity android:name=".ShoppingList"
-                android:parentActivityName=".ClientFragmentContainer"/>
-            <activity android:name=".ProfiloUtenteActivity"
-                android:parentActivityName=".HomeCliente"/>
-            <activity android:name=".AperturaTornello" />
-
-        <!-- Activity dietologo -->
-
-            <activity android:name=".HomeDietologo" />
-            <activity android:name=".InserimentoAlimento"
-                android:parentActivityName=".InserimentoDieta" />
-            <activity android:name=".RichiesteDietologo"
-                android:theme="@style/Theme.Benessere" />
-            <activity android:name=".DettagliRichiesta"
-                android:parentActivityName=".RichiesteDietologo"/>
-            <activity android:name=".InserimentoDieta"
-                android:parentActivityName=".HomeDietologo"/>
-            <activity android:name=".DettagliCliente"
-                android:parentActivityName=".HomeDietologo" />
-            <activity android:name=".RicercaCliente"
-                android:parentActivityName=".HomeDietologo" />
-
-        <!-- Activity coach -->
-
-            <activity android:name=".HomeCoach" />
-            <activity android:name=".InserimentoScheda"
-                android:parentActivityName=".HomeCoach"/>
-            <activity android:name=".InserimentoAllenamento"
-                android:parentActivityName=".InserimentoScheda"/>
-
-
+        <activity android:name=".Animationss" /> <!-- Activity cliente -->
+        <activity android:name=".HomeCliente" />
+        <activity
+            android:name=".ClientFragmentContainer"
+            android:parentActivityName=".HomeCliente" />
+        <activity
+            android:name=".ContapassiActivity"
+            android:parentActivityName=".ClientFragmentContainer" />
+        <activity
+            android:name=".EquipmentsActivity"
+            android:parentActivityName=".ClientFragmentContainer" />
+        <activity
+            android:name=".ShoppingList"
+            android:parentActivityName=".ClientFragmentContainer" />
+        <activity
+            android:name=".ProfiloUtenteActivity"
+            android:parentActivityName=".HomeCliente" />
+        <activity android:name=".AperturaTornello" /> <!-- Activity dietologo -->
+        <activity android:name=".HomeDietologo" />
+        <activity
+            android:name=".InserimentoAlimento"
+            android:parentActivityName=".InserimentoDieta" />
+        <activity
+            android:name=".RichiesteDietologo"
+            android:theme="@style/Theme.Benessere" />
+        <activity
+            android:name=".DettagliRichiesta"
+            android:parentActivityName=".RichiesteDietologo" />
+        <activity
+            android:name=".InserimentoDieta"
+            android:parentActivityName=".HomeDietologo" />
+        <activity
+            android:name=".DettagliCliente"
+            android:parentActivityName=".HomeDietologo" />
+        <activity
+            android:name=".RicercaCliente"
+            android:parentActivityName=".HomeDietologo" /> <!-- Activity coach -->
+        <activity android:name=".HomeCoach" />
+        <activity
+            android:name=".InserimentoScheda"
+            android:parentActivityName=".HomeCoach" />
+        <activity
+            android:name=".InserimentoAllenamento"
+            android:parentActivityName=".InserimentoScheda" />
         <activity android:name=".MainActivity" />
-
         <activity android:name=".Login_Coach" />
         <activity android:name=".Login_Benessere" />
         <activity android:name=".Login_Diet" />
@@ -91,7 +94,6 @@
         <activity android:name=".Register_benessere" />
         <activity android:name=".Register_coach" />
         <activity android:name=".Register_dietologo" />
-
 
         <service
             android:name=".control.DatabaseService"
@@ -115,7 +117,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
