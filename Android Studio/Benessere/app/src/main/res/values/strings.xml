@@ -111,7 +111,7 @@
     <string name="tvInserireAlimentiDieta">Inserisci gli alimenti della dieta</string>
     <string name="tvInserireEserciziAllenamento">Inserisci gli esercizi per l\'allenamento</string>
     <string name="tvPremiFotoImpostare">Premi sulla foto per impostarne una nuova</string>
-    <string name="btnGestireCliente">Gestisci dieta</string>
+    <string name="btnGestireCliente">Gestisci cliente</string>
     <string name="etScriviAlimentoDesiderato">Scrivi qui l\'alimento desiderato</string>
     <string name="etPorzione">Porzione</string>
     <string name="tvSelezionaAttrezzoVisualizzare">Seleziona l\'attrezzo da visualizzare</string>

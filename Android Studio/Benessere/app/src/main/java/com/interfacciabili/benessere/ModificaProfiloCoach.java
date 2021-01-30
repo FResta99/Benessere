@@ -177,6 +177,7 @@ public class ModificaProfiloCoach extends AppCompatActivity {
                 coach.setPassword(etPassword.getText().toString());
                 coach.setEmail(etMail.getText().toString());
                 coach.setNome(etNome.getText().toString());
+                coach.setCognome(etCognome.getText().toString());
                 coach.setSesso(sesso);
                 coach.setEta(Integer.parseInt(etEta.getText().toString()));
                 coach.setPalestra(etTornello.getText().toString());

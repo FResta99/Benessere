@@ -107,7 +107,7 @@
     <string name="tvInserireAlimentiDieta">Insert diet</string>
     <string name="tvInserireEserciziAllenamento">Insert exercises</string>
     <string name="tvPremiFotoImpostare">Click on the photo to set a new one</string>
-    <string name="btnGestireCliente">Manage diet</string>
+    <string name="btnGestireCliente">Manage client</string>
     <string name="etScriviAlimentoDesiderato">Write here your desired food</string>
     <string name="etPorzione">Portion</string>
     <string name="tvSelezionaAttrezzoVisualizzare">Select an equipment to view</string>

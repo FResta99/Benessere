@@ -223,4 +223,23 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
         intentTo.putExtra(EXPERT, coach);
         startActivity(intentTo);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_coach, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+
+        if(item.getItemId() == R.id.aggiornaProfiloButton){
+            Intent goToAggiornaProfilo = new Intent(HomeCoach.this, ModificaProfiloCoach.class);
+            goToAggiornaProfilo.putExtra(EXPERT, coach);
+            startActivity(goToAggiornaProfilo);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

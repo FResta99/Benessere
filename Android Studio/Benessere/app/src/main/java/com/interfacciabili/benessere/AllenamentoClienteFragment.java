@@ -102,8 +102,13 @@ public class AllenamentoClienteFragment extends Fragment {
         tvAllenamentoCliente.setText(esercizi);
             trainingAdapter = new ArrayAdapter<Esercizio>(getContext(), android.R.layout.simple_list_item_1, allenamentoRecuperato);
             lvEserciziCliente.setAdapter(trainingAdapter);
+        adaptLayoutListView(lvEserciziCliente, (allenamentoRecuperato.size() + 1));
 
+    }
 
+    private void adaptLayoutListView(ListView listView, int nItem) {
+        ViewGroup.LayoutParams layout = listView.getLayoutParams();
+        layout.height = 90 * nItem;
     }
 
 }
