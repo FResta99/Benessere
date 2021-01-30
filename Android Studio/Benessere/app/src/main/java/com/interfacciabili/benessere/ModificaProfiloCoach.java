@@ -18,13 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.interfacciabili.benessere.control.DatabaseService;
+import com.interfacciabili.benessere.model.Coach;
 import com.interfacciabili.benessere.model.Dietologo;
 
-public class ModificaProfiloDietologo extends AppCompatActivity {
+public class ModificaProfiloCoach extends AppCompatActivity {
 
     private String sesso = null;
-    private Dietologo dietologo;
-    private EditText etPassword, etMail, etNome, etCognome, etEta, etStudio;
+    private Coach coach;
+    private EditText etPassword, etMail, etNome, etCognome, etEta, etTornello;
     private TextView tvGenere;
     private RadioButton rbMaschio, rbFemmina, rbAltro;
     private Button btnAggiorna;
@@ -46,7 +47,7 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modifica_profilo_dietologo);
+        setContentView(R.layout.activity_modifica_profilo_coach);
 
         Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(homeToolbar);
@@ -59,7 +60,7 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
         etNome = (EditText) findViewById(R.id.etNome);
         etCognome = (EditText) findViewById(R.id.etCognome);
         etEta = (EditText) findViewById(R.id.etEta);
-        etStudio = (EditText) findViewById(R.id.etStudio);
+        etTornello = (EditText) findViewById(R.id.etTornelloIndirizzoIP);
 
         tvGenere = (TextView) findViewById(R.id.tvGenere);
 
@@ -67,20 +68,24 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
         rbFemmina = (RadioButton) findViewById(R.id.rbFemmina);
         rbAltro = (RadioButton) findViewById(R.id.rbAltro);
 
-//INTENT DA HOMEDIETOLOGO
+        //INTENT DA HOMECOACH
         Intent intentFrom = getIntent();
-        dietologo = intentFrom.getParcelableExtra("EXPERT");
+        coach = intentFrom.getParcelableExtra("EXPERT");
 
         btnAggiorna = findViewById(R.id.btnAggiorna);
-        if(dietologo!=null){
-            etPassword.setText(dietologo.getPassword());
-            etMail.setText(dietologo.getEmail());
-            etNome.setText(dietologo.getNome());
-            etCognome.setText(dietologo.getCognome());
-            etEta.setText(String.valueOf(dietologo.getEta()));
-            etStudio.setText(dietologo.getStudio());
 
-            sesso = dietologo.getSesso();
+        if(coach!=null){
+            etPassword.setText(coach.getPassword());
+            etMail.setText(coach.getEmail());
+            etNome.setText(coach.getNome());
+            etCognome.setText(coach.getCognome());
+            etEta.setText(String.valueOf(coach.getEta()));
+            if(!coach.getPalestra().isEmpty()){
+                etTornello.setText(coach.getPalestra());
+            }
+
+
+            sesso = coach.getSesso();
             switch (sesso){
                 case "Maschio":
                     rbMaschio.setChecked(true);
@@ -158,42 +163,37 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
             rbAltro.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
         }
 
-        if (etStudio.getText().toString().isEmpty()){
-            etStudio.setError(getString(R.string.erroreStudio));
-            errato = true;
-        }
+        if (!errato) {
+            if(databaseService.modificaDietologo(coach.getUsername(),
+                    etPassword.getText().toString(),
+                    etMail.getText().toString(),
+                    etNome.getText().toString(),
+                    etCognome.getText().toString(),
+                    sesso,
+                    Integer.parseInt(etEta.getText().toString()),
+                    etTornello.getText().toString())){
+                Toast.makeText(ModificaProfiloCoach.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
 
-            if (!errato) {
-                if(databaseService.modificaDietologo(dietologo.getUsername(),
-                        etPassword.getText().toString(),
-                        etMail.getText().toString(),
-                        etNome.getText().toString(),
-                        etCognome.getText().toString(),
-                        sesso,
-                        Integer.parseInt(etEta.getText().toString()),
-                        etStudio.getText().toString())){
-                    Toast.makeText(ModificaProfiloDietologo.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
+                coach.setPassword(etPassword.getText().toString());
+                coach.setEmail(etMail.getText().toString());
+                coach.setNome(etNome.getText().toString());
+                coach.setSesso(sesso);
+                coach.setEta(Integer.parseInt(etEta.getText().toString()));
+                coach.setPalestra(etTornello.getText().toString());
 
-                    dietologo.setPassword(etPassword.getText().toString());
-                    dietologo.setEmail(etMail.getText().toString());
-                    dietologo.setNome(etNome.getText().toString());
-                    dietologo.setSesso(sesso);
-                    dietologo.setEta(Integer.parseInt(etEta.getText().toString()));
-                    dietologo.setStudio(etStudio.getText().toString());
-
-                } else {
-                    Toast.makeText(ModificaProfiloDietologo.this, "Errore", Toast.LENGTH_LONG).show();
-                }
+            } else {
+                Toast.makeText(ModificaProfiloCoach.this, "Errore", Toast.LENGTH_LONG).show();
             }
-
-
         }
+
+
+    }
 
     @Override
     public void onBackPressed() {
-        Intent goToHomeDietologo = new Intent(ModificaProfiloDietologo.this, HomeDietologo.class);
-        goToHomeDietologo.putExtra("EXPERT", dietologo);
-        startActivity(goToHomeDietologo);
+        Intent goToHomeCoach = new Intent(ModificaProfiloCoach.this, HomeCoach.class);
+        goToHomeCoach.putExtra("EXPERT", coach);
+        startActivity(goToHomeCoach);
         finish();
     }
 

@@ -118,4 +118,6 @@
     <string name="richiestaSensoreContapassi">Your device is not set with a stepcounter, you cannot use this functionality</string>
     <string name="meteo_posso_correre_oggi">Weather, can i run today?</string>
     <string name="previsioni_meteo">Weather forecast</string>
+    <string name="modifica_profilo">Edit profile</string>
+    <string name="aggiorna_profilo">Update profile</string>
 </resources>
