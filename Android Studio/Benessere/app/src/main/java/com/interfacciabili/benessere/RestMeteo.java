@@ -114,9 +114,18 @@ public class RestMeteo extends AppCompatActivity {
 
 
             try {
+
+
+
                 //Apri una connessione HTTP
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = httpURLConnection.getInputStream();                           //Ottieni input stream
+                InputStream inputStream;
+                int responeCode = httpURLConnection.getResponseCode();
+                if(responeCode == HttpURLConnection.HTTP_OK){
+                    inputStream = httpURLConnection.getInputStream();                                   //Ottieni input stream
+                } else {
+                    return null;
+                }
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));         //Leggi dati
                 StringBuilder sb = new StringBuilder();                                                 //Crea riga e popola
                 String line;
@@ -166,7 +175,7 @@ public class RestMeteo extends AppCompatActivity {
                 return;
             }
 
-            if(datiRecuperati.contains("clear")){
+            if(datiRecuperati.contains("clear") || datiRecuperati.contains("clouds") ){
                 activity.ivPrevisioni.setImageDrawable(getDrawable(R.drawable.ic_baseline_wb_sunny_24));
                 activity.tvPrevisioni.setText("Oggi e' una bella giornata per correre");
             } else {
