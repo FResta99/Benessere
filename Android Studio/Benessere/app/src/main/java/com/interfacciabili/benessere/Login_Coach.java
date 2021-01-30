@@ -73,12 +73,12 @@ public class Login_Coach extends AppCompatActivity {
                 if (errato == false){
                     boolean isCoachUsernameInDatabase = databaseService.isCoachUsernameInDatabase(etUsernameTesto);
                     if (isCoachUsernameInDatabase == false){
-                        Toast.makeText(Login_Coach.this, "Coach non registrato", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login_Coach.this, getString(R.string.coachNonRegistrato), Toast.LENGTH_SHORT).show();
                     } else {
                         Coach coachCercato = new Coach();
                         coachCercato = databaseService.ricercaCoach(etUsernameTesto);
                         if (coachCercato == null){
-                            Toast.makeText(getApplicationContext(),"Coach non registrato" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.coachNonRegistrato), Toast.LENGTH_LONG).show();
 
                         } else {
 
@@ -87,7 +87,7 @@ public class Login_Coach extends AppCompatActivity {
                                 intent.putExtra("EXPERT", coachCercato);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(),"Password errata" , Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.errorePassword2), Toast.LENGTH_LONG).show();
                             }
                         }
 

@@ -64,12 +64,12 @@ public class Login_Benessere extends AppCompatActivity {
                 if (errato == false){
                     boolean isClientUsernameInDatabase = databaseService.isClientUsernameInDatabase(etUsernameTesto);
                     if (isClientUsernameInDatabase == false){
-                        Toast.makeText(Login_Benessere.this, "Cliente non registrato", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login_Benessere.this, getString(R.string.clienteNonRegistrato), Toast.LENGTH_SHORT).show();
                     } else {
                         Cliente clienteCercato = new Cliente();
                         clienteCercato = databaseService.ricercaCliente(etUsernameTesto);
                         if (clienteCercato == null){
-                            Toast.makeText(getApplicationContext(),"Cliente non registrato" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.clienteNonRegistrato) , Toast.LENGTH_LONG).show();
 
                         } else {
 
@@ -78,7 +78,7 @@ public class Login_Benessere extends AppCompatActivity {
                                 intent.putExtra("CLIENTE", clienteCercato);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(),"Password errata" , Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.errorePassword2) , Toast.LENGTH_LONG).show();
                             }
                         }
 

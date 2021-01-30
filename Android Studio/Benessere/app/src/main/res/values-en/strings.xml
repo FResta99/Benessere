@@ -120,4 +120,24 @@
     <string name="previsioni_meteo">Weather forecast</string>
     <string name="modifica_profilo">Edit profile</string>
     <string name="aggiorna_profilo">Update profile</string>
+    <string name="btnRegistraBenessere">Register user</string>
+    <string name="btnRegistraDietologo">Register Dietologist</string>
+    <string name="btnRegistraCoach">Register Coach</string>
+    <string name="coachNonRegistrato">Coach not registered</string>
+    <string name="clienteNonRegistrato">User not registered</string>
+    <string name="datiAggiornati">Data updated</string>
+    <string name="erroreGenerico">Error</string>
+    <string name="permessoNegato">Permission denied</string>
+
+    <plurals name="alimenti_dieta">
+        <item quantity="one">Only one edible today</item>
+        <item quantity="other">You have %d edibles in your diet</item>
+    </plurals>
+
+    <plurals name="esercizi_utente">
+        <item quantity="zero">Today you have no exercises</item>
+        <item quantity="one">Today you have one exercise to train</item>
+        <item quantity="other">Today you have %d exercises to train</item>
+    </plurals>
+
 </resources>

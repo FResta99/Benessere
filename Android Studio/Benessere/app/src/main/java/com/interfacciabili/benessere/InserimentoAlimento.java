@@ -136,7 +136,7 @@ public class InserimentoAlimento extends AppCompatActivity {
         porzioneAlimento = etPorzioneAlimento.getText().toString();
         Alimento alimentoDaInserire = new Alimento(nomeAlimento, porzioneAlimento, porzioneAlimentoSpinner, tipoPasto, String.valueOf(giornoPasto));
         boolean risultato = databaseService.aggiungiAlimentoADieta(cliente, alimentoDaInserire);
-        Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -182,7 +182,7 @@ public class InserimentoAlimento extends AppCompatActivity {
         nomeAlimento = etNomeAliemento.getText().toString();
         porzioneAlimento = etPorzioneAlimento.getText().toString();
         boolean risultato = databaseService.modificaAlimentoDieta(alimento, nomeAlimento, Integer.parseInt(porzioneAlimento), porzioneAlimentoSpinner, tipoPasto, String.valueOf(giornoPasto));
-        Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }
 

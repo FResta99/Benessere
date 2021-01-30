@@ -21,7 +21,7 @@ import java.net.Socket;
 public class AperturaTornello extends AppCompatActivity implements View.OnClickListener {
     private static Button buttonTurnstile;
 
-    private static final String serverIP = "192.168.0.16";
+    private static final String serverIP = "192.168.0.15";
     private static final int serverPort = 125;
     private Socket socket;
     private Thread thread;

@@ -132,6 +132,14 @@
     <string name="previsioni_meteo">Previsioni Meteo</string>
     <string name="modifica_profilo">Modifica profilo</string>
     <string name="aggiorna_profilo">Aggiorna profilo</string>
+    <string name="btnRegistraBenessere">Registrazione Benessere</string>
+    <string name="btnRegistraDietologo">Registrazione Dietologo</string>
+    <string name="btnRegistraCoach">Registrazione Coach</string>
+    <string name="coachNonRegistrato">Coach non registrato</string>
+    <string name="clienteNonRegistrato">Cliente non registrato</string>
+    <string name="datiAggiornati">Dati aggiornati</string>
+    <string name="erroreGenerico">Errore</string>
+    <string name="permessoNegato">Permesso negato</string>
 
     <string-array name="week">
         <item>@string/week_mon</item>

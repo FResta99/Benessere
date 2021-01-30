@@ -71,7 +71,7 @@ public class HomeCoach extends AppCompatActivity implements EliminaClienteDialog
 
         if(coachBundle!=null && coachBundle.containsKey(EXPERT)){
             coach = coachBundle.getParcelable(EXPERT);
-            Toast.makeText(this, ""+ coach, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, ""+ coach, Toast.LENGTH_SHORT).show();
         }
 
         // BUNDLE OF THIS ACTIVITY

@@ -164,31 +164,31 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
             errato = true;
         }
 
-            if (!errato) {
-                if(databaseService.modificaDietologo(dietologo.getUsername(),
-                        etPassword.getText().toString(),
-                        etMail.getText().toString(),
-                        etNome.getText().toString(),
-                        etCognome.getText().toString(),
-                        sesso,
-                        Integer.parseInt(etEta.getText().toString()),
-                        etStudio.getText().toString())){
-                    Toast.makeText(ModificaProfiloDietologo.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
+        if (!errato) {
+            if(databaseService.modificaDietologo(dietologo.getUsername(),
+                    etPassword.getText().toString(),
+                    etMail.getText().toString(),
+                    etNome.getText().toString(),
+                    etCognome.getText().toString(),
+                    sesso,
+                    Integer.parseInt(etEta.getText().toString()),
+                    etStudio.getText().toString())){
+                Toast.makeText(ModificaProfiloDietologo.this, getString(R.string.datiAggiornati), Toast.LENGTH_LONG).show();
 
-                    dietologo.setPassword(etPassword.getText().toString());
-                    dietologo.setEmail(etMail.getText().toString());
-                    dietologo.setNome(etNome.getText().toString());
-                    dietologo.setSesso(sesso);
-                    dietologo.setEta(Integer.parseInt(etEta.getText().toString()));
-                    dietologo.setStudio(etStudio.getText().toString());
+                dietologo.setPassword(etPassword.getText().toString());
+                dietologo.setEmail(etMail.getText().toString());
+                dietologo.setNome(etNome.getText().toString());
+                dietologo.setSesso(sesso);
+                dietologo.setEta(Integer.parseInt(etEta.getText().toString()));
+                dietologo.setStudio(etStudio.getText().toString());
 
-                } else {
-                    Toast.makeText(ModificaProfiloDietologo.this, "Errore", Toast.LENGTH_LONG).show();
-                }
+            } else {
+                Toast.makeText(ModificaProfiloDietologo.this, getString(R.string.erroreGenerico), Toast.LENGTH_LONG).show();
             }
-
-
         }
+
+
+    }
 
     @Override
     public void onBackPressed() {

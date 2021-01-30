@@ -108,7 +108,7 @@ public class AllenamentoClienteFragment extends Fragment {
 
     private void adaptLayoutListView(ListView listView, int nItem) {
         ViewGroup.LayoutParams layout = listView.getLayoutParams();
-        layout.height = 90 * nItem;
+        layout.height = 120 * nItem;
     }
 
 }

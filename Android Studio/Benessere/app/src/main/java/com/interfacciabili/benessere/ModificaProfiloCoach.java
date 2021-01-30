@@ -172,7 +172,7 @@ public class ModificaProfiloCoach extends AppCompatActivity {
                     sesso,
                     Integer.parseInt(etEta.getText().toString()),
                     etTornello.getText().toString())){
-                Toast.makeText(ModificaProfiloCoach.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
+                Toast.makeText(ModificaProfiloCoach.this, getString(R.string.datiAggiornati), Toast.LENGTH_LONG).show();
 
                 coach.setPassword(etPassword.getText().toString());
                 coach.setEmail(etMail.getText().toString());
@@ -184,7 +184,7 @@ public class ModificaProfiloCoach extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(ModificaProfiloCoach.this, "Errore", Toast.LENGTH_LONG).show();
+                Toast.makeText(ModificaProfiloCoach.this, getString(R.string.erroreGenerico), Toast.LENGTH_LONG).show();
             }
         }
 

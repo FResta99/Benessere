@@ -75,6 +75,7 @@ public class HomeCliente extends AppCompatActivity {
         Intent goToPersonalizza = new Intent(HomeCliente.this, ProfiloUtenteActivity.class);
         goToPersonalizza.putExtra(CLIENTE, cliente);
         startActivity(goToPersonalizza);
+        finish();
     }
 
     public void creaNotificheAlimenti(){
