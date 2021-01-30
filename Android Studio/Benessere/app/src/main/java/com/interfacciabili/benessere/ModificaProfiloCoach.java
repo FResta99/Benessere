@@ -164,7 +164,7 @@ public class ModificaProfiloCoach extends AppCompatActivity {
         }
 
         if (!errato) {
-            if(databaseService.modificaDietologo(coach.getUsername(),
+            if(databaseService.modificaCoach(coach.getUsername(),
                     etPassword.getText().toString(),
                     etMail.getText().toString(),
                     etNome.getText().toString(),
@@ -180,6 +180,7 @@ public class ModificaProfiloCoach extends AppCompatActivity {
                 coach.setSesso(sesso);
                 coach.setEta(Integer.parseInt(etEta.getText().toString()));
                 coach.setPalestra(etTornello.getText().toString());
+
 
             } else {
                 Toast.makeText(ModificaProfiloCoach.this, "Errore", Toast.LENGTH_LONG).show();

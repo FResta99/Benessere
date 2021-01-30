@@ -58,6 +58,7 @@ public class Register_coach extends AppCompatActivity {
         RadioButton rbFemmina = (RadioButton) findViewById(R.id.rbFemmina);
         RadioButton rbAltro = (RadioButton) findViewById(R.id.rbAltro);
 
+
         Button bennessereRegisterButton = (Button) findViewById(R.id.btnRegBenessere);
         bennessereRegisterButton.setOnClickListener(new Button.OnClickListener() {
             @Override

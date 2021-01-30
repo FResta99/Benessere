@@ -41,6 +41,7 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName name) {
 
         }
+
     };
 
     @Override
