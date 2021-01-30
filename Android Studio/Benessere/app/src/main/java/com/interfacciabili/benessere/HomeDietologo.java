@@ -69,7 +69,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
 
         if(dietologoBundle!=null && dietologoBundle.containsKey(EXPERT)){
             dietologo = dietologoBundle.getParcelable(EXPERT);
-            Toast.makeText(this, ""+ dietologo, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, ""+ dietologo, Toast.LENGTH_SHORT).show();
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(CLIENTE)) {

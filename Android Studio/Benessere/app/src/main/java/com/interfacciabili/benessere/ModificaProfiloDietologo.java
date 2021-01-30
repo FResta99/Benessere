@@ -173,7 +173,7 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
                         sesso,
                         Integer.parseInt(etEta.getText().toString()),
                         etStudio.getText().toString())){
-                    Toast.makeText(ModificaProfiloDietologo.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModificaProfiloDietologo.this, getString(R.string.datiAggiornati), Toast.LENGTH_LONG).show();
 
                     dietologo.setPassword(etPassword.getText().toString());
                     dietologo.setEmail(etMail.getText().toString());
@@ -183,7 +183,7 @@ public class ModificaProfiloDietologo extends AppCompatActivity {
                     dietologo.setStudio(etStudio.getText().toString());
 
                 } else {
-                    Toast.makeText(ModificaProfiloDietologo.this, "Errore", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ModificaProfiloDietologo.this, getString(R.string.erroreGenerico), Toast.LENGTH_LONG).show();
                 }
             }
 

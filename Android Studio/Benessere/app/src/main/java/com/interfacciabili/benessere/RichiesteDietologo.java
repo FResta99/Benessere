@@ -93,10 +93,7 @@ public class RichiesteDietologo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent goToHomeDietologo = new Intent(RichiesteDietologo.this, HomeDietologo.class);
-            goToHomeDietologo.putExtra(EXPERT, dietologo);
-            startActivity(goToHomeDietologo);
-            finish();
+            goToHomeDietologo();
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,4 +172,15 @@ public class RichiesteDietologo extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        goToHomeDietologo();
+    }
+
+    void goToHomeDietologo() {
+        Intent intentTo = new Intent(this, HomeDietologo.class);
+        intentTo.putExtra(EXPERT, dietologo);
+        startActivity(intentTo);
+        finish();
+    }
 }

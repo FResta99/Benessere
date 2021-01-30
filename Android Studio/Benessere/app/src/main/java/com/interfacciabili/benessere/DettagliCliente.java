@@ -84,6 +84,12 @@ public class DettagliCliente extends AppCompatActivity implements EliminaCliente
 
     @Override
     public void updateEliminaClienteDialogCallback() {
+        if(esperto instanceof Dietologo){
+            goToHomeDietologolActivity();
+        } else {
+            goToHomeCoachActivity();
+        }
+
         finish();
     }
 

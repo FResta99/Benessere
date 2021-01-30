@@ -192,7 +192,7 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     apriCamera();
                 } else {
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.permessoNegato), Toast.LENGTH_SHORT).show();
                 }
                 return;
             }
@@ -274,6 +274,6 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         }
 
         databaseService.modificaPesoAltezzaCliente(cliente, mPeso, mAltezza);
-        Toast.makeText(ProfiloUtenteActivity.this, "Dati aggiornati", Toast.LENGTH_LONG).show();
+        Toast.makeText(ProfiloUtenteActivity.this, getString(R.string.permessoNegato), Toast.LENGTH_LONG).show();
     }
 }

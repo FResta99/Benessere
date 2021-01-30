@@ -110,7 +110,7 @@ public class InserimentoAllenamento extends AppCompatActivity {
         ripetizioniEsercizio = Integer.parseInt(etRipetizioniEsercizio.getText().toString());
         Esercizio esercizioDaInserire = new Esercizio(nomeEsercizio, ripetizioniEsercizio, giornoEsercizio, "");
         boolean risultato = databaseService.aggiungiEsercizioASchedaAllenamento(cliente, esercizioDaInserire);
-        Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -154,7 +154,7 @@ public class InserimentoAllenamento extends AppCompatActivity {
         nomeEsercizio = etNomeEsercizio.getText().toString();
         ripetizioniEsercizio = Integer.parseInt(etRipetizioniEsercizio.getText().toString());
         boolean risultato = databaseService.modificaEsercizioScheda(esercizio, nomeEsercizio, ripetizioniEsercizio, giornoEsercizio);
-        Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+risultato, Toast.LENGTH_SHORT).show();
         finish();
     }
 
