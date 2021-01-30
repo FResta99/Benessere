@@ -196,6 +196,12 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             startActivity(goToRichiesteDietologo);
             finish();
         }
+        if(item.getItemId() == R.id.aggiornaProfiloButton){
+            Intent goToAggiornaProfilo = new Intent(HomeDietologo.this, ModificaProfiloDietologo.class);
+            goToAggiornaProfilo.putExtra(EXPERT, dietologo);
+            startActivity(goToAggiornaProfilo);
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }

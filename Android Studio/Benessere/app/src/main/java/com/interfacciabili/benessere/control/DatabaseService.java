@@ -1127,5 +1127,20 @@ public class DatabaseService extends Service {
         return mDb.update(dietDB.CLIENT_TABLE, cv, dietDB.COLUMN_CLIENT_USERNAME + "= \"" + cliente.getUsername() + "\"", null)>0;
     }
 
+    public boolean modificaDietologo(String username, String password, String email, String nome, String cognome, String sesso, int eta, String studio){
+        SQLiteDatabase mDb= dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(dietDB.COLUMN_DIETOLOGIST_PASSWORD, password);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_MAIL, email);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_NAME, nome);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_SURNAME, cognome);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_GENDER, sesso);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_AGE, eta);
+        cv.put(dietDB.COLUMN_DIETOLOGIST_STUDIO, studio);
+
+
+        return mDb.update(dietDB.DIETOLOGIST_TABLE, cv, dietDB.COLUMN_DIETOLOGIST_USERNAME + "= \'" + username + "\'", null)>0;
+    }
+
 
 }

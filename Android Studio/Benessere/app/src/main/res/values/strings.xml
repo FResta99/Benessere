@@ -130,6 +130,8 @@
     <string name="richiestaSensoreContapassi">Per usare questa funzionalita\' devi avere un sensore contapassi e il tuo dispositivo ne e\' sprovvisto</string>
     <string name="meteo_posso_correre_oggi">Meteo, posso correre oggi?</string>
     <string name="previsioni_meteo">Previsioni Meteo</string>
+    <string name="modifica_profilo">Modifica profilo</string>
+    <string name="aggiorna_profilo">Aggiorna profilo</string>
 
     <string-array name="week">
         <item>@string/week_mon</item>

@@ -33,7 +33,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Benessere">
-        <activity android:name=".RestMeteo" android:parentActivityName=".ContapassiActivity"></activity>
+
+        <activity
+            android:name=".RestMeteo"
+            android:parentActivityName=".ContapassiActivity" />
         <activity android:name=".GameMainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -42,7 +45,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Animationss" /> <!-- Activity cliente -->
+        <activity android:name=".Animationss" />
+
+        <!-- Activity cliente -->
         <activity android:name=".HomeCliente" />
         <activity
             android:name=".ClientFragmentContainer"
@@ -59,8 +64,12 @@
         <activity
             android:name=".ProfiloUtenteActivity"
             android:parentActivityName=".HomeCliente" />
-        <activity android:name=".AperturaTornello" /> <!-- Activity dietologo -->
+        <activity android:name=".AperturaTornello" />
+
+        <!-- Activity dietologo -->
         <activity android:name=".HomeDietologo" />
+        <activity android:name=".ModificaProfiloDietologo"
+            android:parentActivityName=".HomeDietologo"></activity>
         <activity
             android:name=".InserimentoAlimento"
             android:parentActivityName=".InserimentoDieta" />
@@ -78,7 +87,8 @@
             android:parentActivityName=".HomeDietologo" />
         <activity
             android:name=".RicercaCliente"
-            android:parentActivityName=".HomeDietologo" /> <!-- Activity coach -->
+            android:parentActivityName=".HomeDietologo" />
+        <!-- Activity coach -->
         <activity android:name=".HomeCoach" />
         <activity
             android:name=".InserimentoScheda"

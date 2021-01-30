@@ -7,4 +7,8 @@
         android:icon="@drawable/ic_baseline_message_24"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/aggiornaProfiloButton"
+        android:title="Aggiorna profilo"
+        app:showAsAction="never"/>
+
 </menu>
