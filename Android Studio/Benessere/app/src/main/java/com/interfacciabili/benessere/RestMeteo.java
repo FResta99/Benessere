@@ -175,7 +175,7 @@ public class RestMeteo extends AppCompatActivity {
                 return;
             }
 
-            if(datiRecuperati.contains("clear") || datiRecuperati.contains("clouds") ){
+            if(datiRecuperati.contains("Clear") || datiRecuperati.contains("clouds") ){
                 activity.ivPrevisioni.setImageDrawable(getDrawable(R.drawable.ic_baseline_wb_sunny_24));
                 activity.tvPrevisioni.setText("Oggi e' una bella giornata per correre");
             } else {
