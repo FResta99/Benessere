@@ -101,10 +101,6 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
                     .setPositiveButton("OK", null)
                     .show();
         }
-
-
-
-
     }
 
 
@@ -207,7 +203,7 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
             File f = new File(currentPhotoPath);
             Uri contentUri = Uri.fromFile(f);
 
-
+            cliente.setFotoProfilo(contentUri.toString());
             databaseService.aggiungiClienteFoto(cliente.getUsername(), contentUri.toString());
 
             setPic();
@@ -254,10 +250,22 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
-            finish();
+            goToHomeUtente();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        goToHomeUtente();
+    }
+
+    private void goToHomeUtente() {
+        Intent intentTo = new Intent(this, HomeCliente.class);
+        intentTo.putExtra(CLIENTE, cliente);
+        startActivity(intentTo);
+        finish();
     }
 
     public void aggiornaProfiloUtente(View view) {
@@ -274,6 +282,6 @@ public class ProfiloUtenteActivity extends AppCompatActivity {
         }
 
         databaseService.modificaPesoAltezzaCliente(cliente, mPeso, mAltezza);
-        Toast.makeText(ProfiloUtenteActivity.this, getString(R.string.permessoNegato), Toast.LENGTH_LONG).show();
+        Toast.makeText(ProfiloUtenteActivity.this, getString(R.string.datiAggiornati), Toast.LENGTH_LONG).show();
     }
 }
