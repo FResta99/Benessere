@@ -26,7 +26,7 @@
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:logo="@mipmap/ic_launcher"
-            app:title="Inserimento scheda allenamento" />
+            app:title="Inserimento scheda" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

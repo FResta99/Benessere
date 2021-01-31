@@ -119,6 +119,7 @@ public class RestMeteo extends AppCompatActivity {
 
                 //Apri una connessione HTTP
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                //httpURLConnection.setRequestMethod("GET");
                 InputStream inputStream;
                 int responeCode = httpURLConnection.getResponseCode();
                 if(responeCode == HttpURLConnection.HTTP_OK){
