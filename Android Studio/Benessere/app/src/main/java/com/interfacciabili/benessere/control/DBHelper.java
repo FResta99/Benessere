@@ -91,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
     public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";
+    public static final String COLUMN_CLIENT_ARCHIVED = "CLIENT_ARCHIVED";
 
     public static final String PRODUCT_TABLE = "PRODUCT_TABLE";
     public static final String COLUMN_PRODUCT_ID = "PRODUCT_ID";

@@ -101,9 +101,9 @@ public class DatabaseService extends Service {
 
         cv.put(dietDB.COLUMN_CLIENT_USERNAME, cliente);
         cv.put(dietDB.COLUMN_DIETOLOGIST_USERNAME, dietologo);
-
+        cv.put(dietDB.COLUMN_CLIENT_ARCHIVED, "FALSE");
         // inserisco i dati e controllo l'operazione, poi chiudo il db
-        long insert = db.insert(dietDB.CLIENT_DIETOLOGIST_TABLE, null, cv);
+        long insert = db.replace(dietDB.CLIENT_DIETOLOGIST_TABLE, null, cv);
         if(insert == -1){
             db.close();
             return false;
@@ -229,7 +229,8 @@ public class DatabaseService extends Service {
         List<Cliente> returnList = new ArrayList<>();
 
         String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " WHERE " + dietDB.COLUMN_USERNAME + " LIKE \'%" + usernameCercato + "%\' AND " +
-                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_CLIENT_USERNAME +" FROM "+ dietDB.CLIENT_DIETOLOGIST_TABLE +");";
+                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_CLIENT_USERNAME +" FROM "+ dietDB.CLIENT_DIETOLOGIST_TABLE +")" +
+                " OR CLIENT_TABLE.CLIENT_USERNAME IN (SELECT CLIENT_USERNAME FROM CLIENT_DIETOLOGIST_TABLE WHERE CLIENT_ARCHIVED = \"TRUE\");";
 
         // prendiamo il db in lettura
         SQLiteDatabase db = dietDB.getReadableDatabase();
@@ -269,7 +270,7 @@ public class DatabaseService extends Service {
 
         String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " JOIN " + dietDB.CLIENT_DIETOLOGIST_TABLE + " WHERE " + dietDB.CLIENT_TABLE + "." + dietDB.COLUMN_USERNAME
                 + " = " + dietDB.CLIENT_DIETOLOGIST_TABLE + "." + dietDB.COLUMN_CLIENT_USERNAME + " AND " + dietDB.CLIENT_DIETOLOGIST_TABLE + "." + dietDB.COLUMN_DIETOLOGIST_USERNAME
-                + " = \'" + usernameDietologo + "\';";
+                + " = \'" + usernameDietologo + "\' AND CLIENT_ARCHIVED = \"FALSE\";";
 
         // prendiamo il db in lettura
         SQLiteDatabase db = dietDB.getReadableDatabase();
@@ -305,23 +306,16 @@ public class DatabaseService extends Service {
     }
 
     public boolean eliminaClienteDaDietologo(String usernameCliente){
-        // se trova il cliente lo cancella e ritorna true
+        // se trova il cliente lo archivia e ritorna true
         // altrimenti se non lo trova ritorna false
 
-        SQLiteDatabase db = dietDB.getWritableDatabase();
-        String queryString = "DELETE FROM " + dietDB.CLIENT_DIETOLOGIST_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+        SQLiteDatabase mDb= dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("CLIENT_ARCHIVED", "TRUE");
 
-        Cursor cursor = db.rawQuery(queryString, null);
 
-        if(cursor.moveToFirst()){
-            cursor.close();
-            db.close();
-            return true;
-        } else {
-            cursor.close();
-            db.close();
-            return false;
-        }
+
+        return mDb.update(dietDB.CLIENT_DIETOLOGIST_TABLE, cv, dietDB.COLUMN_CLIENT_USERNAME + "= '" + usernameCliente + "'", null)>0;
     }
 
 
@@ -601,9 +595,10 @@ public class DatabaseService extends Service {
 
         cv.put(dietDB.COLUMN_CLIENT_USERNAME, cliente);
         cv.put(dietDB.COLUMN_COACH_USERNAME, coach);
+        cv.put(dietDB.COLUMN_CLIENT_ARCHIVED, "FALSE");
 
         // inserisco i dati e controllo l'operazione, poi chiudo il db
-        long insert = db.insert(dietDB.CLIENT_COACH_TABLE, null, cv);
+        long insert = db.replace(dietDB.CLIENT_COACH_TABLE, null, cv);
         if(insert == -1){
             db.close();
             return false;
@@ -638,7 +633,8 @@ public class DatabaseService extends Service {
         List<Cliente> returnList = new ArrayList<>();
 
         String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " LIKE \'%" + usernameCercato + "%\' AND " +
-                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_CLIENT_USERNAME +" FROM "+ dietDB.CLIENT_COACH_TABLE +");";
+                dietDB.CLIENT_TABLE + "."+dietDB.COLUMN_CLIENT_USERNAME + " NOT IN (SELECT " + dietDB.COLUMN_CLIENT_USERNAME +" FROM "+ dietDB.CLIENT_COACH_TABLE +
+                " ) OR CLIENT_TABLE.CLIENT_USERNAME IN (SELECT CLIENT_USERNAME FROM CLIENT_COACH_TABLE WHERE CLIENT_ARCHIVED = \"TRUE\");";
 
         // prendiamo il db in lettura
         SQLiteDatabase db = dietDB.getReadableDatabase();
@@ -678,7 +674,7 @@ public class DatabaseService extends Service {
 
         String queryClienti = "SELECT * FROM " + dietDB.CLIENT_TABLE + " JOIN " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.CLIENT_TABLE + "." + dietDB.COLUMN_CLIENT_USERNAME
                 + " = " + dietDB.CLIENT_COACH_TABLE + "." + dietDB.COLUMN_CLIENT_USERNAME + " AND " + dietDB.CLIENT_COACH_TABLE + "." + dietDB.COLUMN_COACH_USERNAME
-                + " = \'" + usernameCoach + "\';";
+                + " = \'" + usernameCoach + "\' AND CLIENT_ARCHIVED = \"FALSE\";";
 
         // prendiamo il db in lettura
         SQLiteDatabase db = dietDB.getReadableDatabase();
@@ -717,20 +713,13 @@ public class DatabaseService extends Service {
         // se trova il cliente lo cancella e ritorna true
         // altrimenti se non lo trova ritorna false
 
-        SQLiteDatabase db = dietDB.getWritableDatabase();
-        String queryString = "DELETE FROM " + dietDB.CLIENT_COACH_TABLE + " WHERE " + dietDB.COLUMN_CLIENT_USERNAME + " = \'" + usernameCliente + "\';";
+        SQLiteDatabase mDb= dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("CLIENT_ARCHIVED", "TRUE");
 
-        Cursor cursor = db.rawQuery(queryString, null);
 
-        if(cursor.moveToFirst()){
-            cursor.close();
-            db.close();
-            return true;
-        } else {
-            cursor.close();
-            db.close();
-            return false;
-        }
+
+        return mDb.update(dietDB.CLIENT_COACH_TABLE, cv, dietDB.COLUMN_CLIENT_USERNAME + "= '" + usernameCliente + "'", null)>0;
     }
 
     public List<Esercizio> recuperaAlleamento (String username){
