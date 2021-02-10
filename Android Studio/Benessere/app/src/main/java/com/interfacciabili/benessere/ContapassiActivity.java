@@ -159,21 +159,12 @@ public class ContapassiActivity extends AppCompatActivity implements SensorEvent
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_contapassi, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
             return true;
         }
-        if(item.getItemId() == R.id.previsioniButton){
-            Intent goToMeteo = new Intent(ContapassiActivity.this, RestMeteo.class);
-            startActivity(goToMeteo);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

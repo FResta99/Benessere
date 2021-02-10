@@ -2,7 +2,6 @@ package com.interfacciabili.benessere;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,11 +13,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,12 +25,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 public class RestMeteo extends AppCompatActivity {
 
     public ImageView ivPrevisioni;
     public TextView tvPrevisioni;
     private OttieniDatiREST meteoTask;
     private Boolean isConnected;
+    private String citta = "Bari,it";
+    //FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class RestMeteo extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             String uri = Uri.parse("https://api.openweathermap.org/data/2.5/weather?")
                     .buildUpon()
-                    .appendQueryParameter("q", "Bari,it")
+                    .appendQueryParameter("q", citta)
                     .appendQueryParameter("appid", "b3d054e4604ec445e24c8ea2b5af53a4")
                     .build()
                     .toString();
@@ -114,9 +114,6 @@ public class RestMeteo extends AppCompatActivity {
 
 
             try {
-
-
-
                 //Apri una connessione HTTP
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 //httpURLConnection.setRequestMethod("GET");
@@ -178,7 +175,7 @@ public class RestMeteo extends AppCompatActivity {
 
             if(datiRecuperati.contains("Clear") || datiRecuperati.contains("clouds") ){
                 activity.ivPrevisioni.setImageDrawable(getDrawable(R.drawable.ic_baseline_wb_sunny_24));
-                activity.tvPrevisioni.setText("Oggi e' una bella giornata per correre");
+                activity.tvPrevisioni.setText("Oggi e' una bella giornata per allenarsi fuori");
             } else {
                 activity.ivPrevisioni.setImageDrawable(getDrawable(R.drawable.ic_baseline_cloud_24));
                 activity.tvPrevisioni.setText("Oggi e' meglio rimanere a casa");
@@ -198,4 +195,48 @@ public class RestMeteo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+/*
+    public void getCitta() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RestMeteo.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+                        if (location != null) {
+                            Geocoder geocoder = new Geocoder(RestMeteo.this, Locale.getDefault());
+                            try {
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                citta = addresses.get(0).getLocality();
+                                citta += "," +  addresses.get(0).getCountryCode();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 100: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getCitta();
+                } else {
+                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+
+*/
 }

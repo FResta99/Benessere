@@ -161,6 +161,10 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
             Intent goToTornello = new Intent(ClientFragmentContainer.this, AperturaTornello.class);
             startActivity(goToTornello);
         }
+        if(tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.previsioniButton){
+            Intent goToMeteo = new Intent(ClientFragmentContainer.this, RestMeteo.class);
+            startActivity(goToMeteo);
+        }
         if(item.getItemId() == android.R.id.home){
             finish();
             return true;

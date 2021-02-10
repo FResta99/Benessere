@@ -15,5 +15,10 @@
         android:title="@string/apriTornello"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/previsioniButton"
+        android:title="@string/previsioni_meteo"
+        android:icon="@drawable/ic_baseline_wb_sunny_24"
+        app:showAsAction="never"/>
+
 
 </menu>
