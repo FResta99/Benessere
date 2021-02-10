@@ -128,7 +128,7 @@
     <string name="avvisoInternet">Per usare questa funzionalita\' devi avere una connessione a Internet attiva</string>
     <string name="permessoAttivitaContapassi">Per utilizzare il contapassi devi darci il permesso di accedere alla tua attività fisica.</string>
     <string name="richiestaSensoreContapassi">Per usare questa funzionalita\' devi avere un sensore contapassi e il tuo dispositivo ne e\' sprovvisto</string>
-    <string name="meteo_posso_correre_oggi">Meteo, posso allenarmi all\'aria aperta?</string>
+    <string name="meteo_posso_correre_oggi">Meteo, posso allenarmi all\'aria aperta? \n Dati forniti da OpenWeatherMap</string>
     <string name="previsioni_meteo">Previsioni Meteo</string>
     <string name="modifica_profilo">Modifica profilo</string>
     <string name="aggiorna_profilo">Aggiorna profilo</string>
