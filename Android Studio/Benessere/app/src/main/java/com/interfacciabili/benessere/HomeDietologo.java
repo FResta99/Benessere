@@ -156,7 +156,6 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         } else if ((clienteCliccato == null) && (outState.containsKey(CLIENTE))){
             outState.remove(CLIENTE);
         }
-
     }
 
     @Override
@@ -185,17 +184,29 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_dietologo, menu);
-        return true;
+
+        MenuItem notificationButton = menu.findItem(R.id.notification_badge);
+
+        int nRequests = databaseService.recuperaRichiesteNumeroDieta(dietologo.getUsername());
+        if (nRequests > 0) {
+            notificationButton.setActionView(R.layout.notification_badge);
+
+            TextView notificationCounter = notificationButton.getActionView().findViewById(R.id.badgeCounter);
+            notificationCounter.setText(String.valueOf(nRequests));
+
+        } else {
+            notificationButton.setActionView(null);
+        }
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (item.getItemId() == R.id.richiesteDietaButton) {
-            Intent goToRichiesteDietologo = new Intent(HomeDietologo.this, RichiesteDietologo.class);
-            goToRichiesteDietologo.putExtra(EXPERT, dietologo);
-            startActivity(goToRichiesteDietologo);
-            finish();
+        if (item.getItemId() == R.id.notification_badge) {
+            goToRichiesteDietologo(item.getActionView());
         }
+
         if(item.getItemId() == R.id.aggiornaProfiloButton){
             Intent goToAggiornaProfilo = new Intent(HomeDietologo.this, ModificaProfiloDietologo.class);
             goToAggiornaProfilo.putExtra(EXPERT, dietologo);
@@ -204,6 +215,13 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToRichiesteDietologo(View v) {
+        Intent goToRichiesteDietologo = new Intent(HomeDietologo.this, RichiesteDietologo.class);
+        goToRichiesteDietologo.putExtra(EXPERT, dietologo);
+        startActivity(goToRichiesteDietologo);
+        finish();
     }
 
     public void updateMasterFragment() {

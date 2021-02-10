@@ -458,6 +458,16 @@ public class DatabaseService extends Service {
         return returnList;
     }
 
+    public int recuperaRichiesteNumeroDieta(String username){
+        String queryRichieste = "SELECT * FROM " + dietDB.REQUEST_DIET_TABLE +" WHERE " + dietDB.COLUMN_REQUEST_DIET_DIETOLOGIST + " = \"" + username + "\""
+                + " AND " + dietDB.COLUMN_REQUEST_DIET_APPROVED +  " = \"FALSE\"";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+        Cursor risultato = db.rawQuery(queryRichieste, null);
+
+        return risultato.getCount();
+    }
+
 
     public boolean disapprovaDieta(RichiestaDieta richiesta){
         SQLiteDatabase mDb= dietDB.getWritableDatabase();
