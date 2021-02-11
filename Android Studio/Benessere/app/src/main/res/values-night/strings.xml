@@ -136,6 +136,7 @@
     <string name="erroreGenerico">Errore</string>
     <string name="permessoNegato">Permesso negato</string>
     <string name="disclaimerTornelloRete">Per usare questa funzione devi essere connesso alla rete della palestra</string>
+    <string name="condividi">Condividi</string>
 
     <string-array name="week">
         <item>@string/week_mon</item>

@@ -129,6 +129,7 @@
     <string name="erroreGenerico">Error</string>
     <string name="permessoNegato">Permission denied</string>
     <string name="disclaimerTornelloRete">To use this functionality you need to be connected to your gym WiFi network</string>
+    <string name="condividi">Condividi</string>
 
     <plurals name="alimenti_dieta">
         <item quantity="one">Only one edible today</item>

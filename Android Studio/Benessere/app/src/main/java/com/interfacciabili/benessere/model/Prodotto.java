@@ -52,4 +52,9 @@ public class Prodotto {
     public void setCliente(String cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return this.nome + " " + (this.status == 1 ? "acquistato" : "da acquistare");
+    }
 }

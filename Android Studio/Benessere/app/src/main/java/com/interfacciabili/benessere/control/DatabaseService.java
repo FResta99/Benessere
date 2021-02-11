@@ -1156,5 +1156,4 @@ public class DatabaseService extends Service {
         return mDb.update(dietDB.COACH_TABLE, cv, dietDB.COLUMN_COACH_USERNAME + "= \'" + username + "\'", null)>0;
     }
 
-
 }

@@ -10,8 +10,11 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -23,8 +26,11 @@ import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Prodotto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ShoppingList extends AppCompatActivity implements InserisciProdottoDialog.OnDialogCloseListener, PopupMenu.OnMenuItemClickListener,
         ModificaProdottoDialog.OnDialogCloseListener, EliminaProdottoDialog.OnDialogCloseListener {
@@ -134,11 +140,35 @@ public class ShoppingList extends AppCompatActivity implements InserisciProdotto
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_shopping, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
             return true;
         }
+        if(item.getItemId() == R.id.shareButton){
+            shareViaWhatsApp();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void shareViaWhatsApp() {
+        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+        whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        List<Prodotto> spesa = databaseService.ottieniProdotti(cliente.getUsername());
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Spesa: " + Arrays.toString(spesa.toArray()));
+        try {
+            startActivity(whatsappIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=com.whatsapp")));
+        }
     }
 }
