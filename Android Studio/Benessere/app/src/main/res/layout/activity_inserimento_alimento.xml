@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".InserimentoAlimento">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:logo="@mipmap/ic_launcher"
+            app:title="Inserisci un alimento" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/tvNomeAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvNomeAlimento"/>
+
+        <EditText
+            android:id="@+id/etNomeAlimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNomeAlimento"/>
+
+        <TextView
+            android:id="@+id/tvPorzioneAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvPorzioneAlimento"
+            android:layout_below="@+id/etNomeAlimento"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/etPorzioneAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/inserirePorzione"
+            android:inputType="number"
+            android:layout_below="@+id/tvPorzioneAlimento"/>
+
+        <Spinner
+            android:id="@+id/spinnerPorzione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPorzioneAlimento"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/etPorzioneAlimento"
+            android:entries="@array/porzioni" />
+
+        <TextView
+            android:id="@+id/tvTipoPasto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvTipoPasto"
+            android:layout_below="@+id/etPorzioneAlimento"/>
+
+        <Spinner
+            android:id="@+id/spinnerPasto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTipoPasto"
+            android:entries="@array/tipoPasto"/>
+
+        <TextView
+            android:id="@+id/tvGiornoSettimana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvGiornoSettimana"
+            android:layout_below="@+id/spinnerPasto"/>
+
+        <Spinner
+            android:id="@+id/spinnerGiorno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGiornoSettimana"
+            android:entries="@array/settimana"/>
+
+
+        <Button
+            android:id="@+id/btnAggiungiAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inserisci"
+            android:onClick="aggiungiAlimento"
+            android:layout_below="@+id/spinnerGiorno"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/btnModificaAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/modifica"
+            android:textColor="@color/white"
+            tools:visibility="visible"
+            android:onClick="modificaAlimento"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_create_24"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/spinnerGiorno"
+            />
+
+        <Button
+            android:id="@+id/btnEliminaAlimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/elimina"
+            android:textColor="@color/white"
+            android:onClick="eliminaAlimento"
+            tools:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/simplyRed"
+            app:icon="@drawable/ic_baseline_delete_24"
+            android:layout_below="@+id/spinnerGiorno"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

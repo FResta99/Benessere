@@ -1,78 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".DietaCliente"
-    android:padding="25dp">
+    android:orientation="vertical"
+    tools:context=".ClientFragmentContainer" >
 
-     <TextView
-        android:id="@+id/tvInserimentoColazione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Colazione"
-        android:textSize="20sp" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvColazione1"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            app:logo="@mipmap/ic_launcher_round"
+            app:title="La tua dieta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvInserimentoColazione"
-            />
-        <TextView
-            android:id="@+id/tvColazione2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvColazione1"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="5dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:id="@+id/tvInserimentoPranzo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pranzo"
-        android:textSize="20sp"
-        android:layout_below="@+id/tvColazione2"
-        android:layout_marginTop="25dp"/>
-
-        <TextView
-            android:id="@+id/tvPranzo1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvInserimentoPranzo" />
-        <TextView
-            android:id="@+id/tvPranzo2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvPranzo1" />
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvInserimentoCena"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cena"
-        android:textSize="20sp"
-        android:layout_below="@+id/tvPranzo2"
-        android:layout_marginTop="25dp"/>
+            <ImageView
+                android:id="@+id/ivToolbarAnim"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/ic_fork"
+                android:padding="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/tvCena1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvInserimentoCena" />
-        <TextView
-            android:id="@+id/tvCena2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCena1"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/lvDieta"
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/menutab_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/tvCena2"/>
+        app:tabGravity="center"
+        app:tabMode="scrollable"/>
 
-
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fragment_week"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -1,76 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#23AEBA"
-    tools:context=".MainActivity">
+    android:scrollbars="vertical"
+    android:background="@color/primaryColor"
+    tools:context=".MainActivity" >
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="560dp"
-        android:background="@drawable/shape2"
-        android:text="Registrati"
-        android:textColor="@color/white"
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.3"
+        android:layout_marginBottom="75dp"
+        android:shadowColor="@color/white"
+        android:text="@string/tvLogin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBenessere"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDiet"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="364dp"
-        android:background="@drawable/shape2"
-        android:text="Utente Dietologo"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCoach"
-        android:layout_width="213dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="248dp"
-        android:background="@drawable/shape2"
-        android:text="Utente Coach"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnBenessere"
         android:layout_width="213dp"
         android:layout_height="50dp"
-        android:layout_marginTop="128dp"
         android:background="@drawable/shape2"
-        android:text="Utente Benessere"
+        android:text="@string/btnUtenteBenessere"
         android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvLogin"
+        app:layout_constraintBottom_toTopOf="@+id/btnDiet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="25dp"
+        android:onClick="goToLoginUtente"/>
 
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="241dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="30dp"
-        android:shadowColor="#FFFFFF"
-        android:text="LOGIN"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/white"
-        android:textSize="36sp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDiet"
+        android:layout_width="213dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape2"
+        android:text="@string/btnUtenteDietologo"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/btnBenessere"
+        app:layout_constraintBottom_toTopOf="@+id/btnCoach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="25dp"
+        android:onClick="goToLoginDietologo"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCoach"
+        android:layout_width="213dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape2"
+        android:text="@string/btnUtenteCoach"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/btnDiet"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="50dp"
+        android:onClick="goToLoginCoach"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegister"
+        android:layout_width="213dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape1"
+        android:text="@string/btnRegistrati"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/btnCoach"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="goToRegistra"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

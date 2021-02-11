@@ -1,8 +1,176 @@
 <resources>
     <string name="app_name">Benessere</string>
 
-    <string name="label_turnstile">Turnstile</string>
-    <string name="button_turnstile">OPEN</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_turnstile">Apri il tornello</string>
+    <string name="button_turnstile">Apri</string>
+
+    <string-array name="porzioni">
+        <item>gr.</item>
+        <item>pz.</item>
+        <item>et.</item>
+    </string-array>
+    <string-array name="tipoPasto">
+        <item>Colazione</item>
+        <item>Pranzo</item>
+        <item>Cena</item>
+    </string-array>
+
+    <string name="week_mon">LUN</string>
+    <string name="week_tue">MAR</string>
+    <string name="week_wed">MER</string>
+    <string name="week_thu">GIO</string>
+    <string name="week_fri">VEN</string>
+    <string name="week_sat">SAB</string>
+    <string name="week_sun">DOM</string>
+    <string name="etUsername">Username</string>
+    <string name="etPassword">Password</string>
+    <string name="btnAccedi">Accedi</string>
+    <string name="tvLogin">LOGIN</string>
+    <string name="btnUtenteBenessere">Utente Benessere</string>
+    <string name="btnUtenteDietologo">Utente Dietologo</string>
+    <string name="btnUtenteCoach">Utente Coach</string>
+    <string name="btnRegistrati">Registrati</string>
+    <string name="tvRegistrazione">REGISTRAZIONE</string>
+    <string name="etEmail">Email</string>
+    <string name="etNome">Nome</string>
+    <string name="etCognome">Cognome</string>
+    <string name="rbMaschio">Maschio</string>
+    <string name="rbFemmina">Femmina</string>
+    <string name="etEta">Età</string>
+    <string name="etPeso">Peso (in Kg)</string>
+    <string name="etAltezza">Altezza (in cm)</string>
+    <string name="tvGenere">Il tuo genere:</string>
+    <string name="erroreUsername">Inserire username</string>
+    <string name="errorePassword">Inserire password</string>
+    <string name="erroreEmail">Inserire email</string>
+    <string name="erroreNome">Inserire nome</string>
+    <string name="erroreCognome">Inserire cognome</string>
+    <string name="erroreEta">Inserire età</string>
+    <string name="errorePeso">Inserire peso</string>
+    <string name="erroreAltezza">Inserire altezza</string>
+    <string name="erroreUsernameEsistente">Username già presente</string>
+    <string name="toastErroreRegistrazione">Errore: registrazione non riuscita</string>
+    <string name="etTornelloIndirizzoIP">Indirizzo IP tornello</string>
+    <string name="rbAltro">Altro</string>
+    <string name="etStudio">Studio</string>
+    <string name="erroreStudio">Errore studio</string>
+    <string name="ilTuoAllenamento">Il tuo allenamento</string>
+    <string name="passi">passi</string>
+    <string name="disattiva">Disattiva</string>
+    <string name="attiva">Attiva</string>
+    <string name="richiestaPermesso">Permesso necessario</string>
+    <string name="richiestaPermessoMessaggioContapassi">Per utilizzare il contapassi devi darci il permesso di accedere alla tua attività fisica.</string>
+    <string name="richiestaPermessoConsenti">Va bene!</string>
+    <string name="richiestaPermessoRifiuta">Preferisco di no</string>
+    <string name="sensoreAssente">Sensore assente</string>
+    <string name="avvisoMancanzaContapassi">Per usare questa funzionalita\' devi avere un sensore contapassi e il tuo dispositivo ne e\' sprovvisto</string>
+    <string name="Ok">OK</string>
+    <string name="eliminareCliente">Elimina cliente</string>
+    <string name="inserireAlimento">Inserire un alimento</string>
+    <string name="inserirePorzione">Inserire una porzione</string>
+    <string name="modifica">Modifica</string>
+    <string name="annulla">Annulla</string>
+    <string name="elimina">Elimina</string>
+    <string name="richiestaEliminazione">Vuoi davvero eliminare&#160;</string>
+    <string name="eliminareProdotto">Elimina prodotto</string>
+    <string name="inserireEsercizio">Inserire un esercizio</string>
+    <string name="inserireRipetizione">Inserire una ripetizione</string>
+    <string name="inserisci">Inserisci</string>
+    <string name="inserireProdotto">Inserisci prodotto</string>
+    <string name="richiestaProdottoInserire">Scrivi il prodotto da inserire</string>
+    <string name="richiestaProdottoModificare">Scrivi il nuovo prodotto</string>
+    <string name="dietologoNonRegistrato">Dietologo non registrato</string>
+    <string name="errorePassword2">Password errata</string>
+    <string name="modificareAlimento">Modifica alimento</string>
+    <string name="modificareAlimentoRichiesta">Con cosa vuoi modificare&#160;</string>
+    <string name="modificareProdotto">Modifica prodotto</string>
+    <string name="modificareProdottoRichiesta">Con cosa vuoi modificare&#160;</string>
+    <string name="avvisoMancanzaFotocamera">Per inserire una foto serve una fotocamera e il tuo telefono ne e\' sprovvisto</string>
+    <string name="richiestaPermessoMessaggioFotocamera">Ci serve l\'accesso alla memoria del telefono per salvare l\'immagine, altrimenti non puoi impostare la tua foto profilo</string>
+    <string name="inserireCliente">Inserisci cliente</string>
+    <string name="etRicercaUsername">Ricerca username</string>
+    <string name="btnCerca">Cerca</string>
+    <string name="tvTuoiPassi">I tuoi passi</string>
+    <string name="tvAlimentoModificare">Alimento da modificare:</string>
+    <string name="tvAlimentoRichiesto">Alimento richiesto:</string>
+    <string name="btnPersonalizzaProfilo">Personalizza profilo</string>
+    <string name="tvMiaDieta">La mia dieta</string>
+    <string name="tvScopriCosaMangerai">Scopri cosa mangerai oggi!</string>
+    <string name="btnVaiDieta">Vai alla dieta</string>
+    <string name="tvMioAllenamento">Il mio allenamento</string>
+    <string name="tvScopriEsercizi">Scopri gli esercizi di oggi!</string>
+    <string name="btnVaiAllenamento">Vai all\'allenamento</string>
+    <string name="tvClienteVisualizzare">Seleziona il cliente da visualizzare</string>
+    <string name="fabAggiungiCliente">Aggiungi cliente</string>
+    <string name="tvNomeAlimento">Nome alimento</string>
+    <string name="tvPorzioneAlimento">Porzione alimento</string>
+    <string name="tvTipoPasto">Tipo pasto</string>
+    <string name="tvGiornoSettimana">Giorno della settimana</string>
+    <string name="tvNomeEsercizio">Nome esercizio</string>
+    <string name="tvRipetizioniEsercizio">Ripetizioni esercizio</string>
+    <string name="tvInserireAlimentiDieta">Inserisci gli alimenti della dieta</string>
+    <string name="tvInserireEserciziAllenamento">Inserisci gli esercizi per l\'allenamento</string>
+    <string name="tvPremiFotoImpostare">Premi sulla foto per impostarne una nuova</string>
+    <string name="btnGestireCliente">Gestisci cliente</string>
+    <string name="etScriviAlimentoDesiderato">Scrivi qui l\'alimento desiderato</string>
+    <string name="etPorzione">Porzione</string>
+    <string name="tvSelezionaAttrezzoVisualizzare">Seleziona l\'attrezzo da visualizzare</string>
+    <string name="tvColazione">Colazione</string>
+    <string name="tvPranzo">Pranzo</string>
+    <string name="tvCena">Cena</string>
+    <string name="contapassi">Contapassi</string>
+    <string name="attrezzi">Attrezzi</string>
+    <string name="apriTornello">Apri il tornello</string>
+    <string name="listaSpesa">Lista della spesa</string>
+    <string name="richiestaDieta">Richieste dieta</string>
+    <string name="btnApprovaRichiesta">Approva richiesta</string>
+    <string name="connettiInternet">Connettiti a internet</string>
+    <string name="avvisoInternet">Per usare questa funzionalita\' devi avere una connessione a Internet attiva</string>
+    <string name="permessoAttivitaContapassi">Per utilizzare il contapassi devi darci il permesso di accedere alla tua attività fisica.</string>
+    <string name="richiestaSensoreContapassi">Per usare questa funzionalita\' devi avere un sensore contapassi e il tuo dispositivo ne e\' sprovvisto</string>
+    <string name="meteo_posso_correre_oggi">Meteo, posso allenarmi all\'aria aperta? \n Dati forniti da OpenWeatherMap</string>
+    <string name="previsioni_meteo">Previsioni Meteo</string>
+    <string name="modifica_profilo">Modifica profilo</string>
+    <string name="aggiorna_profilo">Aggiorna profilo</string>
+    <string name="btnRegistraBenessere">Registrazione Benessere</string>
+    <string name="btnRegistraDietologo">Registrazione Dietologo</string>
+    <string name="btnRegistraCoach">Registrazione Coach</string>
+    <string name="coachNonRegistrato">Coach non registrato</string>
+    <string name="clienteNonRegistrato">Cliente non registrato</string>
+    <string name="datiAggiornati">Dati aggiornati</string>
+    <string name="erroreGenerico">Errore</string>
+    <string name="permessoNegato">Permesso negato</string>
+    <string name="disclaimerTornelloRete">Per usare questa funzione devi essere connesso alla rete della palestra</string>
+
+    <string-array name="week">
+        <item>@string/week_mon</item>
+        <item>@string/week_tue</item>
+        <item>@string/week_wed</item>
+        <item>@string/week_thu</item>
+        <item>@string/week_fri</item>
+        <item>@string/week_sat</item>
+        <item>@string/week_sun</item>
+    </string-array>
+
+    <string-array name="settimana">
+        <item>LUN</item>
+        <item>MAR</item>
+        <item>MER</item>
+        <item>GIO</item>
+        <item>VEN</item>
+        <item>SAB</item>
+        <item>DOM</item>
+
+    </string-array>
+
+    <plurals name="alimenti_dieta">
+        <item quantity="one">Un alimento nella dieta</item>
+        <item quantity="other">Ci sono %d alimenti nella dieta</item>
+    </plurals>
+
+    <plurals name="esercizi_utente">
+        <item quantity="zero">Oggi non hai esercizi</item>
+        <item quantity="one">Oggi hai un esercizio per allenarti</item>
+        <item quantity="other">Oggi hai %d esercizi per allenarti</item>
+    </plurals>
 </resources>

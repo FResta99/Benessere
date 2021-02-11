@@ -6,19 +6,22 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Dietologo;
 
@@ -44,12 +47,11 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         }
     };
 
-    public Dietologo dietologo = new Dietologo("Dietologo1", "password");
+    public Dietologo dietologo;
     public Cliente clienteCliccato;
 
     private boolean landscapeView;
 
-    private TextView tvBenvenuto;
     private ListView lvClienti;
     private ArrayAdapter clientAdapter;
 
@@ -61,14 +63,24 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // BUNDLE OF THIS ACTIVITY
+        //INTENT DA LOGIN
+        Intent intentFromLogin = getIntent();
+        Bundle dietologoBundle = intentFromLogin.getExtras();
+
+        if(dietologoBundle!=null && dietologoBundle.containsKey(EXPERT)){
+            dietologo = dietologoBundle.getParcelable(EXPERT);
+            //Toast.makeText(this, ""+ dietologo, Toast.LENGTH_SHORT).show();
+        }
+
         if (savedInstanceState != null && savedInstanceState.containsKey(CLIENTE)) {
             clienteCliccato = savedInstanceState.getParcelable(CLIENTE);
         }
 
         setContentView(R.layout.activity_home_dietologo);
-        tvBenvenuto = findViewById(R.id.tvBenvenuto);
-        tvBenvenuto.setText("Benvenuto " + dietologo.getUsername() + "!");
+
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(homeToolbar);
+        homeToolbar.setSubtitle(dietologo.getUsername());
 
         fragmentManager = getSupportFragmentManager();
 
@@ -85,6 +97,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             Intent intentFrom = getIntent();
             if (intentFrom != null && intentFrom.hasExtra(CLIENTE)) {
                 clienteCliccato = intentFrom.getParcelableExtra(CLIENTE);
+                dietologo = intentFrom.getParcelableExtra(EXPERT);
                 updateClientDetailFragment(R.layout.dettagli_cliente);
             } else {
                 updateClientDetailFragment(R.layout.dettagli_cliente_blank);
@@ -96,7 +109,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
             landscapeView = false;
 
             if (clienteCliccato != null) {
-                goToClientDetailActivity();
+                goToDettagliClienteActivity();
             }
 
             lvClienti = findViewById(R.id.lvClienti);
@@ -104,7 +117,7 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     clienteCliccato = (Cliente) parent.getItemAtPosition(position);
-                    goToClientDetailActivity();
+                    goToDettagliClienteActivity();
                 }
             });
         }
@@ -168,11 +181,55 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         updateClientDetailFragment(R.layout.dettagli_cliente);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_dietologo, menu);
+
+        MenuItem notificationButton = menu.findItem(R.id.notification_badge);
+
+        int nRequests = databaseService.recuperaRichiesteNumeroDieta(dietologo.getUsername());
+        if (nRequests > 0) {
+            notificationButton.setActionView(R.layout.notification_badge);
+
+            TextView notificationCounter = notificationButton.getActionView().findViewById(R.id.badgeCounter);
+            notificationCounter.setText(String.valueOf(nRequests));
+
+        } else {
+            notificationButton.setActionView(null);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        if (item.getItemId() == R.id.notification_badge) {
+            goToRichiesteDietologo(item.getActionView());
+        }
+
+        if(item.getItemId() == R.id.aggiornaProfiloButton){
+            Intent goToAggiornaProfilo = new Intent(HomeDietologo.this, ModificaProfiloDietologo.class);
+            goToAggiornaProfilo.putExtra(EXPERT, dietologo);
+            startActivity(goToAggiornaProfilo);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void goToRichiesteDietologo(View v) {
+        Intent goToRichiesteDietologo = new Intent(HomeDietologo.this, RichiesteDietologo.class);
+        goToRichiesteDietologo.putExtra(EXPERT, dietologo);
+        startActivity(goToRichiesteDietologo);
+        finish();
+    }
+
     public void updateMasterFragment() {
         masterFragment = MasterHomeFragment.newInstance();
 
         Bundle bundleFragment = masterFragment.getArguments();
-        bundleFragment.putString(EXPERT, dietologo.getUsername());
+        bundleFragment.putParcelable(EXPERT, dietologo);
+
 
         fragmentManager.beginTransaction().replace(R.id.homeMaster, masterFragment).commit();
     }
@@ -181,7 +238,9 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         detailFragment = DetailHomeFragment.newInstance(layoutID);
         if (layoutID == R.layout.dettagli_cliente) {
             Bundle bundleFragment = detailFragment.getArguments();
+            bundleFragment.putParcelable(EXPERT, dietologo);
             bundleFragment.putParcelable(CLIENTE, clienteCliccato);
+
         }
 
         fragmentManager.beginTransaction().replace(R.id.homeDetail, detailFragment).commit();
@@ -192,16 +251,18 @@ public class HomeDietologo extends AppCompatActivity implements EliminaClienteDi
         lvClienti.setAdapter(clientAdapter);
     }
 
-    private void goToClientDetailActivity() {
+    private void goToDettagliClienteActivity() {
         Intent intentTo = new Intent(HomeDietologo.this, DettagliCliente.class);
+        intentTo.putExtra(EXPERT, dietologo);
         intentTo.putExtra(CLIENTE, clienteCliccato);
         startActivity(intentTo);
+        finish();
     }
 
     //FLOATING ACTION BUTTON LISTENER
     public void aggiungiCliente(View view) {
         Intent intentTo = new Intent(HomeDietologo.this, RicercaCliente.class);
-        intentTo.putExtra(EXPERT, dietologo.getUsername());
+        intentTo.putExtra(EXPERT, dietologo);
         startActivity(intentTo);
     }
 }

@@ -12,22 +12,23 @@ public class Cliente implements Parcelable {
     private String nome;
     private String cognome;
     private int eta;
-    private String fotoProfilo;
     private String sesso;
     private int peso;
     private int altezza;
+    private String fotoProfilo;
 
-    public Cliente(String username, String password, String email, String nome, String cognome, int eta, String fotoProfilo, String sesso, int peso, int altezza) {
+    public Cliente(String username, String password, String email, String nome, String cognome,
+                   String sesso,  int eta, int peso, int altezza, String fotoProfilo)  {
         this.username = username;
         this.password = password;
         this.email = email;
         this.nome = nome;
         this.cognome = cognome;
         this.eta = eta;
-        this.fotoProfilo = fotoProfilo;
         this.sesso = sesso;
         this.peso = peso;
         this.altezza = altezza;
+        this.fotoProfilo = fotoProfilo;
     }
 
     public Cliente(String username, String password){
@@ -146,18 +147,7 @@ public class Cliente implements Parcelable {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", eta=" + eta +
-                ", fotoProfilo='" + fotoProfilo + '\'' +
-                ", sesso='" + sesso + '\'' +
-                ", peso=" + peso +
-                ", altezza=" + altezza +
-                '}';
+        return nome + " " + cognome + " ("+username+")";
     }
 
     @Override

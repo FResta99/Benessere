@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".DettagliCliente"
-    android:padding="25dp" >
+    android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        app:logo="@mipmap/ic_launcher_round"
+        app:title="Dettagli cliente"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="5dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".DettagliCliente"
+        android:padding="25dp" >
 
-    <TextView
-        android:id="@+id/tvDettaglioUsernameCliente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Username: "
-        android:textSize="20dp" />
+        <ImageView
+            android:id="@+id/ivFotoCliente"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@mipmap/ic_launcher" />
 
-    <Button
-        android:id="@+id/btnGestisciDieta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gestisci dieta"
-        android:layout_centerInParent="true"
-        app:icon="@drawable/ic_baseline_create_24" />
+        <TextView
+            android:id="@+id/tvDettaglioUsernameCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/ivFotoCliente"
+            android:text="Username: "
+            android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/btnElimina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Elimina cliente"
-        android:layout_below="@+id/btnGestisciDieta"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF0000"
-        app:icon="@drawable/ic_baseline_delete_24" />
+        <Button
+            android:id="@+id/btnGestisciDieta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnGestireCliente"
+            android:backgroundTint="@color/primaryColor"
+            android:layout_centerInParent="true"
+            app:icon="@drawable/ic_baseline_create_24"
+            android:onClick="goToGestisciActivity"/>
 
+        <Button
+            android:id="@+id/btnElimina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eliminareCliente"
+            android:layout_below="@+id/btnGestisciDieta"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#D0D55D5D"
+            app:icon="@drawable/ic_baseline_delete_24"
+            android:onClick="goToEliminaCliente"/>
+    </RelativeLayout>
+</LinearLayout>
 
-</RelativeLayout>

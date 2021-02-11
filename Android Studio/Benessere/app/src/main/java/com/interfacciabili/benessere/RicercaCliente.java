@@ -6,6 +6,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +15,25 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.interfacciabili.benessere.control.DatabaseService;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 public class RicercaCliente extends AppCompatActivity {
     private static final String EXPERT = "EXPERT";
     private static final String TAG_LOG = "RicercaCliente";
 
-    TextView etName;
-    Button btnAggiungi;
-    ListView lvRicercaClienti;
-    ArrayAdapter clientAdapter;
+    private TextView etName;
+    private Button btnAggiungi;
+    private ListView lvRicercaClienti;
+    private ArrayAdapter clientAdapter;
+    private Esperto esperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -41,16 +49,27 @@ public class RicercaCliente extends AppCompatActivity {
         }
     };
 
-    private String usernameExpert;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ricerca_cliente);
+        setContentView(R.layout.activity_aggiungi_cliente);
+
+        Toolbar homeToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(homeToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intentFrom = getIntent();
         if (intentFrom != null && intentFrom.hasExtra(EXPERT)) {
-            usernameExpert = intentFrom.getStringExtra(EXPERT);
+            esperto = intentFrom.getParcelableExtra(EXPERT);
+
+            if(esperto instanceof Dietologo){
+                homeToolbar.setSubtitle(((Dietologo)esperto).getUsername());
+            } else {
+                homeToolbar.setSubtitle(((Coach)esperto).getUsername());
+            }
+
 
             btnAggiungi = findViewById(R.id.btnCerca);
             etName = findViewById(R.id.etName);
@@ -61,9 +80,9 @@ public class RicercaCliente extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cliente clienteCliccato = (Cliente) parent.getItemAtPosition(position);
                     InserisciClienteDialog icd = new InserisciClienteDialog();
-                    icd.setUsernameExpert(usernameExpert);
+                    icd.setEsperto(esperto);
                     icd.setUsernameCliente(clienteCliccato.getUsername());
-                    icd.show(getSupportFragmentManager(), "Inserisci cliente");
+                    icd.show(getSupportFragmentManager(), getString(R.string.inserireCliente));
                 }
             });
         } else {
@@ -77,7 +96,6 @@ public class RicercaCliente extends AppCompatActivity {
         super.onStart();
 
         Intent intentDatabaseService = new Intent(this, DatabaseService.class);
-        startService(intentDatabaseService);
         bindService(intentDatabaseService, serviceConnection, BIND_AUTO_CREATE);
     }
 
@@ -89,11 +107,29 @@ public class RicercaCliente extends AppCompatActivity {
         }
     }
 
+
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void cercaCliente(View v){
         if(!etName.getText().toString().isEmpty()){
-            clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
-                    android.R.layout.simple_list_item_1,
-                    databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
+            if(esperto instanceof Dietologo){
+                clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
+                        android.R.layout.simple_list_item_1,
+                        databaseService.recuperaClientiSenzaDietologo(etName.getText().toString()));
+            } else {
+                clientAdapter = new ArrayAdapter<Cliente>(RicercaCliente.this,
+                        android.R.layout.simple_list_item_1,
+                        databaseService.recuperaClientiSenzaCoach(etName.getText().toString()));
+            }
+
             lvRicercaClienti.setAdapter(clientAdapter);
         }
     }

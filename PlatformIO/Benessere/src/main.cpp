@@ -31,6 +31,9 @@ void setup() {
 
   server.begin();
 
+  pinMode(pinLed, OUTPUT);
+  digitalWrite(pinLed, HIGH);
+
   turnstile.attach(pinServo);
   turnstile.write(valueClose);
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/contapassiButton"
+        android:title="@string/contapassi"
+        android:icon="@drawable/ic_baseline_directions_walk_24"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/attrezziButton"
+        android:title="@string/attrezzi"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/tornelloButton"
+        android:title="@string/apriTornello"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/previsioniButton"
+        android:title="@string/previsioni_meteo"
+        android:icon="@drawable/ic_baseline_wb_sunny_24"
+        app:showAsAction="never"/>
+
+
+</menu>

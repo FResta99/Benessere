@@ -5,18 +5,37 @@
     android:background="@color/white"
     android:padding="16dp">
 
-<TextView
-    android:id="@+id/tvTestoDialog"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Con cosa vuoi modificare "/>
-
     <EditText
         android:id="@+id/etAlimentoModifica"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTestoDialog"
-        android:hint="Scrivi qui l'alimento desiderato"/>
+        android:hint="@string/etScriviAlimentoDesiderato"/>
+
+    <TextView
+        android:id="@+id/tvPorzioneModifica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inserirePorzione"
+        android:layout_below="@+id/etAlimentoModifica"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/etPorzioneModifica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/etPorzione"
+        android:layout_below="@+id/tvPorzioneModifica"/>
+
+    <Spinner
+        android:id="@+id/spinnerPorzioneModifca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPorzioneModifica"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/etPorzioneModifica"
+        android:entries="@array/porzioni" />
 
 
 </RelativeLayout>

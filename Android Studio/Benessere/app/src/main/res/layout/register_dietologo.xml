@@ -2,182 +2,150 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#23AEBA"
-    android:fillViewport="false">
+    android:background="@color/primaryColor"
+    android:fillViewport="false" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:textAlignment="center">
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/loginscrn"
+            android:id="@+id/tvRegistrazione"
+            android:text="@string/tvRegistrazione"
+            android:shadowColor="@color/white"
+            android:textSize="36sp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="75dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:text="Registrazione"
-
-            android:textColor="@color/white"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/fstTxt"
-            android:layout_width="83dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-
-            android:text="   Username"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName6"
-            android:layout_width="336dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etUsername"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="81dp"
+            android:inputType="textPersonName"
+            android:hint="@string/etUsername"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/shape2"
-            android:text="   Password "
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/editTextTextPassword2"
-            android:layout_width="333dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etPassword"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPassword" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="90dp"
+            android:inputType="textPassword"
+            android:hint="@string/etPassword"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/shape2"
-            android:text=" Indrizzo Mail"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName9"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etEmail"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/fstTxt5"
-            android:layout_width="86dp"
+            android:inputType="textEmailAddress"
+            android:hint="@string/etEmail"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-            android:text="      Nome"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName10"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etNome"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/fstTxt6"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-            android:text="    Cognome"
-            android:textColor="@color/white" />
+            android:inputType="textPersonName"
+            android:hint="@string/etNome"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName11"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etCognome"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/fstTxt10"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-            android:text="    Sesso"
-            android:textColor="@color/white" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="319dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:checked="true"
-            android:text="Maschio"
-            android:textColor="@color/white"
-            android:textOff="OFF"
-            android:textOn="ON" />
-
-        <TextView
-            android:id="@+id/fstTxt7"
-            android:layout_width="44dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-            android:text="   Età"
-            android:textColor="@color/white" />
+            android:inputType="textPersonName"
+            android:hint="@string/etCognome"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/editTextNumber"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etEta"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="number" />
-
-        <TextView
-            android:id="@+id/fstTxt8"
-            android:layout_width="66dp"
+            android:inputType="numberSigned"
+            android:hint="@string/etEta"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <TableLayout
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape2"
-            android:text="    Studio"
-            android:textColor="@color/white" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/tvGenere"
+                    android:text="@string/tvGenere"
+                    android:textSize="16dp"
+                    android:layout_gravity="center|top"
+                    android:layout_column="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
+
+                <RadioGroup
+                    android:layout_column="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp" >
+
+                    <RadioButton
+                        android:id="@+id/rbMaschio"
+                        android:checked="false"
+                        android:text="@string/rbMaschio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/rbFemmina"
+                        android:checked="false"
+                        android:text="@string/rbFemmina"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/rbAltro"
+                        android:checked="false"
+                        android:text="@string/rbAltro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+            </TableRow>
+        </TableLayout>
 
         <EditText
-            android:id="@+id/editTextTextPersonName14"
-            android:layout_width="328dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/etStudio"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName" />
-
+            android:inputType="text"
+            android:hint="@string/etStudio"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnRegBenessere"
+            android:layout_width="213dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/shape2"
-            android:text="Registrati" />
+            android:textColor="@color/white"
+            android:text="@string/btnRegistrati"
+            android:layout_marginBottom="60dp"/>
     </LinearLayout>
-
-
-
 </ScrollView>

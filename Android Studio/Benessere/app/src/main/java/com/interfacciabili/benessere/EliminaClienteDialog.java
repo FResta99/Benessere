@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -20,23 +19,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.interfacciabili.benessere.control.DatabaseService;
-import com.interfacciabili.benessere.control.DietDBHelper;
 import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esperto;
 
 import static android.content.Context.BIND_AUTO_CREATE;
 
 public class EliminaClienteDialog extends AppCompatDialogFragment {
-    public static final String CLIENTE = "CLIENTE";
     private static final String TAG_LOG = "EliminaClienteDialog";
+    private static final String CLIENTE = "CLIENTE";
 
     public interface EliminaClienteDialogCallback {
         public void updateEliminaClienteDialogCallback();
     }
     public EliminaClienteDialogCallback listener;
 
-    public Cliente cliente;
-
-    private TextView tvMessaggioElimina;
+    private Cliente cliente;
+    private Esperto esperto;
 
     public DatabaseService databaseService;
     public ServiceConnection serviceConnection = new ServiceConnection() {
@@ -55,37 +54,43 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        setRetainInstance(true);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_elimina_cliente, null);
+        View view = inflater.inflate(R.layout.dialog_solo_bottoni, null);
 
-        tvMessaggioElimina = view.findViewById(R.id.tvMessaggioEliminaCliente);
+
 
         if (cliente != null) {
-            tvMessaggioElimina.append(cliente.getUsername());
+            //tvMessaggioElimina.append(cliente.getUsername());
         }
 
         if (savedInstanceState != null) {
             cliente = savedInstanceState.getParcelable(CLIENTE);
             if (cliente != null) {
-                tvMessaggioElimina.append(cliente.getUsername());
+                //tvMessaggioElimina.append(cliente.getUsername());
             }
         }
 
         if (cliente != null) {
             builder.setView(view)
-                    .setTitle("Elimina cliente")
-                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.eliminareCliente))
+                    .setMessage(getString(R.string.richiestaEliminazione)  + cliente.getUsername() + "?")
+                    .setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();
                         }
                     })
-                    .setPositiveButton("Elimina", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.elimina, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            databaseService.eliminaCliente(cliente.getUsername());
+                            if(esperto instanceof Dietologo){
+                                databaseService.eliminaClienteDaDietologo(cliente.getUsername());
+                            } else {
+                                databaseService.eliminaClienteDaCoach(cliente.getUsername());
+                            }
                             listener.updateEliminaClienteDialogCallback();
                             dismiss();
                         }
@@ -120,7 +125,7 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
         if (context instanceof EliminaClienteDialogCallback) {
             listener = (EliminaClienteDialogCallback) context;
         } else {
-            throw new RuntimeException(context.toString() + " you must implements \"EliminaClienteDialogCallback\".");
+            throw new RuntimeException(context.toString() + " must implement \"EliminaClienteDialogCallback\".");
         }
     }
 
@@ -134,4 +139,5 @@ public class EliminaClienteDialog extends AppCompatDialogFragment {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+    public void setEsperto (Esperto tipo) { this.esperto = tipo; }
 }
