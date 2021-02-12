@@ -36,7 +36,8 @@
         app:layout_constraintTop_toTopOf="@id/btnDiet"
         app:layout_constraintRight_toLeftOf="@id/btnDiet"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp" />
+        android:layout_marginStart="10dp"
+        android:onClick="goToLoginUtente" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDiet"
@@ -48,7 +49,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tvLogin"
         app:layout_constraintLeft_toRightOf="@id/btnBenessere"
         app:layout_constraintRight_toLeftOf="@id/btnCoach"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister" />
+        app:layout_constraintBottom_toTopOf="@id/btnRegister"
+        android:onClick="goToLoginDietologo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCoach"
@@ -60,7 +62,8 @@
         app:layout_constraintTop_toTopOf="@id/btnDiet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btnDiet"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        android:onClick="goToLoginCoach" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRegister"
@@ -73,5 +76,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:onClick="goToRegistra" />
 </androidx.constraintlayout.widget.ConstraintLayout>
