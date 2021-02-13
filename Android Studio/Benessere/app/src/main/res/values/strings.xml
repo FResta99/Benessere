@@ -147,6 +147,8 @@
     <string name="permessoNegato">Permesso negato</string>
     <string name="disclaimerTornelloRete">Per usare questa funzione devi essere connesso alla rete della palestra</string>
     <string name="condividi">Condividi</string>
+    <string name="tbDiarioAlimentare">Diario alimentare</string>
+    <string name="tvDomandaPappa">Cosa hai mangiato oggi?</string>
 
     <string-array name="week">
         <item>@string/week_mon</item>

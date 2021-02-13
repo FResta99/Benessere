@@ -133,7 +133,9 @@ public class HomeCliente extends AppCompatActivity implements NavigationView.OnN
                 startActivity(goToShoppingList);
                 break;
             case R.id.nav_diario:
-                //intent
+                Intent goToDiarioAlimentare = new Intent(HomeCliente.this, DiarioAlimentare.class);
+                goToDiarioAlimentare.putExtra(CLIENTE, cliente);
+                startActivity(goToDiarioAlimentare);
                 break;
             case R.id.nav_contapassi:
                 Intent goToContapassi = new Intent(HomeCliente.this, ContapassiActivity.class);

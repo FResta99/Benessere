@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.interfacciabili.benessere.model.Alimento;
 import com.interfacciabili.benessere.model.Attrezzo;
+import com.interfacciabili.benessere.model.Cibo;
 import com.interfacciabili.benessere.model.Cliente;
 import com.interfacciabili.benessere.model.Coach;
 import com.interfacciabili.benessere.model.Dietologo;
@@ -1156,4 +1157,66 @@ public class DatabaseService extends Service {
         return mDb.update(dietDB.COACH_TABLE, cv, dietDB.COLUMN_COACH_USERNAME + "= \'" + username + "\'", null)>0;
     }
 
+    public boolean aggiungiCibo(Cibo cibo, String usernameCliente){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("FOOD_NAME", cibo.getNome());
+        cv.put("FOOD_CALORIES", cibo.getCalorie());
+        cv.put("FOOD_TYPE", cibo.getTipoPasto());
+        cv.put("FOOD_CLIENT", usernameCliente);
+
+        long insert = db.insert("FOOD_TABLE", null, cv);
+        Log.d("RESULTDB", Long.toString(insert) );
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+    }
+
+    public List<Cibo> getCibo(String usernameCliente, String tipoPasto){
+        List<Cibo> returnList = new ArrayList<>();
+        String queryDieta = "SELECT * FROM FOOD_TABLE WHERE FOOD_CLIENT" + " = \"" + usernameCliente + "\" AND FOOD_TYPE" +  "='" + tipoPasto + "'";
+
+        SQLiteDatabase db = dietDB.getReadableDatabase();
+
+        Cursor risultato = db.rawQuery(queryDieta, null);
+
+        if(risultato.moveToFirst()){
+            do{
+                int idCibo = risultato.getInt(0);
+                String nomeCibo = risultato.getString(1);
+                int calorieCibo = risultato.getInt(2);
+                String tipoCibo = risultato.getString(3);
+
+                Cibo ciboRestituito = new Cibo(idCibo, nomeCibo, calorieCibo, tipoCibo);
+                returnList.add(ciboRestituito);
+            } while (risultato.moveToNext());
+        } else {
+
+        }
+
+        risultato.close();
+        db.close();
+
+        return returnList;
+    }
+
+    public boolean eliminaCibo (String usernameCliente){
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        String queryString = "DELETE FROM FOOD_TABLE WHERE FOOD_CLIENT" + " = '" + usernameCliente + "';";
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return true;
+        } else {
+            cursor.close();
+            db.close();
+            return false;
+        }
+    }
 }
