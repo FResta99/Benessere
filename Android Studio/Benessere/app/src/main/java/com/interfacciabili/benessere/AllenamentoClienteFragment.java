@@ -1,5 +1,6 @@
 package com.interfacciabili.benessere;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -31,7 +32,7 @@ public class AllenamentoClienteFragment extends Fragment {
     private static final String GIORNO = "GIORNO";
 
     private Cliente cliente;
-    private String giorno;
+    private String giorno, coach;
 
     ListView lvEserciziCliente;
     ArrayAdapter trainingAdapter;
@@ -43,6 +44,16 @@ public class AllenamentoClienteFragment extends Fragment {
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
+            coach = databaseService.recuperaCoachDiCliente(cliente.getUsername());
+            if(coach.isEmpty()){
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Contatta il tuo coach")
+                        .setMessage("Sembra che tu non abbia un coach. Contatta il tuo coach di fiducia per ricevere una scheda di allenamento tramite Benessere!")
+                        .setPositiveButton(android.R.string.yes, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+
 
             mostraAllenamentoCliente();
         }

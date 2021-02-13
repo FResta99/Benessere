@@ -1,6 +1,8 @@
 package com.interfacciabili.benessere;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -44,6 +46,15 @@ public class DietaClienteFragment extends Fragment {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
             dietologo = databaseService.recuperaDietologoDiCliente(cliente.getUsername());
+
+            if(dietologo.isEmpty()){
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Contatta il tuo dietologo")
+                        .setMessage("Sembra che tu non abbia un dietologo. Contatta il tuo dietologo di fiducia per ricevere una dieta tramite Benessere!")
+                        .setPositiveButton(android.R.string.yes, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
 
             mostraDietaCliente();
         }

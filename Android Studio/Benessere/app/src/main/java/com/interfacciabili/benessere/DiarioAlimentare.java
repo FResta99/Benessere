@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -117,6 +119,7 @@ public class DiarioAlimentare extends AppCompatActivity implements View.OnClickL
         if (listFoods != null && listFoods.size() > 0) {
             updateInformations(listFoods, tipo);
         } else {
+            lvDiario.setAdapter(null);
             Toast.makeText(DiarioAlimentare.this, "Nessun cibo per questa fascia", Toast.LENGTH_SHORT).show();
         }
     }
@@ -135,11 +138,24 @@ public class DiarioAlimentare extends AppCompatActivity implements View.OnClickL
             return true;
         }
         if (item.getItemId() == R.id.destroyAll){
-            databaseService.eliminaCibo(cliente.getUsername());
 
-            tvNumeroCalorie.setText(String.valueOf(0));
+            new AlertDialog.Builder(DiarioAlimentare.this)
+                    .setTitle("Svuota diario")
+                    .setMessage("Vuoi davvero svuotare il tuo diario alimentare?")
 
-            lvDiario.setAdapter(null);
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            databaseService.eliminaCibo(cliente.getUsername());
+
+                            tvNumeroCalorie.setText(String.valueOf(0));
+
+                            lvDiario.setAdapter(null);
+                        }
+                    })
+
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
 
         return super.onOptionsItemSelected(item);
