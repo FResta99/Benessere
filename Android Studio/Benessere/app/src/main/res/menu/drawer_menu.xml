@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Dieta">
+        <menu>
+            <item android:id="@+id/nav_spesa"
+                android:icon="@drawable/ic_baseline_shopping_cart_24"
+                android:title="Spesa"/>
+            <item android:id="@+id/nav_diario"
+                android:title="Diario alimentare"/>
+        </menu>
+    </item>
+
+    <item android:title="Allenamento">
+        <menu>
+            <item android:id="@+id/nav_contapassi"
+                android:icon="@drawable/ic_baseline_directions_walk_24"
+                android:title="Contapassi"/>
+            <item android:id="@+id/nav_meteo"
+                android:title="Meteo"/>
+            <item android:id="@+id/nav_attrezzi"
+                android:title="Glossario attrezzi"/>
+            <item android:id="@+id/nav_tornello"
+                android:title="Accedi in palestra"/>
+        </menu>
+    </item>
+
+</menu>

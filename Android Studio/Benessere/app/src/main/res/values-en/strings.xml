@@ -141,5 +141,7 @@
         <item quantity="one">Today you have one exercise to train</item>
         <item quantity="other">Today you have %d exercises to train</item>
     </plurals>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>

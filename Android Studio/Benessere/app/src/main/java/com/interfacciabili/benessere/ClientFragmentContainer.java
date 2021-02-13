@@ -131,40 +131,8 @@ public class ClientFragmentContainer extends AppCompatActivity implements TabLay
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if(tipoCliente.equals("DIETA")){
-            getMenuInflater().inflate(R.menu.menu_cliente, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.menu_allenamento_cliente, menu);
-        }
-
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected (MenuItem item) {
-        if (tipoCliente.equals("DIETA") && item.getItemId() == R.id.shoppingListButton) {
-            Intent goToShoppingList = new Intent(ClientFragmentContainer.this, ShoppingList.class);
-            goToShoppingList.putExtra(CLIENTE, cliente);
-            startActivity(goToShoppingList);
-        }
-        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.contapassiButton){
-            Intent goToContapassi = new Intent(ClientFragmentContainer.this, ContapassiActivity.class);
-            startActivity(goToContapassi);
-        }
-        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.attrezziButton){
-            Intent goToAttrezzi = new Intent(ClientFragmentContainer.this, EquipmentsActivity.class);
-            goToAttrezzi.putExtra(CLIENTE, cliente);
-            startActivity(goToAttrezzi);
-        }
-        if (tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.tornelloButton){
-            Intent goToTornello = new Intent(ClientFragmentContainer.this, AperturaTornello.class);
-            startActivity(goToTornello);
-        }
-        if(tipoCliente.equals("ALLENAMENTO") && item.getItemId() == R.id.previsioniButton){
-            Intent goToMeteo = new Intent(ClientFragmentContainer.this, RestMeteo.class);
-            startActivity(goToMeteo);
-        }
+
         if(item.getItemId() == android.R.id.home){
             finish();
             return true;

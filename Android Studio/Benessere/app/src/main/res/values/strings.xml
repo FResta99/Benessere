@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Benessere</string>
 
+    <string name="navigation_drawer_open">Aperto navigation drawer</string>
+    <string name="navigation_drawer_close">Chiuso navigation drawer</string>
+
     <string name="label_turnstile">Apri il tornello</string>
     <string name="button_turnstile">Apri</string>
 
