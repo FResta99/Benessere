@@ -51,6 +51,8 @@ public class DiarioAlimentare extends AppCompatActivity implements View.OnClickL
         public void onServiceConnected(ComponentName name, IBinder service) {
             DatabaseService.LocalBinder localBinder = (DatabaseService.LocalBinder) service;
             databaseService = localBinder.getService();
+
+            updateInformations(databaseService.getCibo(cliente.getUsername(), "COLAZIONE"), "COLAZIONE");
         }
 
         @Override

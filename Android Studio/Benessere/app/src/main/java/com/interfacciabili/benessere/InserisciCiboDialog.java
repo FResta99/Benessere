@@ -82,7 +82,9 @@ public class InserisciCiboDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(!etAggiungiCibo.getText().toString().isEmpty() && !etAggiungiCalorie.getText().toString().isEmpty()){
+                            DiarioAlimentare parent = (DiarioAlimentare) getActivity();
                             databaseService.aggiungiCibo(new Cibo(etAggiungiCibo.getText().toString(), Integer.parseInt(etAggiungiCalorie.getText().toString()), fascia.toUpperCase()), usernameCliente);
+                            parent.updateInformations(databaseService.getCibo(usernameCliente, fascia.toUpperCase()), fascia.toUpperCase());
                         } else {
                             etAggiungiCibo.setError("Insersci cibo");
                         }
