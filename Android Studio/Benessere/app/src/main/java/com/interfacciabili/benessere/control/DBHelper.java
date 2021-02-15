@@ -1,10 +1,19 @@
 package com.interfacciabili.benessere.control;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import com.interfacciabili.benessere.model.Alimento;
+import com.interfacciabili.benessere.model.Cliente;
+import com.interfacciabili.benessere.model.Coach;
+import com.interfacciabili.benessere.model.Dietologo;
+import com.interfacciabili.benessere.model.Esercizio;
+import com.interfacciabili.benessere.model.Prodotto;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -169,6 +178,18 @@ public class DBHelper extends SQLiteOpenHelper {
         String createRequestTable = "CREATE TABLE REQUEST_DIET_TABLE ( REQUEST_ID	INTEGER, REQUEST_CLIENT	TEXT, REQUEST_CLIENT_NAME	TEXT, REQUEST_CLIENT_SURNAME	TEXT, REQUEST_DIETOLOGIST	TEXT, REQUEST_ID_MODIFY	INTEGER, REQUEST_MODIFY	TEXT, REQUEST_MODIFIER	TEXT, REQUEST_PORTION	INTEGER, REQUEST_PORTION_TYPE	TEXT, REQUEST_APPROVED	TEXT, PRIMARY KEY(REQUEST_ID AUTOINCREMENT))";
         String createFoodTable = "CREATE TABLE FOOD_TABLE (  FOOD_ID    INTEGER,  FOOD_NAME   TEXT,   FOOD_CALORIES   INTEGER,    FOOD_TYPE    TEXT,  FOOD_CLIENT    TEXT, PRIMARY KEY(FOOD_ID AUTOINCREMENT));";
 
+        /*
+        aggiungiClienteDemo();
+        aggiungiDietologoDemo();
+        aggiungiCoachDemo();
+        aggiungiClienteADietologoDemo();
+        aggiungiClienteACoachDemo();
+        aggiungiAlimentoADietaDemo();
+        aggiungiEsercizioASchedaAllenamentoDemo();
+        inserisciProdottoDemo();
+
+         */
+
         db.execSQL(createClientCoachTable);
         db.execSQL(createClientDietologistTable);
         db.execSQL(createClientTable);
@@ -213,6 +234,8 @@ public class DBHelper extends SQLiteOpenHelper {
 */
         }
     }
+
+
 
 
 }

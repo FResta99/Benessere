@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,6 +106,7 @@ public class ModificaDietaDialog extends DialogFragment {
                         String porzioneModifier = etPorzioneModifica.getText().toString();
                         RichiestaDieta rd = new RichiestaDieta(utente, utenteNome, utenteCognome, dietologo, alimento.getId(), alimento.getNome(), alimentoModifier, porzioneModifier, porzioneModificaSpinner, FALSE);
                         databaseService.aggiungiRichestaDieta(rd);
+                        Toast.makeText(getContext(), "Modifica inviata", Toast.LENGTH_SHORT).show();
                         wantToCloseDialog = true;
 
                     }else {

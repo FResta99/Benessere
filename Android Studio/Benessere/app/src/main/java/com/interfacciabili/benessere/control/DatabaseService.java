@@ -26,6 +26,137 @@ import static com.interfacciabili.benessere.control.DBHelper.getDbIstance;
 
 public class DatabaseService extends Service {
 
+    public static final String CLIENT_TABLE = "CLIENT_TABLE";
+    public static final String COLUMN_USERNAME = "CLIENT_USERNAME";
+    public static final String COLUMN_PASSWORD = "CLIENT_PASSWORD";
+    public static final String COLUMN_CLIENT_MAIL = "CLIENT_MAIL";
+    public static final String COLUMN_CLIENT_NAME = "CLIENT_NAME";
+    public static final String COLUMN_CLIENT_SURNAME = "CLIENT_SURNAME";
+    public static final String COLUMN_CLIENT_AGE = "CLIENT_AGE";
+    public static final String COLUMN_CLIENT_PROPIC = "PICTURE_URI";
+    public static final String COLUMN_CLIENT_GENDER = "CLIENT_SEX";
+    public static final String COLUMN_CLIENT_WEIGHT = "CLIENT_WEIGHT";
+    public static final String COLUMN_CLIENT_HEIGHT = "CLIENT_HEIGHT";
+
+    public static final String DIETOLOGIST_TABLE = "DIETOLOGIST_TABLE";
+    public static final String COLUMN_DIETOLOGIST_USERNAME = "DIETOLOGIST_USERNAME";
+    public static final String COLUMN_DIETOLOGIST_PASSWORD = "DIETOLOGIST_PASSWORD";
+    public static final String COLUMN_DIETOLOGIST_MAIL = "DIETOLOGIST_MAIL";
+    public static final String COLUMN_DIETOLOGIST_NAME = "DIETOLOGIST_NAME";
+    public static final String COLUMN_DIETOLOGIST_SURNAME = "DIETOLOGIST_SURNAME";
+    public static final String COLUMN_DIETOLOGIST_AGE = "DIETOLOGIST_AGE";
+    public static final String COLUMN_DIETOLOGIST_GENDER = "DIETOLOGIST_SEX";
+    public static final String COLUMN_DIETOLOGIST_STUDIO = "DIETOLOGIST_STUDIO";
+
+    /*
+    public static final String DIET_TABLE = "DIET_TABLE";
+    public static final String COLUMN_DIET_USERNAME = "DIET_USERNAME";
+    public static final String COLUMN_DIET_BREAKFAST1 = "DIET_BREAKFAST1";
+    public static final String COLUMN_DIET_BREAKFAST2 = "DIET_BREAKFAST2";
+    public static final String COLUMN_DIET_LUNCH1 = "DIET_LUNCH1";
+    public static final String COLUMN_DIET_LUNCH2 = "DIET_LUNCH2";
+    public static final String COLUMN_DIET_DINNER1 = "DIET_DINNER1";
+    public static final String COLUMN_DIET_DINNER2 = "DIET_DINNER2";
+
+    String createDietTableStatement = "CREATE TABLE " + DIET_TABLE +" (" +
+            COLUMN_DIET_USERNAME + " TEXT PRIMARY KEY, " +
+            COLUMN_DIET_BREAKFAST1 + " TEXT, "  +
+            COLUMN_DIET_BREAKFAST2 + " TEXT, "  +
+            COLUMN_DIET_LUNCH1 + " TEXT, "  +
+            COLUMN_DIET_LUNCH2 + " TEXT, "  +
+            COLUMN_DIET_DINNER1 + " TEXT, "  +
+            COLUMN_DIET_DINNER2 + " TEXT, "  +
+            " FOREIGN KEY ("+COLUMN_DIET_USERNAME+") REFERENCES "+CLIENT_TABLE+"("+COLUMN_USERNAME+"));";
+*/
+    /*
+    public static final String REQUEST_DIET_TABLE = "REQUEST_DIET_TABLE";
+    public static final String COLUMN_REQUEST_DIET_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_DIET_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_DIET_DIETOLOGIST = "REQUEST_DIETOLOGIST";
+    public static final String COLUMN_REQUEST_DIET_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
+
+    String createRequestDietTable = "CREATE TABLE " + REQUEST_DIET_TABLE +" (" +
+            COLUMN_REQUEST_DIET_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_REQUEST_DIET_CLIENT + " TEXT, "  +
+            COLUMN_REQUEST_DIET_DIETOLOGIST + " TEXT, "  +
+            COLUMN_REQUEST_DIET_MODIFY + " TEXT NOT NULL, "  +
+            COLUMN_REQUEST_DIET_MODIFIER + " TEXT NOT NULL, "  +
+            COLUMN_REQUEST_DIET_APPROVED + " TEXT) ";
+*/
+    public static final String DIET_TABLE = "DIET_TABLE";
+    public static final String COLUMN_EDIBLE_ID = "EDIBLE_ID";
+    public static final String COLUMN_DIET_USERNAME = "DIET_USERNAME";
+    public static final String COLUMN_EDIBLE_NAME = "EDIBLE_NAME";
+    public static final String COLUMN_EDIBLE_PORTION = "EDIBLE_PORTION";
+    public static final String COLUMN_EDIBLE_PORTION_TYPE = "EDIBLE_PORTION_TYPE";
+    public static final String COLUMN_EDIBLE_TYPE = "EDIBLE_TYPE";
+    public static final String COLUMN_EDIBLE_DAY = "EDIBLE_DAY";
+
+    public static final String REQUEST_DIET_TABLE = "REQUEST_DIET_TABLE";
+    public static final String COLUMN_REQUEST_DIET_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_DIET_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_DIET_DIETOLOGIST = "REQUEST_DIETOLOGIST";
+    public static final String COLUMN_REQUEST_DIET_ID_MODIFY = "REQUEST_ID_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_DIET_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_DIET_PORTION = "REQUEST_PORTION";
+    public static final String COLUMN_REQUEST_DIET_PORTION_TYPE = "REQUEST_PORTION_TYPE";
+    public static final String COLUMN_REQUEST_DIET_APPROVED = "REQUEST_APPROVED";
+    public static final String COLUMN_REQUEST_DIET_CLIENT_NAME = "REQUEST_CLIENT_NAME";
+    public static final String COLUMN_REQUEST_DIET_CLIENT_SURNAME = "REQUEST_CLIENT_SURNAME";
+
+    public static final String CLIENT_DIETOLOGIST_TABLE = "CLIENT_DIETOLOGIST_TABLE";
+    public static final String COLUMN_CLIENT_USERNAME = "CLIENT_USERNAME";
+    public static final String COLUMN_CLIENT_ARCHIVED = "CLIENT_ARCHIVED";
+
+    public static final String PRODUCT_TABLE = "PRODUCT_TABLE";
+    public static final String COLUMN_PRODUCT_ID = "PRODUCT_ID";
+    public static final String COLUMN_PRODUCT_NAME = "PRODUCT_NAME";
+    public static final String COLUMN_PRODUCT_STATUS = "PRODUCT_STATUS";
+    public static final String COLUMN_PRODUCT_CLIENT = "PRODUCT_CLIENT";
+
+    public static final String EQUIP_TABLE = "EQUIP_TABLE";
+    public static final String COLUMN_EQUIP_NAME = "EQUIP_NAME";
+    public static final String COLUMN_EQUIP_DESCRIPTION = "EQUIP_DESCRIPTION";
+
+    String createEquipmentsTableStatement = "CREATE TABLE " + EQUIP_TABLE + " (" + COLUMN_EQUIP_NAME + " TEXT PRIMARY KEY, " + COLUMN_EQUIP_DESCRIPTION + " TEXT)";
+
+    public static final String COLUMN_DIETOLOGISTCLIENT_USERNAME = "DIETOLOGISTCLIENT_USERNAME";
+
+    public static final String COACH_TABLE = "COACH_TABLE";
+    public static final String COLUMN_COACH_USERNAME = "COACH_USERNAME";
+    public static final String COLUMN_COACH_PASSWORD = "COACH_PASSWORD";
+    public static final String COLUMN_COACH_MAIL = "COACH_MAIL";
+    public static final String COLUMN_COACH_NAME = "COACH_NAME";
+    public static final String COLUMN_COACH_SURNAME = "COACH_SURNAME";
+    public static final String COLUMN_COACH_AGE = "COACH_AGE";
+    public static final String COLUMN_COACH_GENDER = "COACH_SEX";
+    public static final String COLUMN_COACH_GYM = "COACH_GYM";
+
+
+    public static final String EXERCISE_TABLE = "EXERCISE_TABLE";
+    public static final String COLUMN_EXERCISE_ID = "EXERCISE_ID";
+    public static final String COLUMN_EXERCISE_USERNAME = "EXERCISE_USERNAME";
+    public static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
+    public static final String COLUMN_EXERCISE_REPS = "EXERCISE_REPS";
+    public static final String COLUMN_EXERCISE_EXPLAINATION = "EXERCISE_EXPLAINATION";
+    public static final String COLUMN_EXERCISE_DAY = "EXERCISE_DAY";
+
+    public static final String REQUEST_EXERCISE_TABLE = "REQUEST_EXERCISE_TABLE";
+    public static final String COLUMN_REQUEST_EXERCISE_ID = "REQUEST_ID";
+    public static final String COLUMN_REQUEST_EXERCISE_CLIENT = "REQUEST_CLIENT";
+    public static final String COLUMN_REQUEST_EXERCISE_COACH = "REQUEST_COACH";
+    public static final String COLUMN_REQUEST_EXERCISE_ID_MODIFY = "REQUEST_ID_MODIFY";
+    public static final String COLUMN_REQUEST_EXERCISE_MODIFY = "REQUEST_MODIFY";
+    public static final String COLUMN_REQUEST_EXERCISE_MODIFIER = "REQUEST_MODIFIER";
+    public static final String COLUMN_REQUEST_EXERCISE_REPS = "REQUEST_REPS";
+    public static final String COLUMN_REQUEST_EXERCISE_APPROVED = "REQUEST_APPROVED";
+
+    public static final String CLIENT_COACH_TABLE = "CLIENT_COACH_TABLE";
+    public static final String COLUMN_COACHCLIENT_USERNAME = "COAHCLIENT_USERNAME";
+
     private DBHelper dietDB;
     public IBinder binder = new LocalBinder();
 
@@ -50,6 +181,17 @@ public class DatabaseService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+
+        Boolean risultato = aggiungiClienteDemo();
+        if(risultato) {
+            aggiungiDietologoDemo();
+            aggiungiCoachDemo();
+            aggiungiClienteADietologoDemo();
+            aggiungiClienteACoachDemo();
+            aggiungiAlimentoADietaDemo();
+            aggiungiEsercizioASchedaAllenamentoDemo();
+            inserisciProdottoDemo();
+        }
         return binder;
     }
 
@@ -1218,5 +1360,302 @@ public class DatabaseService extends Service {
             db.close();
             return false;
         }
+    }
+
+
+    public boolean aggiungiClienteDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_USERNAME, "silvione89");
+        cv.put(COLUMN_PASSWORD, "password");
+        cv.put(COLUMN_CLIENT_MAIL, "silvione89@gmail.com");
+        cv.put(COLUMN_CLIENT_NAME, "Silvio");
+        cv.put(COLUMN_CLIENT_SURNAME, "Silvietti");
+        cv.put(COLUMN_CLIENT_AGE, 30);
+        cv.put(COLUMN_CLIENT_GENDER, "Maschio");
+        cv.put(COLUMN_CLIENT_WEIGHT, 80);
+        cv.put(COLUMN_CLIENT_HEIGHT, 180);
+
+        long insert = db.insert(CLIENT_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiDietologoDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DIETOLOGIST_USERNAME, "dietologo1");
+        cv.put(COLUMN_DIETOLOGIST_PASSWORD, "password");
+        cv.put(COLUMN_DIETOLOGIST_MAIL, "dietologo1@gmail.com");
+        cv.put(COLUMN_DIETOLOGIST_NAME, "Giorgio");
+        cv.put(COLUMN_DIETOLOGIST_SURNAME, "Dieti");
+        cv.put(COLUMN_DIETOLOGIST_GENDER, "Maschio");
+        cv.put(COLUMN_DIETOLOGIST_AGE, 30);
+        cv.put(COLUMN_DIETOLOGIST_STUDIO, "Via dei matti n.0");
+
+        long insert = db.insert(DIETOLOGIST_TABLE, null, cv);
+        Log.d("RESULTDB", Long.toString(insert) );
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiCoachDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_COACH_USERNAME, "coach1");
+        cv.put(COLUMN_COACH_PASSWORD, "password");
+        cv.put(COLUMN_COACH_MAIL, "coach1@gym.com");
+        cv.put(COLUMN_COACH_NAME, "Veronica");
+        cv.put(COLUMN_COACH_SURNAME, "Verdi");
+        cv.put(COLUMN_COACH_GENDER, "Femmina");
+        cv.put(COLUMN_COACH_AGE, 30);
+
+        long insert = db.insert(COACH_TABLE, null, cv);
+        Log.d("RESULTDB", Long.toString(insert) );
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiClienteADietologoDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CLIENT_USERNAME, "silvione89");
+        cv.put(COLUMN_DIETOLOGIST_USERNAME, "dietologo1");
+        cv.put(COLUMN_CLIENT_ARCHIVED, "FALSE");
+        long insert = db.replace(CLIENT_DIETOLOGIST_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiClienteACoachDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CLIENT_USERNAME, "silvione89");
+        cv.put(COLUMN_COACH_USERNAME, "coach1");
+        cv.put(COLUMN_CLIENT_ARCHIVED, "FALSE");
+
+
+        long insert = db.replace(CLIENT_COACH_TABLE, null, cv);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiAlimentoADietaDemo(){
+
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv.put(COLUMN_EDIBLE_NAME, "Cereali");
+        cv.put(COLUMN_EDIBLE_PORTION, "100");
+        cv.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv.put(COLUMN_EDIBLE_TYPE, "Colazione");
+        cv.put(COLUMN_EDIBLE_DAY, "LUN");
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv1.put(COLUMN_EDIBLE_NAME, "Biscotti");
+        cv1.put(COLUMN_EDIBLE_PORTION, "50");
+        cv1.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv1.put(COLUMN_EDIBLE_TYPE, "Colazione");
+        cv1.put(COLUMN_EDIBLE_DAY, "LUN");
+
+        ContentValues cv2 = new ContentValues();
+
+        cv2.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv2.put(COLUMN_EDIBLE_NAME, "Pasta");
+        cv2.put(COLUMN_EDIBLE_PORTION, "100");
+        cv2.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv2.put(COLUMN_EDIBLE_TYPE, "Pranzo");
+        cv2.put(COLUMN_EDIBLE_DAY, "LUN");
+
+        ContentValues cv3 = new ContentValues();
+
+        cv3.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv3.put(COLUMN_EDIBLE_NAME, "Bistecca");
+        cv3.put(COLUMN_EDIBLE_PORTION, "300");
+        cv3.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv3.put(COLUMN_EDIBLE_TYPE, "Cena");
+        cv3.put(COLUMN_EDIBLE_DAY, "LUN");
+
+        ContentValues cv4 = new ContentValues();
+
+        cv4.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv4.put(COLUMN_EDIBLE_NAME, "Yogurt");
+        cv4.put(COLUMN_EDIBLE_PORTION, "200");
+        cv4.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv4.put(COLUMN_EDIBLE_TYPE, "Colazione");
+        cv4.put(COLUMN_EDIBLE_DAY, "MAR");
+
+        ContentValues cv5 = new ContentValues();
+
+        cv5.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv5.put(COLUMN_EDIBLE_NAME, "Cannelloni");
+        cv5.put(COLUMN_EDIBLE_PORTION, "100");
+        cv5.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv5.put(COLUMN_EDIBLE_TYPE, "Pranzo");
+        cv5.put(COLUMN_EDIBLE_DAY, "MAR");
+
+        ContentValues cv6 = new ContentValues();
+
+        cv6.put(COLUMN_DIET_USERNAME, "silvione89");
+        cv6.put(COLUMN_EDIBLE_NAME, "Pesce");
+        cv6.put(COLUMN_EDIBLE_PORTION, "100");
+        cv6.put(COLUMN_EDIBLE_PORTION_TYPE, "gr.");
+        cv6.put(COLUMN_EDIBLE_TYPE, "Cena");
+        cv6.put(COLUMN_EDIBLE_DAY, "MAR");
+
+
+        long insert = db.insert(DIET_TABLE, null, cv);
+         insert = db.insert(DIET_TABLE, null, cv1);
+         insert = db.insert(DIET_TABLE, null, cv2);
+         insert = db.insert(DIET_TABLE, null, cv3);
+         insert = db.insert(DIET_TABLE, null, cv4);
+         insert = db.insert(DIET_TABLE, null, cv5);
+         insert = db.insert(DIET_TABLE, null, cv6);
+
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean aggiungiEsercizioASchedaAllenamentoDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("EXERCISE_CLIENT", "silvione89");
+        cv.put(COLUMN_EXERCISE_NAME, "Corsa 100m");
+        cv.put(COLUMN_EXERCISE_REPS, 1);
+        cv.put(COLUMN_EXERCISE_DAY, "LUN");
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put("EXERCISE_CLIENT", "silvione89");
+        cv1.put(COLUMN_EXERCISE_NAME, "Corsa 300m");
+        cv1.put(COLUMN_EXERCISE_REPS, 1);
+        cv1.put(COLUMN_EXERCISE_DAY, "MAR");
+
+        ContentValues cv2 = new ContentValues();
+
+        cv2.put("EXERCISE_CLIENT", "silvione89");
+        cv2.put(COLUMN_EXERCISE_NAME, "Maratona 10km");
+        cv2.put(COLUMN_EXERCISE_REPS, 1);
+        cv2.put(COLUMN_EXERCISE_DAY, "MAR");
+
+
+
+        long insert = db.insert(EXERCISE_TABLE, null, cv);
+        insert = db.insert(EXERCISE_TABLE, null, cv1);
+        insert = db.insert(EXERCISE_TABLE, null, cv2);
+        if(insert == -1){
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+
+    }
+
+    public void inserisciProdottoDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PRODUCT_NAME, "Cannelloni");
+        cv.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put(COLUMN_PRODUCT_NAME, "Pasta");
+        cv1.put(COLUMN_PRODUCT_STATUS, 1); //0 = non selezionato
+        cv1.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv2 = new ContentValues();
+
+        cv2.put(COLUMN_PRODUCT_NAME, "Bistecca");
+        cv2.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv2.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv3 = new ContentValues();
+
+        cv3.put(COLUMN_PRODUCT_NAME, "Pesce");
+        cv3.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv3.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv4 = new ContentValues();
+
+        cv4.put(COLUMN_PRODUCT_NAME, "Yogurt");
+        cv4.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv4.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv5 = new ContentValues();
+
+        cv5.put(COLUMN_PRODUCT_NAME, "Cereali");
+        cv5.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv5.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        ContentValues cv6 = new ContentValues();
+
+        cv6.put(COLUMN_PRODUCT_NAME, "Biscotti");
+        cv6.put(COLUMN_PRODUCT_STATUS, 0); //0 = non selezionato
+        cv6.put(COLUMN_PRODUCT_CLIENT, "silvione89");
+
+        db.insert(PRODUCT_TABLE, null, cv);
+        db.insert(PRODUCT_TABLE, null, cv1);
+        db.insert(PRODUCT_TABLE, null, cv2);
+        db.insert(PRODUCT_TABLE, null, cv3);
+        db.insert(PRODUCT_TABLE, null, cv4);
+        db.insert(PRODUCT_TABLE, null, cv5);
+        db.insert(PRODUCT_TABLE, null, cv6);
     }
 }
