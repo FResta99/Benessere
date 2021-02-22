@@ -107,12 +107,21 @@ public class DiarioAlimentare extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.btnColazione:
                 tipo = "COLAZIONE";
+                btnColazione.setBackgroundColor(getColor(R.color.secondaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.primaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.primaryColor));
                 break;
             case R.id.btnPranzo:
                 tipo = "PRANZO";
+                btnColazione.setBackgroundColor(getColor(R.color.primaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.secondaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.primaryColor));
                 break;
             case R.id.btnCena:
                 tipo = "CENA";
+                btnColazione.setBackgroundColor(getColor(R.color.primaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.primaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.secondaryColor));
                 break;
         }
 
@@ -167,6 +176,23 @@ public class DiarioAlimentare extends AppCompatActivity implements View.OnClickL
         tvNumeroCalorie.setText(String.valueOf(contaCalorie(listFoods)));
         adapterListView = new ArrayAdapter<Cibo>(getApplicationContext(), android.R.layout.simple_list_item_1, databaseService.getCibo(cliente.getUsername(), tipo));
         lvDiario.setAdapter(adapterListView);
+        switch (tipo) {
+            case "COLAZIONE":
+                btnColazione.setBackgroundColor(getColor(R.color.secondaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.primaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.primaryColor));
+                break;
+            case "PRANZO":
+                btnColazione.setBackgroundColor(getColor(R.color.primaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.secondaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.primaryColor));
+                break;
+            case "CENA":
+                btnColazione.setBackgroundColor(getColor(R.color.primaryColor));
+                btnPranzo.setBackgroundColor(getColor(R.color.primaryColor));
+                btnCena.setBackgroundColor(getColor(R.color.secondaryColor));
+                break;
+        }
     }
 
     private int contaCalorie(List<Cibo> listFoods) {

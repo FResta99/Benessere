@@ -191,6 +191,7 @@ public class DatabaseService extends Service {
             aggiungiAlimentoADietaDemo();
             aggiungiEsercizioASchedaAllenamentoDemo();
             inserisciProdottoDemo();
+            inserisciAttrezzioDemo();
         }
         return binder;
     }
@@ -1658,4 +1659,28 @@ public class DatabaseService extends Service {
         db.insert(PRODUCT_TABLE, null, cv5);
         db.insert(PRODUCT_TABLE, null, cv6);
     }
+
+    public void inserisciAttrezzioDemo(){
+
+        SQLiteDatabase db = dietDB.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_EQUIP_NAME, "Tapis Roulant");
+        cv.put(COLUMN_EQUIP_DESCRIPTION, "Permette di allenarti nella corsa e tonficare i muscoli delle gambe");
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put(COLUMN_EQUIP_NAME, "Bilanciere");
+        cv1.put(COLUMN_EQUIP_DESCRIPTION, "Viene utilizzato per rafforzare i muscoli delle braccia.");
+
+        ContentValues cv2 = new ContentValues();
+
+        cv2.put(COLUMN_EQUIP_NAME, "Step");
+        cv2.put(COLUMN_EQUIP_DESCRIPTION, "Permette di allenarti nella camminata");
+
+        db.insert(EQUIP_TABLE, null, cv);
+        db.insert(EQUIP_TABLE, null, cv1);
+        db.insert(EQUIP_TABLE, null, cv2);
+    }
+
 }
